@@ -3,14 +3,14 @@
     <v-card>
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab @click="projects=true">Projects</v-tab>
-           <v-tab @click="deploymentA=true; projects=false">Deployment Agents</v-tab>
-            <v-tab @click="deploymentG=true; deploymentA=true; projects=false">Deployment Groups</v-tab>
+           <v-tab @click="deploymentagents=true; projects=false">Deployment Agents</v-tab>
+            <v-tab @click="deploymentgroups=true; deploymentagents=true; projects=false">Deployment Groups</v-tab>
         </v-tabs>
          <v-card-text></v-card-text>
         <div>
           <Projects v-if="projects"/>
-          <DeploymentAgent v-else-if="deploymentA"/>
-          <DeploymentGroup v-else="deploymentG"/>
+          <DeploymentAgent v-else-if="deploymentagents"/>
+          <DeploymentGroup v-else="deploymentgroups"/>
         </div>
     </v-card>
   </v-app>
@@ -26,8 +26,8 @@ import deploymentGroup from './deploymentGroup.vue'
     data () {
       return {
         projects:true,
-        deploymentA:false,
-        deploymentG:false,
+        deploymentagents:false,
+        deploymentgroups:false,
       }
     },
     components: {

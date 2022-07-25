@@ -31,8 +31,10 @@
 </template>
 
 <script>
+import SideBar from '@/components/SideBar.vue'
+import NavBar from '@/components/NavBar.vue'
   export default {
-    name: 'deploymentA',
+    name: 'deploymentagents',
     data () {
       return {
         loader: null,
@@ -165,6 +167,10 @@
         this.loader = null
       },
     },
+    components: {
+    SideBar,
+    NavBar,
+},
   }
 </script>
 
