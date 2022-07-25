@@ -1,23 +1,55 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Signin from '../components/Signin.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
+const routes = [ 
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '',
+    name: 'signin',
+    component: () => import('../../src/components/Signin.vue'),
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/home',
+    name: 'home',
+    component: () => import('../../src/pages/Home/Home.vue'),
+  },
+  {
+    path: '/azureHome',
+    name: 'azureHome',
+    component: () => import('../../src/pages/AzureDevops/AzureDevOps.vue')
+  },
+  {
+    path: '/sites',
+    name: 'sites',
+    component: () => import('../../src/pages/Sites/Sites.vue')
+  },
+  {
+    path: '/servers',
+    name: 'servers',
+    component: () => import('../../src/pages/Servers/Servers.vue')
+  },
+  {
+    path: '/companies',
+    name: 'compnies',
+    component: () => import('../../src/pages/Companies/Companies.vue')
+  },
+  {
+    path: '/databaseportal',
+    name: 'databaseportal',
+    component: () => import('../../src/pages/Databaseportal/Databaseportal.vue')
+  },
+  {
+    path: '/reports',
+    name: 'reports',
+    component: () => import('../../src/pages/Reports/Reports.vue')
+  },
+  {
+    path: '/monitoring',
+    name: 'monitoring',
+    component: () => import('../../src/pages/Monitoring/Monitoring.vue')
+  },
 ]
 
 const router = new VueRouter({
