@@ -44,16 +44,24 @@
               <v-avatar>
                 <v-img v-on="on" src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
               </v-avatar>
-              <h3>{{ user.fullName }}</h3>
-              <p class="text-caption mt-1">
-                {{ user.email }}
-              </p>
+            <v-list>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title class="text-h5">
+                {{username || 'Username'}}
+              </v-list-item-title>
+              <v-list-item-title class="text-h6">{{defaultSelected || 'Domain Name'}}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+              
+            
               <v-divider class="my-3"></v-divider>
-              <v-btn depressed rounded text> <v-icon left size="20">fa-solid fa-pen</v-icon>
+              <v-btn  depressed rounded text> <v-icon left size="20">fa-solid fa-pen</v-icon>
                 Edit Account
               </v-btn>
               <v-divider class="my-3"></v-divider>
-              <v-btn depressed rounded text><v-icon left size="20">fa-solid fa-arrow-right-from-bracket</v-icon>
+              <v-btn   v-on:click="logout" depressed rounded text><v-icon left size="20">fa-solid fa-arrow-right-from-bracket</v-icon>
                 Disconnect
               </v-btn>
               <v-divider class="my-3"></v-divider>
@@ -70,17 +78,20 @@
 <script>
 export default {
   name: 'navbar',
-  data: () => ({
-      user: {
-        fullName: 'Koray Ay',
-        email: 'koray.ay@d-teknoloji.com.tr',
-      },
-    }),
+  data (){
+    return{
+      username:this.$route.params.username,
+      defaultSelected:this.$route.params.defaultSelected
+    }
+  },
   methods: {
     toggle_dark_mode: function(){
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem("dark_theme",this.$vuetify.theme.dark.toString());
-    }
+    },
+    logout() {
+        this.$router.replace({name:'login'})
+      }
   },
   mounted(){
     const theme = localStorage.getItem("dark_theme");

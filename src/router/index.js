@@ -1,14 +1,14 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
 import Signin from '../components/Signin.vue'
 
-Vue.use(VueRouter)
-
-const routes = [ 
-  {
-    path: '',
+Vue.use(Router)
+export default new Router({
+  routes: [
+    {
+    path: '/',
     name: 'signin',
-    component: () => import('../../src/components/Signin.vue'),
+    component: Signin,
   },
   {
     path: '/home',
@@ -50,12 +50,7 @@ const routes = [
     name: 'monitoring',
     component: () => import('../../src/pages/Monitoring/Monitoring.vue')
   },
-]
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  ],
 })
 
-export default router
+  
