@@ -48,9 +48,8 @@
               <v-list-item link>
                 <v-list-item-content>
                   <v-list-item-title class="text-h5">
-                {{username || 'Username'}}
-              </v-list-item-title>
-              <v-list-item-title class="text-h6">{{defaultSelected || 'Domain Name'}}</v-list-item-title>
+                    {{username || 'Username'}}
+                  </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -80,9 +79,7 @@ export default {
   name: 'navbar',
   data (){
     return{
-      username:this.$route.params.username,
-      defaultSelected:this.$route.params.defaultSelected
-    }
+      username:this.$route.params.username,    }
   },
   methods: {
     toggle_dark_mode: function(){

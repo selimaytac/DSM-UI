@@ -3,14 +3,14 @@
     <v-card>
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab @click="projects=true">Projects</v-tab>
-           <v-tab @click="deploymentagents=true; projects=false">Deployment Agents</v-tab>
-            <v-tab @click="deploymentgroups=true; deploymentagents=true; projects=false">Deployment Groups</v-tab>
+           <v-tab @click="deploymentAgents=true; projects=false">Deployment Agents</v-tab>
+            <v-tab @click="deploymentGroups=true; deploymentAgents=false; projects=false">Deployment Groups</v-tab>
         </v-tabs>
          <v-card-text></v-card-text>
         <div>
           <Projects v-if="projects"/>
-          <DeploymentAgent v-else-if="deploymentagents"/>
-          <DeploymentGroup v-else="deploymentgroups"/>
+          <deploymentAgent v-else-if="deploymentAgents"/>
+          <deploymentGroup v-else-if="deploymentGroups"/>
         </div>
     </v-card>
   </v-app>
@@ -26,14 +26,14 @@ import deploymentGroup from './deploymentGroup.vue'
     data () {
       return {
         projects:true,
-        deploymentagents:false,
-        deploymentgroups:false,
+        deploymentAgents:false,
+        deploymentGroups:false,
       }
     },
     components: {
     Projects,
     deploymentAgent,
-    deploymentGroup,
+    deploymentGroup
 },
   }
 </script>
@@ -46,4 +46,5 @@ import deploymentGroup from './deploymentGroup.vue'
   min-width: 30px !important;
   padding: 0 5px !important;
 }
+
 </style>
