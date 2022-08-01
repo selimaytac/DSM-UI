@@ -25,9 +25,215 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="item"
       :search="search"
-    ></v-data-table>
+    >
+    <template v-slot:item.details="{item}">
+      <v-btn depressed rounded text color="grey" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
+    </template>
+    </v-data-table>
+    <v-dialog v-model="dialogdetail">
+      <v-card>
+        <v-toolbar dark color="grey" >
+          <v-btn icon dark @click="dialogdetail = false"><v-icon>mdi-close</v-icon></v-btn>
+          <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+        </v-toolbar>
+        <v-container>
+          <template>        
+            <v-tabs color="black" right>
+              <v-tab>General</v-tab>
+              <v-tab>Sites</v-tab>
+              <v-tab>Statics</v-tab>
+              <v-tab-item>
+                <v-container fluid>
+                  <v-row justify="center" class="space">
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Basic Details</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                      <tr>
+                        <td>Domain: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>IP Address: </td>
+                        <td></td> 
+                      </tr>
+                      <tr>
+                        <td>Custom Ip: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Operating System: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>CPU: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Memory: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Last Backup: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Site Count: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Online Site Count: </td>
+                        <td>Coming Soon...</td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                  <v-toolbar-title>Disk Details</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-simple-table class="teal" dark>
+                  <template v-slot:default>
+                    <tbody>
+                      <tr>
+                        <td>Volumes: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Total Capacity: </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Percent Free: </td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                    <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                  <v-toolbar-title>Organization Details</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-simple-table class="teal" dark>
+                  <template v-slot:default>
+                    <tbody>
+                       <tr>
+                        <td>Owned By: </td>
+                        <td></td>
+                      </tr>
+                       <tr>
+                        <td>Managing By: </td>
+                        <td></td>
+                      </tr>
+                       <tr>
+                        <td>Environment: </td>
+                        <td></td>
+                      </tr>
+                       <tr>
+                        <td>ODM Replication: </td>
+                        <td></td>
+                      </tr>
+                       <tr>
+                        <td>Service: </td>
+                        <td></td>
+                      </tr>
+                       <tr>
+                        <td>Notes: </td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+                  </template>
+                </v-simple-table>
+                
+              </v-card>
+            </v-col>  
+            <v-col cols="12" sm="4">
+              <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="250">
+                <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                  <v-toolbar-title>Volume Details</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-simple-table class="teal" dark>
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <th class="text-left">
+                          Volume Name
+                        </th>
+                        <th class="text-left">
+                          Free Space
+                        </th>
+                        <th class="text-left">
+                          Used Space
+                        </th>
+                        <th class="text-left">
+                          Total Capacity
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>E:\</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>C:\</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>C:\</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>C:\</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>C:\</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>C:\</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-tab-item>
+    </v-tabs>
+  
+          </template>
+        </v-container>
+      </v-card>
+    </v-dialog>
   </v-card>
   </v-app>
 </template>
@@ -40,124 +246,49 @@ import NavBar from '@/components/NavBar.vue'
     name: 'servers',
     data () {
       return {
+        dialog :false,
         loader: null,
         loading: false,
         loading2: false,
         loading3: false,
         loading4: false,
         loading5: false,
+        loading6: false,
         search: '',
         headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories', },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
+          { text: 'Server Name',align: 'start',sortable: false,value: 'name'},
+          { text: 'IP Adress', value: 'ipadress', },
+          { text: 'DNS Name', value: 'dns' },
+          { text: 'Service', value: 'service' },
+          { text: 'Operating System', value: 'opsystem' },
+          { text: 'Responsible', value: 'responsible' },
+          { text: 'View Details', value: 'details'},
         ],
-        desserts: [
+        item: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
+            name: 'Tarık',
+            ipadress: 159,
+            dns: 6.0,
+            service: 24,
+            opsystem: 4.0,
+            responsible: '1%',
           },
           {
             name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
+            ipadress: 159,
+            dns: 6.0,
+            service: 24,
+            opsystem: 4.0,
+            responsible: '1%',
           },
         ],
+        dialogdetail: false
+      }
+    },
+    methods:{
+      showDetails(item){
+        this.details=item
+        this.dialogdetail=true
       }
     },
     watch: {

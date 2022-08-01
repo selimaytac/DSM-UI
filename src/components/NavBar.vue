@@ -47,7 +47,7 @@
             <v-list>
               <v-list-item link>
                 <v-list-item-content>
-                  <v-list-item-title class="text-h5">
+                  <v-list-item-title class="text-h8">
                     {{username || 'Username'}}
                   </v-list-item-title>
                 </v-list-item-content>
@@ -79,7 +79,8 @@ export default {
   name: 'navbar',
   data (){
     return{
-      username:this.$route.params.username,    }
+      username:this.$route.params.username,    
+    }
   },
   methods: {
     toggle_dark_mode: function(){
