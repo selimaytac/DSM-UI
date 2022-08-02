@@ -4,7 +4,7 @@
       <v-row align="center" justify="center" >
           <v-col cols="12" sm="14">
             <v-card class="elevation-6 mt-10">
-             <v-window v-model="step">
+             <v-window v-model="step"> 
                 <v-window-item :value="1">
                   <v-row>
                     <v-col cols="12" md="6">
@@ -28,6 +28,7 @@
                               label="@"
                               item-text="domainname"
                               required
+                              name="domain"
                             ></v-select>
                             <v-text-field
                               v-model="password"
@@ -111,6 +112,7 @@ import SideBar from '@/components/SideBar.vue';
       this.$router.replace({ name: "home", params: { username: username},});
     },
   },
+
 }
 </script>
 

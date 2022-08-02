@@ -40,7 +40,7 @@
         </v-toolbar>
         <v-container>
           <template>        
-            <v-tabs color="black" right>
+            <v-tabs color="black" vertical>
               <v-tab>General</v-tab>
               <v-tab>Sites</v-tab>
               <v-tab>Statics</v-tab>
@@ -155,7 +155,6 @@
                 </v-simple-table>
                   </template>
                 </v-simple-table>
-                
               </v-card>
             </v-col>  
             <v-col cols="12" sm="4">
@@ -228,8 +227,31 @@
           </v-row>
         </v-container>
       </v-tab-item>
+      <v-tab-item>
+        <v-card color="teal" >
+          <v-card-title>
+            Sites Details
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-data-table
+          :headers="siteheaders"
+          :items="siteitem"
+          ></v-data-table>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card color="teal" >
+          <v-card-title>
+            Statics Details
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-data-table
+          :headers="headers"
+          :items="item"
+          ></v-data-table>
+        </v-card>
+      </v-tab-item>
     </v-tabs>
-  
           </template>
         </v-container>
       </v-card>
@@ -264,6 +286,12 @@ import NavBar from '@/components/NavBar.vue'
           { text: 'Responsible', value: 'responsible' },
           { text: 'View Details', value: 'details'},
         ],
+        siteheaders: [
+          { text: 'Site Name',align: 'start',sortable: false,value: 'sitename'},
+          { text: 'Physical Path', value: 'physicalpath', },
+          { text: 'Domains', value: 'domains' },
+          { text: 'State', value: 'state' },
+        ],
         item: [
           {
             name: 'Tarık',
@@ -280,6 +308,22 @@ import NavBar from '@/components/NavBar.vue'
             service: 24,
             opsystem: 4.0,
             responsible: '1%',
+          },
+        ],
+        siteitem: [
+          {
+            sitename: 'Tarık',
+            physicalpath: 159,
+            domains: 6.0,
+            service: 24,
+            state: 4.0,
+          },
+          {
+            sitename: 'Frozen Yogurt',
+            physicalpath: 159,
+            domains: 6.0,
+            service: 24,
+            state: 4.0,
           },
         ],
         dialogdetail: false
