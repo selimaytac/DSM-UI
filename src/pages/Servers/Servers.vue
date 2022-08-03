@@ -23,11 +23,41 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="item"
-      :search="search"
-    >
+    <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+    <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+      {{ header.text }}
+      <v-menu :key="index" offset-y :close-on-content-click="false">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon v-bind="attrs" v-on="on">
+                  <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                    mdi-filter-variant
+                  </v-icon>
+                </v-btn>
+              </template>
+              <div style="background-color: white; width: 280px">
+                <v-list>
+                  <v-list-item>
+                    <div v-if="filters.hasOwnProperty(header.value)">
+                      <v-autocomplete multiple dense auto-select-first clearable chips small-chips 
+                      color="light-blue lighten-3" :items="columnValueList(header.value)" append-icon="mdi-filter" 
+                      v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                        <template v-slot:selection="{ item, index }">
+                          <v-chip small class="caption" v-if="index < 5">
+                            <span>
+                              {{ item }}
+                            </span>
+                          </v-chip>
+                          <span v-if="index === 5" class="grey--text caption">
+                            (+{{ filters[header.value].length - 5 }} others)
+                          </span>
+                        </template>
+                      </v-autocomplete>
+                    </div>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-menu>
+    </template>
     <template v-slot:item.details="{item}">
       <v-btn depressed rounded text color="grey" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
     </template>
@@ -268,6 +298,7 @@ import NavBar from '@/components/NavBar.vue'
     name: 'servers',
     data () {
       return {
+        filters: { name: [], ipadress: [], dns: [], service: [], opsystem: [], responsible: []},
         dialog :false,
         loader: null,
         loading: false,
@@ -292,7 +323,7 @@ import NavBar from '@/components/NavBar.vue'
           { text: 'Domains', value: 'domains' },
           { text: 'State', value: 'state' },
         ],
-        item: [
+        servers: [
           {
             name: 'Tarık',
             ipadress: 159,
@@ -333,7 +364,10 @@ import NavBar from '@/components/NavBar.vue'
       showDetails(item){
         this.details=item
         this.dialogdetail=true
-      }
+      },
+      columnValueList(val) {
+      return this.servers.map((d) => d[val]);
+    }
     },
     watch: {
       loader () {
@@ -345,6 +379,15 @@ import NavBar from '@/components/NavBar.vue'
         this.loader = null
       },
     },
+    computed: {
+    filterServers() {
+      return this.servers.filter((d) => {
+        return Object.keys(this.filters).every((f) => {
+          return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
+        });
+      });
+    }
+  },
     components: {
       SideBar,
       NavBar,
