@@ -3,8 +3,8 @@
     <v-container>
       <v-row align="center" justify="center" >
           <v-col cols="12" sm="14">
-            <v-card class="elevation-6 mt-10"  >
-             <v-window v-model="step">
+            <v-card class="elevation-6 mt-10">
+             <v-window v-model="step"> 
                 <v-window-item :value="1">
                   <v-row>
                     <v-col cols="12" md="6">
@@ -12,31 +12,36 @@
                         <h4 class="text-center" >Sign in to Your Account</h4>
                         <v-row align="center" justify="center">
                           <v-col cols="12" sm="8">
-                           <form class="mt-12">
+                           <form class="mt-12" ref="form" @submit.prevent="login()">
                             <v-text-field
-                              v-model="name"
+                              v-model="username"
+                              name="username"
                               prepend-icon="person"
                               label="Your User Name"
                               required
+                              placeholder="username"
                               type="text"
                             ></v-text-field>
                             <v-select
-                              v-model="select"
-                              :items="items"
+                              v-model="defaultSelected"
+                              :items="domain"
                               label="@"
+                              item-text="domainname"
                               required
-                             
+                              name="domain"
                             ></v-select>
                             <v-text-field
-                              id="password"
+                              v-model="password"
                               prepend-icon="lock"
                               name="password"
+                              placeholder="password"
                               label="Your Password"
                               type="password"
+                              required
                             ></v-text-field>
-                            
+                            <br>
+                           <v-btn type="submit" color="black" dark block title value="log in">{{stateObj.login.name}}</v-btn>
                             </form>
-                          <v-btn color="black" dark block tile>Sign In</v-btn>
                           </v-col>
                         </v-row>  
                       </v-card-text>
@@ -76,22 +81,38 @@
 import SideBar from '@/components/SideBar.vue';
   export default {
     name: "signin",
-    data: () => ({
-      name: '',
-      password: '',
-      select: null,
-      items: [
-        '@d-teknoloji.com.tr',
-        '@vdfholding.com.tr',
-        '@dohas.com.tr',
-        '@dturizm.com.tr',
-        '@vdf.com.tr'
-      ],
-    }),
+    data () {
+      return{
+        username: "",
+        password: "",
+        defaultSelected: {
+          domainname: "@d-teknoloji.com.tr",
+        },
+        domain: [
+          '@d-teknoloji.com.tr',
+          '@vdfholding.com.tr',
+          '@dohas.com.tr',
+          '@dturizm.com.tr',
+          '@vdf.com.tr'
+        ],
+        stateObj: {
+          login : {
+              name: 'Sign In',
+          }
+        }
+      }
+    },
     props: {
         source: String
     },
-    components: { SideBar }
+    components: { SideBar },
+    methods: {
+    login() {
+      const { username } = this;
+      this.$router.replace({ name: "home", params: { username: username},});
+    },
+  },
+
 }
 </script>
 

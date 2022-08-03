@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
   <SideBar/>
-    <NavBar/>
+  <NavBar/>
     <v-card color="grey lighten-1" >
     <v-card-title>
       Sites
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import SideBar from '@/components/SideBar.vue'
+import NavBar from '@/components/NavBar.vue'
   export default {
     name: 'appmanagement',
     data () {
@@ -165,6 +167,10 @@
         this.loader = null
       },
     },
+    components: {
+    SideBar,
+    NavBar,
+},
   }
 </script>
 

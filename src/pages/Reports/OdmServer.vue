@@ -34,7 +34,7 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
   export default {
-    name: 'deploymentGroups',
+    name: 'odmserverlist',
     data () {
       return {
         loader: null,

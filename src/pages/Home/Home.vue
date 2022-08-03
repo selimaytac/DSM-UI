@@ -4,15 +4,15 @@
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab @click="overview=true">Overview</v-tab>
            <v-tab @click="serverstatics=true; overview=false">Server Statics</v-tab>
-            <v-tab @click="appmanagement=true; serverstatics=true; overview=false">App Management</v-tab>
-             <v-tab @click="elasticsearch=true; appmanagement=true; serverstatics=true; overview=false">Elastic Search Invetory</v-tab>
+            <v-tab @click="appmanagement=true; serverstatics=false; overview=false">App Management</v-tab>
+             <v-tab @click="elasticinventory=true; appmanagement=false; serverstatics=false; overview=false">Elastic Search Invetory</v-tab>
         </v-tabs>
          <v-card-text></v-card-text>
         <div>
           <Overview v-if="overview"/>
           <ServerStatics v-else-if="serverstatics"/>
           <AppManagement v-else-if="appmanagement"/>
-          <ElasticInventory v-else="elasticsearch"/>
+          <ElasticInventory v-else="elasticinventory"/>
         </div>
     </v-card>
   </v-app>
@@ -20,9 +20,9 @@
 
 <script>
 import AppManagement from './AppManagement.vue'
-import elasticInventory from './elasticInventory.vue'
 import ServerStatics from './ServerStatics.vue'
 import Overview from './Overview.vue'
+import ElasticInventory from './elasticInventory.vue'
 
   export default {
     name: 'home',
@@ -31,15 +31,14 @@ import Overview from './Overview.vue'
         overview:true,
         serverstatics:false,
         appmanagement:false,
-        elasticsearch:false,
+        elasticinventrory:false,
       }
     },
     components: {
     AppManagement,
-    elasticInventory,
     ServerStatics,
     Overview,
-    
+    ElasticInventory
 },
   }
 </script>
