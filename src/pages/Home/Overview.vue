@@ -2,14 +2,10 @@
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
     <SideBar/>
     <NavBar/>
-    <v-card>
+   
     <v-container>
     <v-row>
-      <v-col cols="600" sm="40">
-        <v-card class="mx-auto rounded-xl"
-      height="700px"
-      elevation-2
-      color="grey darken-4">
+      
         <v-row>
           <v-col cols="12" sm="12">
             <v-toolbar flat color="rgba(0,0,0,0)" dark>
@@ -175,11 +171,10 @@
          
           </v-col>
         </v-row>
-        </v-card>
-      </v-col>
+
     </v-row>
     </v-container>
-    </v-card>
+
   </v-app>
 </template>
 

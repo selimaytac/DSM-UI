@@ -8,7 +8,7 @@
     <v-card-title>
       Servers
       <v-spacer></v-spacer>
-      <v-btn id="downloadexcel" class="ma-1 white--text" :loading="loading2" :disabled="loading2" outlined 
+      <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2" outlined 
       @click="loader = 'loading2'">Export to Excel 
         <template v-slot:loader>
           <span>Loading...</span>
@@ -28,7 +28,7 @@
       {{ header.text }}
       <v-menu :key="index" offset-y :close-on-content-click="false">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn icon v-bind="attrs" v-on="on">
+                <v-btn icon v-bind="attrs" v-on="on" color="teal">
                   <v-icon small :color="filters[header.value].length ? 'red' : ''">
                     mdi-filter-variant
                   </v-icon>
@@ -36,10 +36,10 @@
               </template>
               <div style="background-color: white; width: 280px">
                 <v-list>
-                  <v-list-item>
+                  <v-list-item > 
                     <div v-if="filters.hasOwnProperty(header.value)">
                       <v-autocomplete multiple dense auto-select-first clearable chips small-chips 
-                      color="light-blue lighten-3" :items="columnValueList(header.value)" append-icon="mdi-filter" 
+                      color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter" 
                       v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
                         <template v-slot:selection="{ item, index }">
                           <v-chip small class="caption" v-if="index < 5">
@@ -59,18 +59,18 @@
             </v-menu>
     </template>
     <template v-slot:item.details="{item}">
-      <v-btn depressed rounded text color="grey" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
+      <v-btn depressed rounded text color="teal" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
     </template>
     </v-data-table>
     <v-dialog v-model="dialogdetail">
       <v-card>
-        <v-toolbar dark color="grey" >
+        <v-toolbar dark color="teal" >
           <v-btn icon dark @click="dialogdetail = false"><v-icon>mdi-close</v-icon></v-btn>
           <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
         </v-toolbar>
         <v-container>
           <template>        
-            <v-tabs color="black" vertical>
+            <v-tabs color="teal" vertical>
               <v-tab>General</v-tab>
               <v-tab>Sites</v-tab>
               <v-tab>Statics</v-tab>
@@ -188,7 +188,7 @@
               </v-card>
             </v-col>  
             <v-col cols="12" sm="4">
-              <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="250">
+              <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="300">
                 <v-toolbar flat color="rgba(0,0,0,0)" dark>
                   <v-toolbar-title>Volume Details</v-toolbar-title>
                   <v-spacer></v-spacer>

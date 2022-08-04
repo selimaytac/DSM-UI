@@ -32,12 +32,12 @@ export default new Router({
   },
   {
     path: '/companies',
-    name: 'compnies',
+    name: 'company',
     component: () => import('../../src/pages/Companies/Companies.vue')
   },
   {
     path: '/databaseportal',
-    name: 'databaseportal',
+    name: 'dbportal',
     component: () => import('../../src/pages/Databaseportal/Databaseportal.vue')
   },
   {

@@ -1,32 +1,34 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
-  <SideBar/>
-  <NavBar/>
-    <v-card color="grey lighten-1" >
-    <v-card-title>
-      Sites
-      <v-spacer></v-spacer>
-      <v-btn id="downloadexcel" class="ma-1 white--text" :loading="loading2" :disabled="loading2" outlined 
-      @click="loader = 'loading2'">Export to Excel 
-        <template v-slot:loader>
-          <span>Loading...</span>
-        </template>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      :search="search"
-    ></v-data-table>
-  </v-card>
+    <SideBar/>
+    <v-container>
+      <NavBar/>
+    </v-container>
+    <v-container>
+      <v-row>
+        <v-row>
+        <v-col cols="12" sm="12">
+          <v-toolbar flat color="rgba(0,0,0,0)" dark>
+            <v-toolbar-title>Dashboard</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+
+          <v-row class="px-5 mt-n6 ml-5">
+            <v-col cols="12" sm="3" v-for="list in lists" :key="list">
+              <v-card align="center" color="#F9FAFC" class="rounded-circle border pt-10" width="200" height="200" flat>
+                <v-card-text class="grey--text text-lg-h6">
+                  {{ list.title }}
+                </v-card-text>
+                <v-btn absolute color="#2EBFAF" class="white--text" fab left top>
+                  <h2>{{ list.count }}</h2>
+                </v-btn>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
@@ -35,187 +37,30 @@ import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
   export default {
     name: 'overalldisk',
-    data () {
-      return {
-        loader: null,
-        loading: false,
-        loading2: false,
-        loading3: false,
-        loading4: false,
-        loading5: false,
-        search: '',
-        headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories', },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
-        ],
-      }
-    },
-    watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 2000)
-
-        this.loader = null
-      },
-    },
-    components: {
+    data: () => ({
+   
+    lists: [
+      {title: "Active Agents",count: 21,},
+      {title: "Total Agents",count: 41,},
+      {title: "Up Sites",count: 35,},
+      {title: "Down Sites",count: 15,},
+    ],
+  }),
+  components: {
     SideBar,
     NavBar,
-},
-  }
+  },
+};
 </script>
-
-<style>
-.v-btn.withoutupercase{
-  text-transform: none !important;
+<style scoped>
+.border {
+  border: 2px solid #2ebfaf !important;
 }
-.v-btn:not(.v-btn--round).v-size--small{
-  min-width: 30px !important;
-  padding: 0 5px !important;
+.v-btn--fab.v-size--default.v-btn--absolute.v-btn--top {
+  top: 65px !important;
 }
-.custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
-  }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+.v-btn--absolute.v-btn--left,
+.v-btn--fixed.v-btn--left {
+  left: -26px !important;
+}
 </style>

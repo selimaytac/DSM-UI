@@ -8,7 +8,7 @@
     <v-card-title>
       Companies
       <v-spacer></v-spacer>
-      <v-btn id="downloadexcel" class="ma-1 white--text" :loading="loading2" :disabled="loading2" outlined 
+      <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2" outlined 
       @click="loader = 'loading2'">Export to Excel 
         <template v-slot:loader>
           <span>Loading...</span>
@@ -23,11 +23,98 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      :search="search"
-    ></v-data-table>
+    <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+    <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+      {{ header.text }}
+      <v-menu :key="index" offset-y :close-on-content-click="false">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                  <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                    mdi-filter-variant
+                  </v-icon>
+                </v-btn>
+              </template>
+              <div style="background-color: white; width: 280px">
+                <v-list>
+                  <v-list-item > 
+                    <div v-if="filters.hasOwnProperty(header.value)">
+                      <v-autocomplete multiple dense auto-select-first clearable chips small-chips 
+                      color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter" 
+                      v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                        <template v-slot:selection="{ item, index }">
+                          <v-chip small class="caption" v-if="index < 5">
+                            <span>
+                              {{ item }}
+                            </span>
+                          </v-chip>
+                          <span v-if="index === 5" class="grey--text caption">
+                            (+{{ filters[header.value].length - 5 }} others)
+                          </span>
+                        </template>
+                      </v-autocomplete>
+                    </div>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-menu>
+    </template>
+    <template v-slot:item.details="{item}">
+      <v-btn depressed rounded text color="teal" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
+    </template>
+    </v-data-table>
+    <v-dialog v-model="dialogdetail">
+      <v-card>
+        <v-toolbar dark color="teal" >
+          <v-btn icon dark @click="dialogdetail = false"><v-icon>mdi-close</v-icon></v-btn>
+          <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+        </v-toolbar>
+        <v-container>
+          <template>        
+            <v-tabs color="teal" vertical>
+              <v-tab>Servers</v-tab>
+              <v-tab>Sites</v-tab>
+              <v-tab>Statics</v-tab>
+      <v-tab-item>
+        <v-card color="teal" >
+          <v-card-title>
+            Servers Details
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-data-table
+          :headers="serverheaders"
+          :items="serveritem"
+          ></v-data-table>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card color="teal" >
+          <v-card-title>
+            Site Details
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-data-table
+          :headers="siteheaders"
+          :items="siteitem"
+          ></v-data-table>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card color="teal" >
+          <v-card-title>
+            Statics Details
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-data-table
+          :headers="staticheaders"
+          :items="staticitem"
+          ></v-data-table>
+        </v-card>
+      </v-tab-item>
+    </v-tabs>
+          </template>
+        </v-container>
+      </v-card>
+    </v-dialog>
   </v-card>
   </v-app>
 </template>
@@ -37,128 +124,121 @@ import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'  
 
   export default {
-    name: 'servers',
+    name: 'company',
     data () {
       return {
+        filters: { name: [],},
+        dialog :false,
         loader: null,
         loading: false,
         loading2: false,
         loading3: false,
         loading4: false,
         loading5: false,
+        loading6: false,
         search: '',
         headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories', },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
+          { text: 'Company Name',align: 'start',sortable: false,value: 'name'},
+          { text: 'View Details', value: 'details'},
         ],
-        desserts: [
+        serverheaders: [
+          { text: 'Server Name',align: 'start',sortable: false,value: 'servername'},
+          { text: 'Full Name', value: 'fullname', },
+          { text: 'IP Adress', value: 'ipadress', },
+          { text: 'Operating System', value: 'opsystem', },
+          { text: 'Environments', value: 'environments', },
+          { text: 'App. Type', value: 'apptype', },
+          { text: 'Owner', value: 'owner', },
+          { text: 'Contact', value: 'contact' },
+          { text: 'Last Backup Date', value: 'lastbackup' },
+        ],
+        siteheaders: [
+          { text: 'Site Name',align: 'start',sortable: false,value: 'sitename'},
+          { text: 'Physical Path', value: 'physicalpath', },
+          { text: 'Domains', value: 'domains' },
+          { text: 'State', value: 'state' },
+        ],
+        staticheaders: [
+          { text: 'Static Name',align: 'start',sortable: false,value: 'staticname'},
+          { text: 'Physical Path', value: 'physicalpath', },
+          { text: 'Domains', value: 'domains' },
+          { text: 'State', value: 'state' },
+        ],
+        servers: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
+            name: 'Tarık',
           },
           {
             name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
           },
         ],
+        serveritem: [
+          {
+            servername: 'Tarık',
+            fullname: 159,
+            ipadress: 6.0,
+            opsystem: 24,
+            environments: 4.0,
+            apptype: 159,
+            owner: 6.0,
+            contact: 24,
+            lastbackup: 4.0,
+          },
+          {
+            servername: 'Frozen Yogurt',
+            fullname: 159,
+            ipadress: 6.0,
+            opsystem: 24,
+            environments: 4.0,
+            apptype: 159,
+            owner: 6.0,
+            contact: 24,
+            lastbackup: 4.0,
+          },
+        ],
+        siteitem: [
+          {
+            sitename: 'Tarık',
+            physicalpath: 159,
+            domains: 6.0,
+            service: 24,
+            state: 4.0,
+          },
+          {
+            sitename: 'Frozen Yogurt',
+            physicalpath: 159,
+            domains: 6.0,
+            service: 24,
+            state: 4.0,
+          },
+        ],
+        staticitem: [
+          {
+            staticname: 'Tarık',
+            physicalpath: 159,
+            domains: 6.0,
+            service: 24,
+            state: 4.0,
+          },
+          {
+            staticname: 'Frozen Yogurt',
+            physicalpath: 159,
+            domains: 6.0,
+            service: 24,
+            state: 4.0,
+          },
+        ],
+        dialogdetail: false
       }
+    },
+    methods:{
+      showDetails(item){
+        this.details=item
+        this.dialogdetail=true
+      },
+      columnValueList(val) {
+      return this.servers.map((d) => d[val]);
+    }
     },
     watch: {
       loader () {
@@ -170,6 +250,15 @@ import NavBar from '@/components/NavBar.vue'
         this.loader = null
       },
     },
+    computed: {
+    filterServers() {
+      return this.servers.filter((d) => {
+        return Object.keys(this.filters).every((f) => {
+          return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
+        });
+      });
+    }
+  },
     components: {
       SideBar,
       NavBar,
