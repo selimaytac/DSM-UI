@@ -1,226 +1,162 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
     <SideBar/>
-    <NavBar/>
-    
     <v-container>
-    <v-row>
-      
-        <v-row>
-          <v-col cols="12" sm="12">
-            <v-toolbar flat color="rgba(0,0,0,0)" dark>
-              <v-toolbar-title>Dashboard</v-toolbar-title>
-              <v-spacer></v-spacer>
-            <v-btn outlined class="">
-              <v-icon right class="mr-2">fas fa-sliders-h</v-icon>
-              Filters
-            </v-btn>
-            </v-toolbar>
-            
-          </v-col>
-          <v-col cols="12" sm="4">
-            
-            <v-card class="cardOr mx-2 rounded-xl mt-n7" elevation="16">
-              <v-row>
-                <v-col cols="12" sm="8">
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <div class="mb-4">
-                        <v-btn tile fab color="orange" elevation="0">
-                          <v-icon color="">fab fa-btc</v-icon>
-                        </v-btn>
-                      </div>
-                      <v-list-item-title class="headline mb-1 white--text">
-                        $1200
-                      </v-list-item-title>
-                      <v-list-item-subtitle class="white--text">45% This Week</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineO.png"></v-img>
-                  </v-avatar>
-                </v-col>
-              </v-row>
-            </v-card>
-         
-          </v-col>
-          <v-col cols="12" sm="4">
-             <v-card class="cardVr mx-2 rounded-xl mt-n7" elevation="16">
-              <v-row>
-                <v-col cols="12" sm="8">
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <div class="mb-4">
-                        <v-btn tile fab color="teal" elevation="0">
-                          <v-icon color="">fab fa-ethereum</v-icon>
-                        </v-btn>
-                      </div>
-                      <v-list-item-title class="headline mb-1 white--text">
-                        $232.40
-                      </v-list-item-title>
-                      <v-list-item-subtitle class="white--text">35% This Week</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineV.png"></v-img>
-                  </v-avatar>
-                </v-col>
-              </v-row>
-            </v-card>
-         
-          </v-col>
-          <v-col cols="12" sm="4">
-             <v-card class="cardR mx-2 rounded-xl mt-n7" elevation="16">
-              <v-row>
-                <v-col cols="12" sm="8">
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <div class="mb-4">
-                        <v-btn tile fab color="#6e0b14" elevation="0">
-                          <v-icon color="">fas fa-lira-sign</v-icon>
-                        </v-btn>
-                      </div>
-                      <v-list-item-title class="headline mb-1 white--text">
-                        600
-                      </v-list-item-title>
-                      <v-list-item-subtitle class="white--text">21% This Week</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="line.png"></v-img>
-                  </v-avatar>
-                </v-col>
-              </v-row>
-            </v-card>
-         
-          </v-col>
-          <v-col cols="12" sm="8">
-           
-               <v-toolbar flat color="rgba(0,0,0,0)" dark>
-              <v-toolbar-title>Market Overview</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn outlined >Weekly (2020)
-              <v-icon right  class="mr-2" >fas fa-chevron-down</v-icon> 
-            </v-btn>
-            </v-toolbar>
-           <v-sparkline
-    :value="value"
-    :smooth="radius || false"
-    :padding="padding"
-    :line-width="width"
-    :stroke-linecap="lineCap"
-    :fill="fill"
-    :type="type"
-    :auto-line-width="autoLineWidth"
-    auto-draw
-    color="white"
-  ></v-sparkline>
-  <v-divider color="white" class="mx-4"></v-divider>
-  <v-toolbar flat color="rgba(0,0,0,0)" dark>
-              <v-toolbar-title>Recent Activities</v-toolbar-title>
-            </v-toolbar>
-            <v-row>
-              <v-col cols="12" sm="2">
-                <v-btn fab class="ml-5 mt-n2" color="grey lighten-1" small>
-                  <v-icon>fas fa-long-arrow-alt-up</v-icon></v-btn>
-              </v-col>
-              <v-col cols="12" sm="2"><span class="white--text">Bitcoin</span></v-col>
-              <v-col cols="12" sm="2"><span class="white--text">10:42:23 AM</span></v-col>
-              <v-col cols="12" sm="2"><span class="white--text">+1545,00</span></v-col>
-              <v-col cols="12" sm="2"><span class="white--text">Completed</span></v-col>
-            </v-row>
-          </v-col>
-           <v-col cols="12" sm="4">
-             <v-card class=" mx-2 rounded-xl" elevation="8" color="teal">
-               <v-toolbar flat color="rgba(0,0,0,0)" dark>
-              <v-toolbar-title>Sell Order</v-toolbar-title>
-              <v-spacer></v-spacer>
-            
-              <v-icon  class="mr-2" small>fas fa-ellipsis-v</v-icon>
-
-            </v-toolbar>
-             <v-simple-table class="teal" dark>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            Price
-          </th>
-          <th class="text-left">
-            Amount
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in orders"
-          :key="item.name">
-          <td>{{ item.price }}</td>
-          <td>{{ item.amount }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-            </v-card>
-         
-          </v-col>
-        </v-row>
-    </v-row>
+      <NavBar/>
     </v-container>
-   
+    <v-card color="grey lighten-1" >
+    <v-card-title>
+      Deployment Agents
+      <v-spacer></v-spacer>
+      <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2" outlined 
+      @click="loader = 'loading2'">Export to Excel 
+        <template v-slot:loader>
+          <span>Loading...</span>
+        </template>
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+    <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+      {{ header.text }}
+      <v-menu :key="index" offset-y :close-on-content-click="false">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                  <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                    mdi-filter-variant
+                  </v-icon>
+                </v-btn>
+              </template>
+              <div style="background-color: white; width: 280px">
+                <v-list>
+                  <v-list-item>
+                    <div v-if="filters.hasOwnProperty(header.value)">
+                      <v-autocomplete multiple dense auto-select-first clearable chips small-chips 
+                      color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter" 
+                      v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                        <template v-slot:selection="{ item, index }">
+                          <v-chip small class="caption" v-if="index < 5">
+                            <span>
+                              {{ item }}
+                            </span>
+                          </v-chip>
+                          <span v-if="index === 5" class="grey--text caption">
+                            (+{{ filters[header.value].length - 5 }} others)
+                          </span>
+                        </template>
+                      </v-autocomplete>
+                    </div>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-menu>
+    </template>
+    <template v-slot:item.details="{item}">
+      <v-btn depressed rounded text color="teal" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
+    </template>
+    </v-data-table>
+    <v-dialog v-model="dialogdetail">
+      <v-card>
+        <v-toolbar dark color="teal" >
+          <v-btn icon dark @click="dialogdetail = false"><v-icon>mdi-close</v-icon></v-btn>
+          <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+        </v-toolbar>
+      </v-card>
+    </v-dialog>
+  </v-card>
   </v-app>
 </template>
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'  
 
   export default {
-    name: 'deploymentAgents',
+    name: 'dbportal',
     data () {
       return {
-        width: 2,
-        radius: 10,
-        padding: 8,
-        lineCap: 'round',
-        value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
-        fill: false,
-        type: 'trend',
-        autoLineWidth: false,
-        orders: [
+        filters: { name: [], agentname: [], agentvers: [], opsystem: [], status: [],installdate: [],changeddate: []},
+        dialog :false,
+        loader: null,
+        loading: false,
+        loading2: false,
+        loading3: false,
+        loading4: false,
+        loading5: false,
+        loading6: false,
+        search: '',
+        headers: [
+          { text: 'Project Name',align: 'start',sortable: false,value: 'name'},
+          { text: 'Agent Name', value: 'agentname', },
+          { text: 'Agent Version', value: 'agentvers' },
+          { text: 'Operating System', value: 'opsystem', },
+          { text: 'Status', value: 'status', },
+          { text: 'Agent Install Date', value: 'installdate', },
+          { text: 'Status Changed Date', value: 'changeddate', },
+          { text: 'View Details', value: 'details'},
+        ],
+        servers: [
           {
-            price: 89.03,
-            amount: 0.15,
+            name: 'Tarık',
+            agentanme: 159,
+            agentvers: 6.0,
+            opsystem: 24,
+            status: 24,
+            installdate: 24,
+            changeddate: 24,
           },
           {
-            price: 94.03,
-            amount: 0.18,
-          },
-           {
-            price: 92.03,
-            amount: 0.22,
-          },
-           {
-            price: 94.03,
-            amount: 0.18,
-          },
-           {
-            price: 33.03,
-            amount: 0.19,
+            name: 'Frozen Yogurt',
+            agentanme: 159,
+            agentvers: 6.0,
+            opsystem: 24,
+            status: 24,
+            installdate: 24,
+            changeddate: 24,
           },
         ],
+        dialogdetail: false
       }
     },
+    methods:{
+      showDetails(item){
+        this.details=item
+        this.dialogdetail=true
+      },
+      columnValueList(val) {
+      return this.servers.map((d) => d[val]);
+    }
+    },
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+
+        setTimeout(() => (this[l] = false), 2000)
+
+        this.loader = null
+      },
+    },
+    computed: {
+    filterServers() {
+      return this.servers.filter((d) => {
+        return Object.keys(this.filters).every((f) => {
+          return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
+        });
+      });
+    }
+  },
     components: {
-    SideBar,
-    NavBar,
-},
+      SideBar,
+      NavBar,
+    },
   }
 </script>
 
@@ -232,5 +168,40 @@ import NavBar from '@/components/NavBar.vue'
   min-width: 30px !important;
   padding: 0 5px !important;
 }
-
+.custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>

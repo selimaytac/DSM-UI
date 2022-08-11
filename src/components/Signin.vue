@@ -4,7 +4,7 @@
       <v-row align="center" justify="center" >
           <v-col cols="12" sm="14">
             <v-card class="elevation-6 mt-10">
-             <v-window v-model="step"> 
+             <v-window > 
                 <v-window-item :value="1">
                   <v-row>
                     <v-col cols="12" md="6">
@@ -51,7 +51,7 @@
                     <div style="  text-align: center; padding: 180px 0;">
                       <v-card-text class="white--text" >
                         <v-avatar size="128" class="ml-1">
-                          <v-img v-on="on" src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+                          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
                         </v-avatar>
                         <v-list-item-content>
                           <v-list-item-title>Koray Ay</v-list-item-title>
