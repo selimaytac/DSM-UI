@@ -1,133 +1,68 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
-  <SideBar/>
-  <NavBar/>
-    <v-card color="grey lighten-1" >
-      
-<template>
-  <v-card
-    class="mx-auto"
-    max-width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>Top 10 Australian beaches</v-card-title>
-    </v-img>
+    <SideBar/>
+    <NavBar/>
+      <v-container fluid>
+      <v-row dense>
+        <v-col
+          v-for="card in cards"
+          :key="card.title"
+          :cols="card.flex"
+          md="4"
+        >
+          <v-card height="250px" width="400px">
+            <v-img :src="card.src" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="150px" width="400px">
+            </v-img>
+            <v-card-actions>
+              <v-card-title v-text="card.title"></v-card-title>
+              <v-btn class="ma-1" outlined color="teal" rounded>Open Page</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
 
-    <v-card-subtitle class="pb-0">
-      Number 10
-    </v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>Whitehaven Beach</div>
-
-      <div>Whitsunday Island, Whitsunday Islands</div>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-      >
-        Share
-      </v-btn>
-
-      <v-btn
-        color="orange"
-        text
-      >
-        Explore
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-</template>
-  </v-card>
   </v-app>
 </template>
 
 <script>
-import SideBar from '@/components/SideBar.vue'
-import NavBar from '@/components/NavBar.vue'
+import SideBar from "@/components/SideBar.vue";
+import NavBar from "@/components/NavBar.vue";
   export default {
-    name: 'appmanagement',
-    data () {
+    data() {
       return {
-        loader: null,
-        loading: false,
-        loading2: false,
-        loading3: false,
-        loading4: false,
-        loading5: false,
         cards: [
-        { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-      ],
+        { title: 'AppDynamics', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
+        { title: 'Automic Nöbetçi Telefon Tablosu', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Automic Talep Açma', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Automic Talimat', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Azure DevOps', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Cloud & Mobile Envanter', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'CyberArk', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
+        { title: 'Disk Doluluk ve Kullanımı', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Domino', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'DT-Uygulama Planner', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Eclit-Zabbix', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Elastic Search Envanteri', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Grafana', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
+        { title: 'Haftalık Rapor', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Microsoft Azure', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Nöbet - Mesai Sonrası Problem Listesi', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Nöbet Listesi', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Office 365', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Openshift 4.4.0', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
+        { title: 'Scorecard Erişim', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Self Service (AD Lock kaldırma)', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Uygulama Topolojileri', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Veritabanı Envanteri', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'VRealize VM Talep', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
         
-      }
-    },
-    watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 2000)
-
-        this.loader = null
-      },
+      ],
+      };
     },
     components: {
-    SideBar,
-    NavBar,
-},
+      SideBar,
+      NavBar
+    }
   }
 </script>
-
-<style>
-.v-btn.withoutupercase{
-  text-transform: none !important;
-}
-.v-btn:not(.v-btn--round).v-size--small{
-  min-width: 30px !important;
-  padding: 0 5px !important;
-}
-.custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
-  }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-</style>

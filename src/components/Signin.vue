@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import SideBar from '@/components/SideBar.vue';
   export default {
     name: "signin",
@@ -86,7 +87,7 @@ import SideBar from '@/components/SideBar.vue';
         username: "",
         password: "",
         defaultSelected: {
-          domainname: "@d-teknoloji.com.tr",
+          domainname: "Lütfen domain seçiniz.",
         },
         domain: [
           '@d-teknoloji.com.tr',
@@ -108,8 +109,25 @@ import SideBar from '@/components/SideBar.vue';
     components: { SideBar },
     methods: {
     login() {
-      const { username } = this;
-      this.$router.replace({ name: "home", params: { username: username},});
+      console.log(this.username + this.password)
+      //const { username } = this;
+      //this.$router.replace({ name: "home", params: { username: username},});
+      axios.post('http://dsm-api-test/Users/authenticate', {
+      username: this.username + this.defaultSelected,
+      password: this.password,
+       
+  },{
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+       })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
     },
   },
 

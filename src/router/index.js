@@ -1,56 +1,48 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Signin from '../components/Signin.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import routes from "./routes";
+import store from "../store";
 
-Vue.use(Router)
-export default new Router({
-  routes: [
-    {
-    path: '/',
-    name: 'signin',
-    component: Signin,
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('../../src/pages/Home/Home.vue'),
-  },
-  {
-    path: '/azureHome',
-    name: 'azureHome',
-    component: () => import('../../src/pages/AzureDevops/AzureDevOps.vue')
-  },
-  {
-    path: '/sites',
-    name: 'sites',
-    component: () => import('../../src/pages/Sites/Sites.vue')
-  },
-  {
-    path: '/servers',
-    name: 'servers',
-    component: () => import('../../src/pages/Servers/Servers.vue')
-  },
-  {
-    path: '/companies',
-    name: 'company',
-    component: () => import('../../src/pages/Companies/Companies.vue')
-  },
-  {
-    path: '/databaseportal',
-    name: 'dbportal',
-    component: () => import('../../src/pages/Databaseportal/Databaseportal.vue')
-  },
-  {
-    path: '/reports',
-    name: 'reports',
-    component: () => import('../../src/pages/Reports/Reports.vue')
-  },
-  {
-    path: '/monitoring',
-    name: 'monitoring',
-    component: () => import('../../src/pages/Monitoring/Monitoring.vue')
-  },
-  ],
+Vue.use(VueRouter);
+const router = new VueRouter({
+  mode: "history",
+  routes,
+});
+router.beforeEach((to, from, next) => {
+  console.log(to.name);
+  if(!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth" ) && to.name !== "Signin") {
+    to.meta.requiresAuth = true;
+  }
+  next();
 })
+router.beforeEach((to, from, next) => {
+  const loggedIn = store.getters["auth/getIsLogin"];
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!loggedIn) {
+      next({
+        path: "/signin",
+        params: { nextUrl: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    checkPageWhenSignIn();
+  }
 
-  
+  function checkPageWhenSignIn() {
+    if (to.name === "Signin") {
+      if (loggedIn) {
+        next({
+          path: "/",
+          params: { nextUrl: to.fullPath },
+        });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  }
+});
+export default router;
