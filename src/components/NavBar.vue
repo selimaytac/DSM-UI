@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'navbar',
   data (){
@@ -87,8 +89,13 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem("dark_theme",this.$vuetify.theme.dark.toString());
     },
+    ...mapActions({
+      LogOut: 'auth/setLogout'
+    }),
     logout() {
-        this.$router.replace({name:'login'})
+        this.LogOut();
+        console.log('logout');
+        this.$router.push('/').catch(() => {});
       }
   },
   mounted(){

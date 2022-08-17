@@ -3,11 +3,10 @@
 import { $axios } from "../plugins/axios";
 export const authService = {
   login,
-  logOut
 };
 async function login(payload) {
   const result = await $axios.post(
-    "/user/authenticate",
+    "/Users/authenticate",
     { ...payload },
     {
       "Content-Type": "application/json",
@@ -15,7 +14,4 @@ async function login(payload) {
     }
   );
   return result.data;
-}
-async function logOut() {
-  //Cookiden token silinecek ve vuexten state false olacak.
 }

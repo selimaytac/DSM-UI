@@ -1,5 +1,8 @@
 const state = {
-    isLogin: false,
-    loginUser: {},
+    isLoggedIn: false,
+    token : "",
+    username : "",
+    fullName : "",
+    profilePhoto : "",
   };
   export default state;

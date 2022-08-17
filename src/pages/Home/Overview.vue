@@ -39,7 +39,6 @@
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineO.png"></v-img>
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -66,7 +65,7 @@
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineV.png"></v-img>
+                  
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -93,7 +92,6 @@
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="line.png"></v-img>
                   </v-avatar>
                 </v-col>
               </v-row>

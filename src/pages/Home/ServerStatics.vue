@@ -14,7 +14,7 @@
           </v-toolbar>
 
           <v-row class="px-5 mt-n6 ml-5">
-            <v-col cols="12" sm="3" v-for="list in lists" :key="list">
+            <v-col cols="12" sm="3" v-for="list in lists" :key="listkey">
               <v-card align="center" color="#F9FAFC" class="rounded-circle border pt-10" width="200" height="200" flat>
                 <v-card-text class="grey--text text-lg-h6">
                   {{ list.title }}

@@ -23,7 +23,7 @@
                               type="text"
                             ></v-text-field>
                             <v-select
-                              v-model="defaultSelected"
+                              v-model="defaultDomain"
                               :items="domain"
                               label="@"
                               item-text="domainname"
@@ -40,7 +40,7 @@
                               required
                             ></v-text-field>
                             <br>
-                           <v-btn type="submit" color="black" dark block title value="log in">{{stateObj.login.name}}</v-btn>
+                           <v-btn type="submit" color="black" dark block title value="log in">Log In</v-btn>
                             </form>
                           </v-col>
                         </v-row>  
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex';
 import SideBar from '@/components/SideBar.vue';
   export default {
     name: "signin",
@@ -86,8 +86,9 @@ import SideBar from '@/components/SideBar.vue';
       return{
         username: "",
         password: "",
-        defaultSelected: {
-          domainname: "Lütfen domain seçiniz.",
+        defaultDomain: {
+          domainname: "@d-teknoloji.com.tr",
+          // en son seçilen domainnamei vuex üzerinden buraya getir, eğer yoksa defaolt olarak d-teknoloji olsun.
         },
         domain: [
           '@d-teknoloji.com.tr',
@@ -96,11 +97,6 @@ import SideBar from '@/components/SideBar.vue';
           '@dturizm.com.tr',
           '@vdf.com.tr'
         ],
-        stateObj: {
-          login : {
-              name: 'Sign In',
-          }
-        }
       }
     },
     props: {
@@ -108,29 +104,27 @@ import SideBar from '@/components/SideBar.vue';
     },
     components: { SideBar },
     methods: {
-    login() {
-      console.log(this.username + this.password)
-      //const { username } = this;
-      //this.$router.replace({ name: "home", params: { username: username},});
-      axios.post('http://dsm-api-test/Users/authenticate', {
-      username: this.username + this.defaultSelected,
-      password: this.password,
-       
-  },{
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+    ...mapActions({
+      authLogin: 'auth/setLogin'
+    }),
+    async login () {
+      try {
+        const res = await this.authLogin({
+          username: this.username + this.defaultDomain,
+          password: this.password,
+        });
+        if(res.isAdUser) {
+          console.log("Başarılı");
+          this.$router.push('/home').catch(()=>{});
+        }else{
+          console.log("Başarısız");
         }
-       })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
     },
-  },
-
 }
 </script>
 

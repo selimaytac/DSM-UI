@@ -10,17 +10,20 @@ const router = new VueRouter({
 });
 router.beforeEach((to, from, next) => {
   console.log(to.name);
-  if(!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth" ) && to.name !== "Signin") {
+  
+  if(!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth" ) && to.name !== "signin") {
     to.meta.requiresAuth = true;
   }
   next();
 })
 router.beforeEach((to, from, next) => {
-  const loggedIn = store.getters["auth/getIsLogin"];
+  const loggedIn = store.getters["auth/getIsLoggedIn"];
+  console.log("Bu loggedIn: ", loggedIn);
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!loggedIn) {
+      console.log("yönlendirildiniz");
       next({
-        path: "/signin",
+        path: "/",
         params: { nextUrl: to.fullPath },
       });
     } else {
@@ -31,10 +34,10 @@ router.beforeEach((to, from, next) => {
   }
 
   function checkPageWhenSignIn() {
-    if (to.name === "Signin") {
+    if (to.name === "signin") {
       if (loggedIn) {
         next({
-          path: "/",
+          path: "/home",
           params: { nextUrl: to.fullPath },
         });
       } else {

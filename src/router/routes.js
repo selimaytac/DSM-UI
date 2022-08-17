@@ -8,9 +8,9 @@ export default[
       path: '/home',
       name: 'home',
       component: () => import('../../src/pages/Home/Home.vue'),
-      meta: {
-        requiresAuth: true,
-      },
+      // meta: {
+      //   requiresAuth: false,
+      // },
     },
     {
       path: '/azureHome',
