@@ -4,5 +4,7 @@ const state = {
     username : "",
     fullName : "",
     profilePhoto : "",
+    department : "",
+    stateDomain : "",
   };
   export default state;

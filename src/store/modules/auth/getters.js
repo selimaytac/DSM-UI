@@ -15,5 +15,11 @@ const getters = {
     getProfilePhoto(state) {
       return state.profilePhoto;
     },
+    getDepartment(state) {
+      return state.department;
+    },
+    getStateDomain(state) {
+      return state.stateDomain;
+    },
   };
   export default getters;

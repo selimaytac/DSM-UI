@@ -9,5 +9,8 @@ const actions = {
   setLogout(vuexContext) {
     vuexContext.commit("logOut");
   },
+  setStateDomain(vuexContext, data) {
+    vuexContext.commit("setDomain", data);
+  }
 };
 export default actions;
