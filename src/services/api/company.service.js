@@ -1,32 +1,18 @@
-import { $axios } from "@/plugins/axios";
+import { $axios } from "../plugins/axios";
 import { authHeader } from "../helper";
-const controllerName = "/server/";
-export const serverService = {
-    getServers,
-    getServer,
-    getServerHeader,
-    getServerSites,
-    getExportList,
+const controllerName = "/company/";
+export const companyService = {
+    getCompanies,
+    getCompanyHeader,
+    getCompanyServers,
+    getCompanySites,
     getRDPFile,
+    getExportList,
     getExportSearchList,
 };
-async function getServers(data) {
+async function getCompanies(data) {
     const result = await $axios.get(
         controllerName + data,
-        {
-            headers:
-            {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': authHeader()
-            }
-        }
-    );
-    return result.data;
-}
-async function getServer(data) {
-    const result = await $axios.get(
-        controllerName + "details/" + data,
         {
             "Content-Type": "application/json",
             'Access-Control-Allow-Origin': '*',
@@ -35,7 +21,7 @@ async function getServer(data) {
     );
     return result.data;
 }
-async function getServerHeader(data) {
+async function getCompanyHeader(data) {
     const result = await $axios.get(
         controllerName + "header/" + data,
         {
@@ -46,7 +32,18 @@ async function getServerHeader(data) {
     );
     return result.data;
 }
-async function getServerSites(data) {
+async function getCompanyServers(data) {
+    const result = await $axios.get(
+        controllerName + "servers/" + data,
+        {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*',
+            Bearer: authHeader()
+        }
+    );
+    return result.data;
+}
+async function getCompanySites(data) {
     const result = await $axios.get(
         controllerName + "sites/" + data,
         {
@@ -75,25 +72,6 @@ async function getExportList(data) {
 
         fileLink.click();
     })
-}
-async function getRDPFile(data) {
-    const result = await $axios.post(
-        controllerName + "content/" + data,
-        {
-            "Content-Type": "application/json-patch+json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
-        }
-    ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
-        var fileLink = document.createElement('a');
-
-        fileLink.href = fileURL;
-        fileLink.setAttribute('download', 'connection.rdp');
-        document.body.appendChild(fileLink);
-
-        fileLink.click();
-    });
 }
 async function getExportSearchList(data) {
     const result = await $axios.get(

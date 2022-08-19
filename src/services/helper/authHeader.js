@@ -3,7 +3,7 @@ export const authHeader = () => {
   const token = store.getters["auth/getToken"];
 
   if (token) {
-    return token;
+    return 'Bearer ' + token;
   } else {
     return "";
   }

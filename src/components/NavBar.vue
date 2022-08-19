@@ -13,24 +13,27 @@
     </v-btn>
     <v-menu bottom min-width="200px" rounded offset-y>
       <template v-slot:activator="{ on }">
+      <div>
         <v-btn icon x-large v-on="on">
           <v-avatar size="48">
-            <v-img v-on="on" src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+            <v-img :src="profilePhoto" :alt="'User Photo'"></v-img>
           </v-avatar>
         </v-btn>
+      </div>
       </template>
       <v-card>
         <v-list-item-content class="justify-center">
           <div class="mx-auto text-center">
-            <v-avatar>
-              <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+            <v-avatar size="70" class="ml-1" v-if="this.profilePhoto.length > 1">
+              <v-img :src="this.profilePhoto" :alt="'User Photo'"></v-img>
             </v-avatar>
             <v-list>
               <v-list-item link>
                 <v-list-item-content>
-                  <v-list-item-title class="text-h8">
-                    {{ username || 'Username' }}
+                  <v-list-item-title class="text-h8" v-if="this.fullName.length > 1">{{ this.fullName }}
                   </v-list-item-title>
+                  <v-list-item-subtitle v-if="this.department.length > 1"> {{ this.department }}
+                  </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -60,13 +63,21 @@
 
 <script>
 import { mapActions } from 'vuex';
-
+import { mapGetters } from 'vuex';
 export default {
   name: 'navbar',
   data() {
     return {
-      username: this.$route.params.username,
+      username: this.$route.params.userName,
     }
+  },
+  computed: {
+    ...mapGetters({
+      userName: 'auth/getUsername',
+      profilePhoto: 'auth/getProfilePhoto',
+      fullName: 'auth/getFullName',
+      department: 'auth/getDepartment',
+    }),
   },
   methods: {
     toggle_dark_mode: function () {

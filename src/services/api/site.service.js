@@ -1,30 +1,28 @@
-import { $axios } from "@/plugins/axios";
+import { $axios } from "../plugins/axios";
 import { authHeader } from "../helper";
-const controllerName = "/server/";
-export const serverService = {
-    getServers,
-    getServer,
-    getServerHeader,
-    getServerSites,
+const controllerName = "/site/";
+export const siteService = {
+    getSites,
+    getSite,
+    getSiteHeader,
+    getSiteBindings,
+    getSitePackages,
+    getSiteEndepoints,
     getExportList,
-    getRDPFile,
     getExportSearchList,
 };
-async function getServers(data) {
+async function getSites(data) {
     const result = await $axios.get(
         controllerName + data,
         {
-            headers:
-            {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': authHeader()
-            }
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*',
+            Bearer: authHeader()
         }
     );
     return result.data;
 }
-async function getServer(data) {
+async function getSite(data) {
     const result = await $axios.get(
         controllerName + "details/" + data,
         {
@@ -35,7 +33,7 @@ async function getServer(data) {
     );
     return result.data;
 }
-async function getServerHeader(data) {
+async function getSiteHeader(data) {
     const result = await $axios.get(
         controllerName + "header/" + data,
         {
@@ -46,9 +44,31 @@ async function getServerHeader(data) {
     );
     return result.data;
 }
-async function getServerSites(data) {
+async function getSiteBindings(data) {
     const result = await $axios.get(
-        controllerName + "sites/" + data,
+        controllerName + "bindings/" + data,
+        {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*',
+            Bearer: authHeader()
+        }
+    );
+    return result.data;
+}
+async function getSitePackages(data) {
+    const result = await $axios.get(
+        controllerName + "packages/" + data,
+        {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*',
+            Bearer: authHeader()
+        }
+    );
+    return result.data;
+}
+async function getSiteEndepoints(data) {
+    const result = await $axios.get(
+        controllerName + "endpoints/" + data,
         {
             "Content-Type": "application/json",
             'Access-Control-Allow-Origin': '*',
@@ -76,25 +96,6 @@ async function getExportList(data) {
         fileLink.click();
     })
 }
-async function getRDPFile(data) {
-    const result = await $axios.post(
-        controllerName + "content/" + data,
-        {
-            "Content-Type": "application/json-patch+json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
-        }
-    ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
-        var fileLink = document.createElement('a');
-
-        fileLink.href = fileURL;
-        fileLink.setAttribute('download', 'connection.rdp');
-        document.body.appendChild(fileLink);
-
-        fileLink.click();
-    });
-}
 async function getExportSearchList(data) {
     const result = await $axios.get(
         controllerName + "export/" + data,
@@ -114,4 +115,3 @@ async function getExportSearchList(data) {
         fileLink.click();
     })
 }
-
