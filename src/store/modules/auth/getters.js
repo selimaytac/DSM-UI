@@ -1,0 +1,25 @@
+const getters = {
+    getIsLoggedIn(state) {
+      console.log(state);
+      return state.isLoggedIn;
+    },
+    getToken(state) {
+      return state.token;
+    },
+    getUsername(state) {
+      return state.username;
+    },
+    getFullName(state) {
+      return state.fullName;
+    },
+    getProfilePhoto(state) {
+      return state.profilePhoto;
+    },
+    getDepartment(state) {
+      return state.department;
+    },
+    getStateDomain(state) {
+      return state.stateDomain;
+    },
+  };
+  export default getters;

@@ -2,14 +2,8 @@
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
     <SideBar/>
     <NavBar/>
-    <v-card>
     <v-container>
     <v-row>
-      <v-col cols="600" sm="40">
-        <v-card class="mx-auto rounded-xl"
-      height="700px"
-      elevation-2
-      color="grey darken-4">
         <v-row>
           <v-col cols="12" sm="12">
             <v-toolbar flat color="rgba(0,0,0,0)" dark>
@@ -43,7 +37,6 @@
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineO.png"></v-img>
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -70,7 +63,7 @@
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineV.png"></v-img>
+                    
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -97,7 +90,7 @@
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="line.png"></v-img>
+                   
                   </v-avatar>
                 </v-col>
               </v-row>
@@ -175,11 +168,9 @@
          
           </v-col>
         </v-row>
-        </v-card>
-      </v-col>
     </v-row>
     </v-container>
-    </v-card>
+
   </v-app>
 </template>
 

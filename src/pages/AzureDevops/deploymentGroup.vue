@@ -1,12 +1,14 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
-  <SideBar/>
-  <NavBar/>
+    <SideBar/>
+    <v-container>
+      <NavBar/>
+    </v-container>
     <v-card color="grey lighten-1" >
     <v-card-title>
-      Sites
+      Deployment Groups
       <v-spacer></v-spacer>
-      <v-btn id="downloadexcel" class="ma-1 white--text" :loading="loading2" :disabled="loading2" outlined 
+      <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2" outlined 
       @click="loader = 'loading2'">Export to Excel 
         <template v-slot:loader>
           <span>Loading...</span>
@@ -21,141 +23,107 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      :search="search"
-    ></v-data-table>
+    <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+    <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+      {{ header.text }}
+      <v-menu :key="index" offset-y :close-on-content-click="false">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                  <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                    mdi-filter-variant
+                  </v-icon>
+                </v-btn>
+              </template>
+              <div style="background-color: white; width: 280px">
+                <v-list>
+                  <v-list-item>
+                    <div v-if="filters.hasOwnProperty(header.value)">
+                      <v-autocomplete multiple dense auto-select-first clearable chips small-chips 
+                      color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter" 
+                      v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                        <template v-slot:selection="{ item, index }">
+                          <v-chip small class="caption" v-if="index < 5">
+                            <span>
+                              {{ item }}
+                            </span>
+                          </v-chip>
+                          <span v-if="index === 5" class="grey--text caption">
+                            (+{{ filters[header.value].length - 5 }} others)
+                          </span>
+                        </template>
+                      </v-autocomplete>
+                    </div>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-menu>
+    </template>
+    <template v-slot:item.details="{item}">
+      <v-btn depressed rounded text color="teal" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
+    </template>
+    </v-data-table>
+    <v-dialog v-model="dialogdetail">
+      <v-card>
+        <v-toolbar dark color="teal" >
+          <v-btn icon dark @click="dialogdetail = false"><v-icon>mdi-close</v-icon></v-btn>
+          <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+        </v-toolbar>
+      </v-card>
+    </v-dialog>
   </v-card>
   </v-app>
 </template>
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'  
+
   export default {
-    name: 'deploymentGroups',
+    name: 'dbportal',
     data () {
       return {
+        filters: { name: [], groupname: [], grouppool: [], mcount: []},
+        dialog :false,
         loader: null,
         loading: false,
         loading2: false,
         loading3: false,
         loading4: false,
         loading5: false,
+        loading6: false,
         search: '',
         headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories', },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
+          { text: 'Project Name',align: 'start',sortable: false,value: 'name'},
+          { text: 'Deployment Group Name', value: 'groupname', },
+          { text: 'Deployment Group Pool', value: 'grouppool' },
+          { text: 'Machine Count', value: 'mcount', },
+          { text: 'View Details', value: 'details'},
         ],
-        desserts: [
+        servers: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
+            name: 'Tarık',
+            groupname: 159,
+            grouppool: 6.0,
+            mcount: 24,
           },
           {
             name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
+            groupname: 159,
+            grouppool: 6.0,
+            mcount: 24,
           },
         ],
+        dialogdetail: false
       }
+    },
+    methods:{
+      showDetails(item){
+        this.details=item
+        this.dialogdetail=true
+      },
+      columnValueList(val) {
+      return this.servers.map((d) => d[val]);
+    }
     },
     watch: {
       loader () {
@@ -167,10 +135,19 @@ import NavBar from '@/components/NavBar.vue'
         this.loader = null
       },
     },
+    computed: {
+    filterServers() {
+      return this.servers.filter((d) => {
+        return Object.keys(this.filters).every((f) => {
+          return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
+        });
+      });
+    }
+  },
     components: {
-    SideBar,
-    NavBar,
-},
+      SideBar,
+      NavBar,
+    },
   }
 </script>
 
