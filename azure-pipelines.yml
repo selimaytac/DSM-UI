@@ -1,1 +1,50 @@
+trigger:
+- master
+- dev
 
+pool: 'LinuxPool'
+
+steps:
+- task: NodeTool@0
+  displayName: 'Install Node.js'
+  inputs:
+    versionSpec: '14.x'
+
+- task: replacetokens@3
+  displayName: 'Replace Tokens in Settings.json'
+  inputs:
+    targetFiles: 'src/settings.json'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+
+- script: |
+    npm install
+  displayName: 'npm install'
+
+- script: |
+    npm run build
+  displayName: 'npm build'
+
+- task: CopyFiles@2
+  displayName: 'Copy Published Files to Staging Directory'
+  inputs:
+    Contents: 'dist/**'
+    TargetFolder: '$(build.artifactstagingdirectory)/Publish'
+    CleanTargetFolder: true
+    OverWrite: true
+
+- task: ArchiveFiles@2
+  displayName: 'Archive $(Build.ArtifactStagingDirectory)'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Publish'
+    ArtifactName: 'dsm-ui'
+    publishLocation: 'Container'
