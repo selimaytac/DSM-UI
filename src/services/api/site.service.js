@@ -1,4 +1,4 @@
-import { $axios } from "../plugins/axios";
+import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
 const controllerName = "/site/";
 export const siteService = {
@@ -7,7 +7,7 @@ export const siteService = {
     getSiteHeader,
     getSiteBindings,
     getSitePackages,
-    getSiteEndepoints,
+    getSiteEndpoints,
     getExportList,
     getExportSearchList,
 };
@@ -15,9 +15,12 @@ async function getSites(data) {
     const result = await $axios.get(
         controllerName + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -66,7 +69,7 @@ async function getSitePackages(data) {
     );
     return result.data;
 }
-async function getSiteEndepoints(data) {
+async function getSiteEndpoints(data) {
     const result = await $axios.get(
         controllerName + "endpoints/" + data,
         {

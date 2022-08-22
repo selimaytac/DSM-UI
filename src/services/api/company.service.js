@@ -1,4 +1,4 @@
-import { $axios } from "../plugins/axios";
+import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
 const controllerName = "/company/";
 export const companyService = {
@@ -6,7 +6,6 @@ export const companyService = {
     getCompanyHeader,
     getCompanyServers,
     getCompanySites,
-    getRDPFile,
     getExportList,
     getExportSearchList,
 };
@@ -14,9 +13,12 @@ async function getCompanies(data) {
     const result = await $axios.get(
         controllerName + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;

@@ -19,7 +19,7 @@
       </v-card-title>
       <v-data-table :headers="headers" :items="filterServers" :items-per-page="10" :footer-props="{
         'items-per-page-options': [10, 20, 30, 40, 50]
-      }" class="elevation-1" :search="search">
+      }" class="elevation-1"  :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -294,7 +294,6 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
-import { serverService } from '@/services/api/server.service';
 export default {
   name: 'servers',
   servers: [],
@@ -311,11 +310,11 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'Server', align: 'start', sortable: false, value: 'machineName' },
-        { text: 'IP Adress', value: 'ipAddress', },
-        { text: 'DNS Name', value: 'dnsName' },
-        { text: 'Service', value: 'serviceName' },
-        { text: 'Operating System', value: 'operatingSystem' },
+        { text: 'Server', align: 'start', sortable: false, value: 'machineName',width: "200px", fixed: true},
+        { text: 'IP Adress', value: 'ipAddress',width: "200px", fixed: true },
+        { text: 'DNS Name', value: 'dnsName',width: "200px", fixed: true },
+        { text: 'Service', value: 'serviceName',width: "200px", fixed: true },
+        { text: 'Operating Sys.', value: 'operatingSystem',width: "200px", fixed: true },
         { text: 'Responsible', value: 'responsible' },
         { text: 'View Details', value: 'details' },
       ],
@@ -354,7 +353,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions('server', ['setServers']),
+    ...mapActions('server', ['setServer']),
     showDetails(item) {
       this.details = item
       this.dialogdetail = true
@@ -369,7 +368,6 @@ export default {
         this.servers = this.servers.concat(response);
         count++;
         response = await this.setServers(count);
-        console.log(response[1]);
       }
     }
   },

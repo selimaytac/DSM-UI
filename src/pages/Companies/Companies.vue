@@ -23,7 +23,9 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+    <v-data-table :headers="headers" :items="filterCompanies" :items-per-page="10" :footer-props="{
+        'items-per-page-options': [10, 20, 30, 40, 50]
+      }" class="elevation-1" :search="search">
     <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
       {{ header.text }}
       <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -42,13 +44,13 @@
                       color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter" 
                       v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
                         <template v-slot:selection="{ item, index }">
-                          <v-chip small class="caption" v-if="index < 5">
+                          <v-chip small class="caption" v-if="index < 10">
                             <span>
                               {{ item }}
                             </span>
                           </v-chip>
                           <span v-if="index === 5" class="grey--text caption">
-                            (+{{ filters[header.value].length - 5 }} others)
+                            (+{{ filters[header.value].length - 10 }} others)
                           </span>
                         </template>
                       </v-autocomplete>
@@ -122,7 +124,7 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'  
-
+import { mapGetters, mapActions } from "vuex";
   export default {
     name: 'company',
     data () {
@@ -137,6 +139,7 @@ import NavBar from '@/components/NavBar.vue'
         loading5: false,
         loading6: false,
         search: '',
+        companies: [],
         headers: [
           { text: 'Company Name',align: 'start',sortable: false,value: 'name'},
           { text: 'View Details', value: 'details'},
@@ -164,14 +167,7 @@ import NavBar from '@/components/NavBar.vue'
           { text: 'Domains', value: 'domains' },
           { text: 'State', value: 'state' },
         ],
-        servers: [
-          {
-            name: 'Tarık',
-          },
-          {
-            name: 'Frozen Yogurt',
-          },
-        ],
+        companies: [],
         serveritem: [
           {
             servername: 'Tarık',
@@ -231,15 +227,37 @@ import NavBar from '@/components/NavBar.vue'
         dialogdetail: false
       }
     },
+    computed: {
+    ...mapGetters({
+      get_companies: "company/getCompanyList",
+      header: "company/getCompanyHeaders",
+      servers: "company/getCompanyServers",
+      sites: "company/getCompanySites",
+    }),
+  },
     methods:{
+      ...mapActions('company', ['setCompanies']),
       showDetails(item){
         this.details=item
         this.dialogdetail=true
       },
       columnValueList(val) {
-      return this.servers.map((d) => d[val]);
+      return this.companies.map((d) => d[val]);
+    },
+    async GetCompanyList() {
+      let count = 1;
+      let response = await this.setCompanies(count);
+      while (response.length > 0) {
+        this.companies = this.companies.concat(response);
+        count++;
+        response = await this.setCompanies(count);
+        console.log(response[1]);
+      }
     }
     },
+    created() {
+    this.GetCompanyList();
+  },
     watch: {
       loader () {
         const l = this.loader
@@ -251,8 +269,8 @@ import NavBar from '@/components/NavBar.vue'
       },
     },
     computed: {
-    filterServers() {
-      return this.servers.filter((d) => {
+    filterCompanies() {
+      return this.companies.filter((d) => {
         return Object.keys(this.filters).every((f) => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });
