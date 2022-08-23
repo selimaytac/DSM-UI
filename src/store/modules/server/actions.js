@@ -5,14 +5,20 @@ const actions = {
     // vuexContext.commit("SET_SERVER_LIST", res);
     return res;
   },
-  setServer(vuexContext, data) {
+  async setServerDetails(vuexContext, data) {
+    const res = await serverService.getServerDetails(data);
     vuexContext.commit("SET_SERVER_DETAILS", data);
+    return res;
   },
-  setServerHeader(vuexContext, data) {
+  async setServerHeader(vuexContext, data) {
+    const res = await serverService.getServerHeader(data);
     vuexContext.commit("SET_SERVER_HEADER", data);
+    return res;
   },
-  setServerSites(vuexContext, data) {
+  async setServerSites(vuexContext, data) {
+    const res = await serverService.getServerSites(data);
     vuexContext.commit("SET_SERVER_SITES", data);
+    return res;
   },  
 }
 export default actions;

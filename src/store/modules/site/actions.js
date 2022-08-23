@@ -5,11 +5,15 @@ const actions = {
     // vuexContext.commit("SET_SERVER_LIST", res);
     return res;
   },
-  setSite(vuexContext, data) {
+  async setSiteDetails(vuexContext, data) {
+    const res = await siteService.getSiteDetails(data);
     vuexContext.commit("SET_SITE_DETAILS", data);
+    return res;
   },
-  setSiteHeader(vuexContext, data) {
+  async setSiteHeader(vuexContext, data) {
+    const res = await siteService.getSiteHeader(data);
     vuexContext.commit("SET_SITE_HEADER", data);
+    return res;
   },
   setSiteBindings(vuexContext, data) {
     vuexContext.commit("SET_SITE_BINDINGS", data);

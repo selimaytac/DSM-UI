@@ -3,7 +3,7 @@ import { authHeader } from "../helper";
 const controllerName = "/server/";
 export const serverService = {
     getServers,
-    getServer,
+    getServerDetails,
     getServerHeader,
     getServerSites,
     getExportList,
@@ -24,13 +24,16 @@ async function getServers(data) {
     );
     return result.data;
 }
-async function getServer(data) {
+async function getServerDetails(data) {
     const result = await $axios.get(
         controllerName + "details/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -39,9 +42,12 @@ async function getServerHeader(data) {
     const result = await $axios.get(
         controllerName + "header/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -50,9 +56,12 @@ async function getServerSites(data) {
     const result = await $axios.get(
         controllerName + "sites/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;

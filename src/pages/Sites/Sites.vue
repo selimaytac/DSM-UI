@@ -18,7 +18,7 @@
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="filterSites" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [10, 20, 30, 40, 50]
+        'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
@@ -60,10 +60,10 @@
           </v-btn>
         </template>
         <template #item.physicalPath="{ value }">
-            <div class="text-truncate" style="max-width: 130px">{{ value }}</div>
+          <div class="text-truncate" style="max-width: 130px">{{ value }}</div>
         </template>
         <template #item.siteName="{ value }">
-            <div class="text-truncate" style="max-width: 100px">{{ value }}</div>
+          <div class="text-truncate" style="max-width: 100px">{{ value }}</div>
         </template>
       </v-data-table>
       <v-dialog v-model="dialogdetail">
@@ -74,7 +74,7 @@
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
           </v-toolbar>
-          <v-container>
+          
             <template>
               <v-tabs color="teal" vertical>
                 <v-tab>General</v-tab>
@@ -97,31 +97,31 @@
                               <tbody>
                                 <tr>
                                   <td>Machine Name: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.machineName}}</td>
                                 </tr>
                                 <tr>
                                   <td>Name: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.name}}</td>
                                 </tr>
                                 <tr>
                                   <td>Application Pool Name: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.applicationPoolName}}</td>
                                 </tr>
                                 <tr>
                                   <td>Physical Path: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.physicalPath}}</td>
                                 </tr>
                                 <tr>
                                   <td>Enabled Protocols: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.enabledProtocols}}</td>
                                 </tr>
                                 <tr>
                                   <td>Max Band With: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.maxBandwidth}}</td>
                                 </tr>
                                 <tr>
                                   <td>Max Connections: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.maxConnections}}</td>
                                 </tr>
                               </tbody>
                             </template>
@@ -139,11 +139,11 @@
                               <tbody>
                                 <tr>
                                   <td>Web Config Last Backup Date: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.webConfigLastBackupDate}}</td>
                                 </tr>
                                 <tr>
                                   <td>Web Config Backup Directory: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.webcConfigBackupDirectory}}</td>
                                 </tr>
                               </tbody>
                               <v-toolbar flat color="rgba(0,0,0,0)" dark>
@@ -155,15 +155,15 @@
                                   <tbody>
                                     <tr>
                                       <td>Net Framework Version: </td>
-                                      <td></td>
+                                      <td>{{detailsInTab.netFrameworkVersion}}</td>
                                     </tr>
                                     <tr>
                                       <td>Send Alert Mail When Unavailable: </td>
-                                      <td></td>
+                                      <td>{{detailsInTab.sendAlertMAilWhenUnavailable}}</td>
                                     </tr>
                                     <tr>
                                       <td>App Type: </td>
-                                      <td></td>
+                                      <td>{{detailsInTab.appType}}</td>
                                     </tr>
                                   </tbody>
                                 </template>
@@ -183,35 +183,35 @@
                               <tbody>
                                 <tr>
                                   <td>Log File Enabled: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.logFileEnabled}}</td>
                                 </tr>
                                 <tr>
                                   <td>Log File Directory: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.logFileDirectory}}</td>
                                 </tr>
                                 <tr>
                                   <td>Log Format: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.logFormat}}</td>
                                 </tr>
                                 <tr>
                                   <td>Log Period: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.logPeriod}}</td>
                                 </tr>
                                 <tr>
                                   <td>Server Auto Start: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.serverAutoStart}}</td>
                                 </tr>
                                 <tr>
                                   <td>Trace Failed Requests Logging Enabled: </td>
-                                  <td> </td>
+                                  <td>{{detailsInTab.traceFailedRequestsLoggingEnabled}}</td>
                                 </tr>
                                 <tr>
                                   <td>Last Updated: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.lastUpdated}}</td>
                                 </tr>
                                 <tr>
                                   <td>Date Deleted: </td>
-                                  <td></td>
+                                  <td>{{detailsInTab.dateDeleted}}</td>
                                 </tr>
                               </tbody>
                             </template>
@@ -273,7 +273,7 @@
                 </v-tab-item>
               </v-tabs>
             </template>
-          </v-container>
+          
         </v-card>
       </v-dialog>
     </v-card>
@@ -299,15 +299,16 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      sites: [],
       headers: [
-        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName',width: 100},
-        { text: 'IP Adress', value: 'ipAddress',width: 150},
-        { text: 'Ports', value: 'port' ,width: 150},
-        { text: 'Host', value: 'hostName',width: 150},
-        { text: 'App Type', value: 'appType',width: 150},
-        { text: 'Machine', value: 'machinename',width: 150},
-        { text: 'Pool Name', value: 'appPoolName', width: 150},
-        { text: 'Physical Path', value: 'physicalPath', width: 130},
+        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName', width: 100 },
+        { text: 'IP Adress', value: 'ipAddress', width: 150 },
+        { text: 'Ports', value: 'port', width: 150 },
+        { text: 'Host', value: 'hostName', width: 150 },
+        { text: 'App Type', value: 'appType', width: 150 },
+        { text: 'Machine', value: 'machinename', width: 150 },
+        { text: 'Pool Name', value: 'appPoolName', width: 150 },
+        { text: 'Physical Path', value: 'physicalPath', width: 130 },
         { text: 'View Details', value: 'details', },
       ],
       bindheaders: [
@@ -440,23 +441,42 @@ export default {
           protocol: 4.0,
         },
       ],
-      dialogdetail: false
+      dialogdetail: false,
+      detailsInTab: {
+        machineName: "",
+        name: "",
+        applicationPoolName: "",
+        physicalPath: "",
+        enabledProtocols: "",
+        maxBandwidth: "",
+        maxConnections: "",
+        logFileEnabled: "",
+        logFileDirectory: "",
+        logFormat: "",
+        logPeriod: "",
+        serverAutoStart: "",
+        traceFailedRequestsLoggingEnabled: "",
+        lastUpdated: "",
+        dateDeleted: "",
+        webConfigLastBackupDate: "",
+        webcConfigBackupDirectory: "",
+        netFrameworkVersion: "",
+        sendAlertMAilWhenUnavailable: "",
+        appType: "",
+      }
     }
   },
   computed: {
-    ...mapGetters({
-      get_sites: "site/getSiteList",
-      detail: "site/getSiteDetail",
-      header: "site/getSiteHeader",
-      binding: "site/getSiteBinding",
-      package: "site/getSitePackage",
-      endpoint: "site/getSiteEndpoint",
-    }),
+    ...mapGetters('site'['getSiteList', 'getSiteDetails', 'getSiteHeaders']),
   },
   methods: {
-    ...mapActions('site', ['setSites']),
-    showDetails(item) {
-      this.details = item
+    ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader']),
+    async showDetails(item) {
+      this.detailsInTab = await this.setSiteDetails(item.siteId)
+      this.siteHeader = await this.setSiteHeader(item.siteId)
+      // this.detailsInTab.ownedBy = this.serverHeader.companyName
+      // this.detailsInTab.companyId = this.serverHeader.companyId
+      console.log(this.detailsInTab)
       this.dialogdetail = true
     },
     columnValueList(val) {
@@ -469,7 +489,7 @@ export default {
         this.sites = this.sites.concat(response);
         count++;
         response = await this.setSites(count);
-        
+
       }
     }
   },

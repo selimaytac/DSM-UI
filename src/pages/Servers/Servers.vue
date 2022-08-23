@@ -18,8 +18,8 @@
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="filterServers" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [10, 20, 30, 40, 50]
-      }" class="elevation-1"  :search="search">
+        'items-per-page-options': [20, 50, 100, 200]
+      }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -55,7 +55,8 @@
           </v-menu>
         </template>
         <template v-slot:item.details="{ item }">
-          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
+          <v-btn depressed rounded text color="teal" @click="
+          showDetails(item)">
             <v-icon>mdi-eye</v-icon>Show Details
           </v-btn>
         </template>
@@ -74,216 +75,191 @@
               </template>
             </v-btn>
           </v-toolbar>
-          <v-container>
-            <template>
-              <v-tabs color="teal" vertical>
-                <v-tab>General</v-tab>
-                <v-tab>Sites</v-tab>
-                <v-tab>Statics</v-tab>
-                <v-tab-item>
-                  <v-container fluid>
-                    <v-row justify="center" class="space">
-                      <v-col cols="12" sm="4">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
-                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                            <v-toolbar-title>Basic Details</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                          </v-toolbar>
-                          <v-simple-table class="teal" dark>
-                            <template v-slot:default>
-                              <tbody>
-                                <tr>
-                                  <td>Domain: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>IP Address: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Custom Ip: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Operating System: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>CPU: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Memory: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Last Backup: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Site Count: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Online Site Count: </td>
-                                  <td>Coming Soon...</td>
-                                </tr>
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </v-card>
-                      </v-col>
-                      <v-col cols="12" sm="4">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
-                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                            <v-toolbar-title>Disk Details</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                          </v-toolbar>
-                          <v-simple-table class="teal" dark>
-                            <template v-slot:default>
-                              <tbody>
-                                <tr>
-                                  <td>Volumes: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Total Capacity: </td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>Percent Free: </td>
-                                  <td></td>
-                                </tr>
-                              </tbody>
-                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                                <v-toolbar-title>Organization Details</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                              </v-toolbar>
-                              <v-simple-table class="teal" dark>
-                                <template v-slot:default>
-                                  <tbody>
-                                    <tr>
-                                      <td>Owned By: </td>
-                                      <td></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Managing By: </td>
-                                      <td></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Environment: </td>
-                                      <td></td>
-                                    </tr>
-                                    <tr>
-                                      <td>ODM Replication: </td>
-                                      <td></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Service: </td>
-                                      <td></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Notes: </td>
-                                      <td></td>
-                                    </tr>
-                                  </tbody>
-                                </template>
-                              </v-simple-table>
-                            </template>
-                          </v-simple-table>
-                        </v-card>
-                      </v-col>
-                      <v-col cols="12" sm="4">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="300">
-                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                            <v-toolbar-title>Volume Details</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                          </v-toolbar>
-                          <v-simple-table class="teal" dark>
-                            <template v-slot:default>
-                              <thead>
-                                <tr>
-                                  <th class="text-left">
-                                    Volume Name
-                                  </th>
-                                  <th class="text-left">
-                                    Free Space
-                                  </th>
-                                  <th class="text-left">
-                                    Used Space
-                                  </th>
-                                  <th class="text-left">
-                                    Total Capacity
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>E:\</td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>C:\</td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>C:\</td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>C:\</td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>C:\</td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
-                                <tr>
-                                  <td>C:\</td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
+          <template>
+            <v-tabs color="teal" vertical>
+              <v-tab>General</v-tab>
+              <v-tab>Sites</v-tab>
+              <v-tab>Statics</v-tab>
+              <v-tab-item>
+                <v-container fluid>
+                  <v-row justify="center" class="space">
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Basic Details</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Domain: </td>
+                                <td>{{ detailsInTab.domain }}</td>
+                              </tr>
+                              <tr>
+                                <td>IP Address: </td>
+                                <td>{{ detailsInTab.ipAddress }}</td>
+                              </tr>
+                              <tr>
+                                <td>Custom Ip: </td>
+                                <td>{{ detailsInTab.customIp }}</td>
+                              </tr>
+                              <tr>
+                                <td>Operating System: </td>
+                                <td>{{ detailsInTab.operatingSystem }}</td>
+                              </tr>
+                              <tr>
+                                <td>CPU: </td>
+                                <td>{{ detailsInTab.cpu }}</td>
+                              </tr>
+                              <tr>
+                                <td>Memory: </td>
+                                <td>{{ detailsInTab.memory }}</td>
+                              </tr>
+                              <tr>
+                                <td>Last Backup: </td>
+                                <td>{{ detailsInTab.lastBackup }}</td>
+                              </tr>
+                              <tr>
+                                <td>Site Count: </td>
+                                <td>{{ detailsInTab.siteCount }}</td>
+                              </tr>
+                              <tr>
+                                <td>Online Site Count: </td>
+                                <td>Coming Soon...</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Disk Details</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Volumes: </td>
+                                <td>{{ detailsInTab.volumes }}</td>
+                              </tr>
+                              <tr>
+                                <td>Total Capacity: </td>
+                                <td>{{ detailsInTab.totalCapacity }}</td>
+                              </tr>
+                              <tr>
+                                <td>Percent Free: </td>
+                                <td>{{ detailsInTab.percentFree }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                              <v-toolbar-title>Organization Details</v-toolbar-title>
+                              <v-spacer></v-spacer>
+                            </v-toolbar>
+                            <v-simple-table class="teal" dark>
+                              <template v-slot:default>
+                                <tbody>
+                                  <tr>
+                                    <td>Owned By: </td>
+                                    <td>{{ detailsInTab.ownedBy }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Managing By: </td>
+                                    <td>{{ detailsInTab.responsible }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Environment: </td>
+                                    <td>{{ detailsInTab.serverType }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ODM Replication: </td>
+                                    <td>{{ detailsInTab.odmReplication }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Service: </td>
+                                    <td>{{ detailsInTab.serviceName }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Notes: </td>
+                                    <td>{{ detailsInTab.notes }}</td>
+                                  </tr>
+                                </tbody>
+                              </template>
+                            </v-simple-table>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="300">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Volume Details</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <thead>
+                              <tr>
+                                <th class="text-left">
+                                  Volume Name
+                                </th>
+                                <th class="text-left">
+                                  Free Space
+                                </th>
+                                <th class="text-left">
+                                  Used Space
+                                </th>
+                                <th class="text-left">
+                                  Total Capacity
+                                </th>
+                                <th class="text-left">
+                                  Free Percent
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody v-for="volume in detailsInTab.volumeDetails">
+                              <tr>
+                                <td>{{ volume.volumeName }}</td>
+                                <td>{{ volume.freeSpace }}</td>
+                                <td>{{ volume.usedSpace }}</td>
+                                <td>{{ volume.totalCapacity }}</td>
+                                <td>{{ volume.freePercent }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Sites Details
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="siteheaders" :items="siteitem" :items-per-page="10" :footer-props="{
+                    'items-per-page-options': [20, 50, 100, 200]
+                  }" class="elevation-1">
+                  </v-data-table>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Statics Details
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table></v-data-table>
+                </v-card>
+              </v-tab-item>
+            </v-tabs>
+          </template>
 
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Sites Details
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="siteheaders" :items="siteitem"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Statics Details
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="headers" :items="servers"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-              </v-tabs>
-            </template>
-          </v-container>
         </v-card>
       </v-dialog>
     </v-card>
@@ -297,6 +273,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'servers',
   servers: [],
+  siteitem: [],
   data() {
     return {
       filters: { machineName: [], ipAddress: [], dnsName: [], serviceName: [], operatingSystem: [], responsible: [] },
@@ -310,11 +287,11 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'Server', align: 'start', sortable: false, value: 'machineName',width: "200px", fixed: true},
-        { text: 'IP Adress', value: 'ipAddress',width: "200px", fixed: true },
-        { text: 'DNS Name', value: 'dnsName',width: "200px", fixed: true },
-        { text: 'Service', value: 'serviceName',width: "200px", fixed: true },
-        { text: 'Operating Sys.', value: 'operatingSystem',width: "200px", fixed: true },
+        { text: 'Server', align: 'start', sortable: false, value: 'machineName', width: "200px", fixed: true },
+        { text: 'IP Adress', value: 'ipAddress', width: "200px", fixed: true },
+        { text: 'DNS Name', value: 'dnsName', width: "200px", fixed: true },
+        { text: 'Service', value: 'serviceName', width: "200px", fixed: true },
+        { text: 'Operating Sys.', value: 'operatingSystem', width: "200px", fixed: true },
         { text: 'Responsible', value: 'responsible' },
         { text: 'View Details', value: 'details' },
       ],
@@ -325,37 +302,48 @@ export default {
         { text: 'State', value: 'state' },
       ],
       servers: [],
-      siteitem: [
-        {
-          sitename: 'Tarık',
-          physicalpath: 159,
-          domains: 6.0,
-          service: 24,
-          state: 4.0,
-        },
-        {
-          sitename: 'Frozen Yogurt',
-          physicalpath: 159,
-          domains: 6.0,
-          service: 24,
-          state: 4.0,
-        },
-      ],
-      dialogdetail: false
+      siteitem: [],
+      dialogdetail: false,
+      detailsInTab: {
+        domain: "",
+        ipAddress: "",
+        customIp: "",
+        physicalLocation: "",
+        responsible: "",
+        serverType: "",
+        lastBackup: "",
+        operatingSystem: "",
+        boottime: "",
+        cpu: "",
+        memory: "",
+        memoryUsage: "",
+        toolsRunningStatus: "",
+        serviceName: "",
+        odmReplication: "",
+        notes: "",
+        siteCount: "",
+        onlineSiteCount: "",
+        volumes: "",
+        totalCapacity: "",
+        percentFree: "",
+        lastCheckDate: "",
+        volumeDetails: [],
+        ownedBy: "",
+        companyId: "",
+      },
     }
   },
   computed: {
-    ...mapGetters({
-      get_servers: "server/getServerList",
-      detail: "server/getServerDetail",
-      header: "server/getServerHeader",
-      sites: "server/getServerSites",
-    }),
+    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders','getServerSites']),
   },
   methods: {
-    ...mapActions('server', ['setServer']),
-    showDetails(item) {
-      this.details = item
+    ...mapActions('server', ['setServers', 'setServerDetails', 'setServerHeader', 'setServerSites']),
+    async showDetails(item) {
+      this.detailsInTab = await this.setServerDetails(item.serverId)
+      this.serverHeader = await this.setServerHeader(item.serverId)
+      this.detailsInTab.ownedBy = this.serverHeader.companyName
+      this.detailsInTab.companyId = this.serverHeader.companyId
+      console.log(this.detailsInTab)
       this.dialogdetail = true
     },
     columnValueList(val) {

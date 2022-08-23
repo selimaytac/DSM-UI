@@ -24,7 +24,7 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table :headers="headers" :items="filterCompanies" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [10, 20, 30, 40, 50]
+        'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1" :search="search">
     <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
       {{ header.text }}
