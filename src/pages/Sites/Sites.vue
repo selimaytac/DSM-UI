@@ -74,206 +74,206 @@
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
           </v-toolbar>
-          
-            <template>
-              <v-tabs color="teal" vertical>
-                <v-tab>General</v-tab>
-                <v-tab>Bindings</v-tab>
-                <v-tab>Backend Services</v-tab>
-                <v-tab>Packages</v-tab>
-                <v-tab>Event Tracking</v-tab>
-                <v-tab>Statics</v-tab>
-                <v-tab-item>
-                  <v-container fluid>
-                    <v-row justify="center" class="space">
-                      <v-col cols="12" sm="4">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="450">
-                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                            <v-toolbar-title>Site</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                          </v-toolbar>
-                          <v-simple-table class="teal" dark>
-                            <template v-slot:default>
-                              <tbody>
-                                <tr>
-                                  <td>Machine Name: </td>
-                                  <td>{{detailsInTab.machineName}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Name: </td>
-                                  <td>{{detailsInTab.name}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Application Pool Name: </td>
-                                  <td>{{detailsInTab.applicationPoolName}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Physical Path: </td>
-                                  <td>{{detailsInTab.physicalPath}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Enabled Protocols: </td>
-                                  <td>{{detailsInTab.enabledProtocols}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Max Band With: </td>
-                                  <td>{{detailsInTab.maxBandwidth}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Max Connections: </td>
-                                  <td>{{detailsInTab.maxConnections}}</td>
-                                </tr>
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </v-card>
-                      </v-col>
-                      <v-col cols="12" sm="4">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="450">
-                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                            <v-toolbar-title>Web Config</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                          </v-toolbar>
-                          <v-simple-table class="teal" dark>
-                            <template v-slot:default>
-                              <tbody>
-                                <tr>
-                                  <td>Web Config Last Backup Date: </td>
-                                  <td>{{detailsInTab.webConfigLastBackupDate}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Web Config Backup Directory: </td>
-                                  <td>{{detailsInTab.webcConfigBackupDirectory}}</td>
-                                </tr>
-                              </tbody>
-                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                                <v-toolbar-title>Other</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                              </v-toolbar>
-                              <v-simple-table class="teal" dark>
-                                <template v-slot:default>
-                                  <tbody>
-                                    <tr>
-                                      <td>Net Framework Version: </td>
-                                      <td>{{detailsInTab.netFrameworkVersion}}</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Send Alert Mail When Unavailable: </td>
-                                      <td>{{detailsInTab.sendAlertMAilWhenUnavailable}}</td>
-                                    </tr>
-                                    <tr>
-                                      <td>App Type: </td>
-                                      <td>{{detailsInTab.appType}}</td>
-                                    </tr>
-                                  </tbody>
-                                </template>
-                              </v-simple-table>
-                            </template>
-                          </v-simple-table>
-                        </v-card>
-                      </v-col>
-                      <v-col cols="12" sm="4">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="450">
-                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                            <v-toolbar-title>Log</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                          </v-toolbar>
-                          <v-simple-table class="teal" dark>
-                            <template v-slot:default>
-                              <tbody>
-                                <tr>
-                                  <td>Log File Enabled: </td>
-                                  <td>{{detailsInTab.logFileEnabled}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Log File Directory: </td>
-                                  <td>{{detailsInTab.logFileDirectory}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Log Format: </td>
-                                  <td>{{detailsInTab.logFormat}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Log Period: </td>
-                                  <td>{{detailsInTab.logPeriod}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Server Auto Start: </td>
-                                  <td>{{detailsInTab.serverAutoStart}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Trace Failed Requests Logging Enabled: </td>
-                                  <td>{{detailsInTab.traceFailedRequestsLoggingEnabled}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Last Updated: </td>
-                                  <td>{{detailsInTab.lastUpdated}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Date Deleted: </td>
-                                  <td>{{detailsInTab.dateDeleted}}</td>
-                                </tr>
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Bindings
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="bindheaders" :items="binditem"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Endpoints
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="endpointheaders" :items="endpointitem"></v-data-table>
-                    <v-card-title>
-                      Direct DB Connection
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="directdbheaders" :items="directdbitem"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Packages
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="packageheaders" :items="packageitem"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Event Tracking
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="eventheaders" :items="eventitem"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Statics
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table :headers="staticheaders" :items="staticitem"></v-data-table>
-                  </v-card>
-                </v-tab-item>
-              </v-tabs>
-            </template>
-          
+
+          <template>
+            <v-tabs color="teal" vertical>
+              <v-tab>General</v-tab>
+              <v-tab>Bindings</v-tab>
+              <v-tab>Backend Services</v-tab>
+              <v-tab>Packages</v-tab>
+              <v-tab>Event Tracking</v-tab>
+              <v-tab>Statics</v-tab>
+              <v-tab-item>
+                <v-container fluid>
+                  <v-row justify="center" class="space">
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="450">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Site</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Machine Name: </td>
+                                <td>{{ detailsInTab.machineName }}</td>
+                              </tr>
+                              <tr>
+                                <td>Name: </td>
+                                <td>{{ detailsInTab.name }}</td>
+                              </tr>
+                              <tr>
+                                <td>Application Pool Name: </td>
+                                <td>{{ detailsInTab.applicationPoolName }}</td>
+                              </tr>
+                              <tr>
+                                <td>Physical Path: </td>
+                                <td>{{ detailsInTab.physicalPath }}</td>
+                              </tr>
+                              <tr>
+                                <td>Enabled Protocols: </td>
+                                <td>{{ detailsInTab.enabledProtocols }}</td>
+                              </tr>
+                              <tr>
+                                <td>Max Band With: </td>
+                                <td>{{ detailsInTab.maxBandwidth }}</td>
+                              </tr>
+                              <tr>
+                                <td>Max Connections: </td>
+                                <td>{{ detailsInTab.maxConnections }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="450">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Web Config</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Web Config Last Backup Date: </td>
+                                <td>{{ detailsInTab.webConfigLastBackupDate }}</td>
+                              </tr>
+                              <tr>
+                                <td>Web Config Backup Directory: </td>
+                                <td>{{ detailsInTab.webcConfigBackupDirectory }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Other</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Net Framework Version: </td>
+                                <td>{{ detailsInTab.netFrameworkVersion }}</td>
+                              </tr>
+                              <tr>
+                                <td>Send Alert Mail When Unavailable: </td>
+                                <td>{{ detailsInTab.sendAlertMAilWhenUnavailable }}</td>
+                              </tr>
+                              <tr>
+                                <td>App Type: </td>
+                                <td>{{ detailsInTab.appType }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" sm="4">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="450">
+                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                          <v-toolbar-title>Log</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="teal" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Log File Enabled: </td>
+                                <td>{{ detailsInTab.logFileEnabled }}</td>
+                              </tr>
+                              <tr>
+                                <td>Log File Directory: </td>
+                                <td>{{ detailsInTab.logFileDirectory }}</td>
+                              </tr>
+                              <tr>
+                                <td>Log Format: </td>
+                                <td>{{ detailsInTab.logFormat }}</td>
+                              </tr>
+                              <tr>
+                                <td>Log Period: </td>
+                                <td>{{ detailsInTab.logPeriod }}</td>
+                              </tr>
+                              <tr>
+                                <td>Server Auto Start: </td>
+                                <td>{{ detailsInTab.serverAutoStart }}</td>
+                              </tr>
+                              <tr>
+                                <td>Trace Failed Requests Logging Enabled: </td>
+                                <td>{{ detailsInTab.traceFailedRequestsLoggingEnabled }}</td>
+                              </tr>
+                              <tr>
+                                <td>Last Updated: </td>
+                                <td>{{ detailsInTab.lastUpdated }}</td>
+                              </tr>
+                              <tr>
+                                <td>Date Deleted: </td>
+                                <td>{{ detailsInTab.dateDeleted }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Bindings
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="bindheaders" :items="binditem"></v-data-table>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Endpoints
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="endpointheaders" :items="endpointitem"></v-data-table>
+                  <v-card-title>
+                    Direct DB Connection
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="directdbheaders" :items="directdbitem"></v-data-table>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Packages
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="packageheaders" :items="packageitem"></v-data-table>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Event Tracking
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="eventheaders" :items="eventitem"></v-data-table>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card color="teal">
+                  <v-card-title>
+                    Statics
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-data-table :headers="staticheaders" :items="staticitem"></v-data-table>
+                </v-card>
+              </v-tab-item>
+            </v-tabs>
+          </template>
+
         </v-card>
       </v-dialog>
     </v-card>
@@ -351,22 +351,7 @@ export default {
         { text: 'Protocol', value: 'protocol' },
       ],
       sites: [],
-      binditem: [
-        {
-          ipadress: 'Tarık',
-          ipfam: 159,
-          port: 6.0,
-          host: 24,
-          protocol: 4.0,
-        },
-        {
-          ipadress: 'Frozen Yogurt',
-          ipfam: 159,
-          port: 6.0,
-          host: 24,
-          protocol: 4.0,
-        },
-      ],
+      binditem: [],
       endpointitem: [
         {
           name: 'Tarık',
@@ -474,9 +459,6 @@ export default {
     async showDetails(item) {
       this.detailsInTab = await this.setSiteDetails(item.siteId)
       this.siteHeader = await this.setSiteHeader(item.siteId)
-      // this.detailsInTab.ownedBy = this.serverHeader.companyName
-      // this.detailsInTab.companyId = this.serverHeader.companyId
-      console.log(this.detailsInTab)
       this.dialogdetail = true
     },
     columnValueList(val) {

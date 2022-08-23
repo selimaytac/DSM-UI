@@ -9,7 +9,7 @@ const router = new VueRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  console.log(to.name);
+
   
   if(!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth" ) && to.name !== "signin") {
     to.meta.requiresAuth = true;
@@ -18,10 +18,8 @@ router.beforeEach((to, from, next) => {
 })
 router.beforeEach((to, from, next) => {
   const loggedIn = store.getters["auth/getIsLoggedIn"];
-  console.log("Bu loggedIn: ", loggedIn);
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!loggedIn) {
-      console.log("yönlendirildiniz");
       next({
         path: "/",
         params: { nextUrl: to.fullPath },

@@ -95,7 +95,6 @@ export default {
 
     async login() {
       try {
-        console.log(this.selectedDomain);
         this.setDomain(this.selectedDomain);
         const res = await this.authLogin({
           username: this.username + this.selectedDomain,
@@ -105,13 +104,10 @@ export default {
           
         if (res.isAdUser) {
           
-          console.log("Başarılı");
           this.$router.push('/home').catch(() => { });
         } else {
-          console.log("Başarısız");
         }
       } catch (error) {
-        console.log(error);
       }
     }
 

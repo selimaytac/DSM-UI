@@ -89,7 +89,6 @@ export default {
     }),
     logout() {
       this.LogOut();
-      console.log('logout');
       this.$router.push('/').catch(() => { });
     }
   },

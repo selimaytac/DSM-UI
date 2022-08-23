@@ -251,7 +251,6 @@ import { mapGetters, mapActions } from "vuex";
         this.companies = this.companies.concat(response);
         count++;
         response = await this.setCompanies(count);
-        console.log(response[1]);
       }
     }
     },

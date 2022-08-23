@@ -17,7 +17,7 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterServers" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterServers" :options.sync="options" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
@@ -242,8 +242,8 @@
                     Sites Details
                     <v-spacer></v-spacer>
                   </v-card-title>
-                  <v-data-table :headers="siteheaders" :items="siteitem" :items-per-page="10" :footer-props="{
-                    'items-per-page-options': [20, 50, 100, 200]
+                  <v-data-table :headers="siteheaders" :items="serverSites" :items-per-page="10" :footer-props="{
+                    'items-per-page-options': [5, 10, 20, 50]
                   }" class="elevation-1">
                   </v-data-table>
                 </v-card>
@@ -273,7 +273,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'servers',
   servers: [],
-  siteitem: [],
+  serverSites: [],
   data() {
     return {
       filters: { machineName: [], ipAddress: [], dnsName: [], serviceName: [], operatingSystem: [], responsible: [] },
@@ -286,6 +286,8 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      options: {},
+      serverFetchCount: 1,
       headers: [
         { text: 'Server', align: 'start', sortable: false, value: 'machineName', width: "200px", fixed: true },
         { text: 'IP Adress', value: 'ipAddress', width: "200px", fixed: true },
@@ -296,13 +298,14 @@ export default {
         { text: 'View Details', value: 'details' },
       ],
       siteheaders: [
-        { text: 'Site Name', align: 'start', sortable: false, value: 'sitename' },
-        { text: 'Physical Path', value: 'physicalpath', },
+        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName' },
+        { text: 'Physical Path', value: 'physicalPath', },
         { text: 'Domains', value: 'domains' },
         { text: 'State', value: 'state' },
+        { text: 'App Type', value: 'appType' },
       ],
       servers: [],
-      siteitem: [],
+      serverSites: [],
       dialogdetail: false,
       detailsInTab: {
         domain: "",
@@ -331,6 +334,7 @@ export default {
         ownedBy: "",
         companyId: "",
       },
+      selectedServerId: {},
     }
   },
   computed: {
@@ -343,7 +347,9 @@ export default {
       this.serverHeader = await this.setServerHeader(item.serverId)
       this.detailsInTab.ownedBy = this.serverHeader.companyName
       this.detailsInTab.companyId = this.serverHeader.companyId
-      console.log(this.detailsInTab)
+
+      this.selectedServerId = item.serverId
+      this.serverSites= await this.setServerSites(item.serverId);
       this.dialogdetail = true
     },
     columnValueList(val) {
@@ -357,12 +363,29 @@ export default {
         count++;
         response = await this.setServers(count);
       }
-    }
+    },
+    async GetServerListb(count) {
+      let response = await this.setServers(count);
+
+        this.servers = this.servers.concat(response);
+      
+      
+    },
+    async GetServerSites(serverId) {
+      this.serverSites= await this.setServerSites(serverId);
+    },
   },
-  created() {
-    this.GetServerList();
-  },
+  // created() {
+  //   this.GetServerList();
+  // },
   watch: {
+    options: {
+      handler () {
+          this.GetServerListb(this.serverFetchCount)
+          this.serverFetchCount++;
+        },
+        deep: true,
+      },
     loader() {
       const l = this.loader
       this[l] = !this[l]

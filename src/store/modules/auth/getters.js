@@ -1,6 +1,5 @@
 const getters = {
     getIsLoggedIn(state) {
-      console.log(state);
       return state.isLoggedIn;
     },
     getToken(state) {
