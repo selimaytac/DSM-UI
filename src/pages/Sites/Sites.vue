@@ -227,7 +227,9 @@
                     Bindings
                     <v-spacer></v-spacer>
                   </v-card-title>
-                  <v-data-table :headers="bindheaders" :items="binditem"></v-data-table>
+                  <v-data-table :headers="bindheaders" :items="siteBindings" :items-per-page="10" :footer-props="{
+                    'items-per-page-options': [5, 10, 20, 50]
+                  }" class="elevation-1"></v-data-table>
                 </v-card>
               </v-tab-item>
               <v-tab-item>
@@ -236,7 +238,9 @@
                     Endpoints
                     <v-spacer></v-spacer>
                   </v-card-title>
-                  <v-data-table :headers="endpointheaders" :items="endpointitem"></v-data-table>
+                  <v-data-table :headers="endpointheaders" :items="siteEndpoints" :items-per-page="10" :footer-props="{
+                    'items-per-page-options': [5, 10, 20, 50]
+                  }" class="elevation-1"></v-data-table>
                   <v-card-title>
                     Direct DB Connection
                     <v-spacer></v-spacer>
@@ -250,7 +254,9 @@
                     Packages
                     <v-spacer></v-spacer>
                   </v-card-title>
-                  <v-data-table :headers="packageheaders" :items="packageitem"></v-data-table>
+                  <v-data-table :headers="packageheaders" :items="sitePackages" :items-per-page="10" :footer-props="{
+                    'items-per-page-options': [5, 10, 20, 50]
+                  }" class="elevation-1"></v-data-table>
                 </v-card>
               </v-tab-item>
               <v-tab-item>
@@ -287,6 +293,9 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'sites',
   sites: [],
+  siteBindings: [],
+  sitePackages: [],
+  siteEndpoints: [],
   data() {
     return {
       filters: { siteName: [], ipAddress: [], port: [], hostName: [], appType: [], machinename: [], appPoolName: [], physicalPath: [] },
@@ -299,7 +308,6 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
-      sites: [],
       headers: [
         { text: 'Site Name', align: 'start', sortable: false, value: 'siteName', width: 100 },
         { text: 'IP Adress', value: 'ipAddress', width: 150 },
@@ -312,11 +320,11 @@ export default {
         { text: 'View Details', value: 'details', },
       ],
       bindheaders: [
-        { text: 'IP Adress', value: 'ipadress' },
-        { text: 'IP Adress Family', value: 'ipfam', },
-        { text: 'Ports', value: 'port' },
+        { text: 'IP Adress', value: 'ipAddress' },
+        { text: 'IP Adress Family', value: 'ipAddressFamily', },
+        { text: 'Ports', value: 'ports' },
         { text: 'Host', value: 'host' },
-        { text: 'Protocol', value: 'protocol' },
+        { text: 'Protocol', value: 'protocols' },
       ],
       endpointheaders: [
         { text: 'Endpoint Name', align: 'start', sortable: false, value: 'name' },
@@ -351,23 +359,8 @@ export default {
         { text: 'Protocol', value: 'protocol' },
       ],
       sites: [],
-      binditem: [],
-      endpointitem: [
-        {
-          name: 'Tarık',
-          port: 159,
-          endpointurl: 6.0,
-          available: 24,
-          lastdate: 4.0,
-        },
-        {
-          name: 'Frozen Yogurt',
-          port: 159,
-          endpointurl: 6.0,
-          available: 24,
-          lastdate: 4.0,
-        },
-      ],
+      siteBindings: [],
+      siteEndpoints: [],
       directdbitem: [
         {
           name: 'Tarık',
@@ -384,16 +377,7 @@ export default {
           connectstring: 4.0,
         },
       ],
-      packageitem: [
-        {
-          name: 'Tarık',
-          version: 159,
-        },
-        {
-          name: 'Frozen Yogurt',
-          version: 159,
-        },
-      ],
+      sitePackages: [],
       eventitem: [
         {
           ipadress: 'Tarık',
@@ -448,17 +432,29 @@ export default {
         netFrameworkVersion: "",
         sendAlertMAilWhenUnavailable: "",
         appType: "",
-      }
+      },
+      selectedBindings: [],
+      selectedPackages: [],
+      selectedEndpoints: [],
     }
   },
   computed: {
-    ...mapGetters('site'['getSiteList', 'getSiteDetails', 'getSiteHeaders']),
+    ...mapGetters('site',['getSiteList', 'getSiteDetails', 'getSiteHeaders','getSiteBindings','getSitePackages','getSiteEndpoints']),
   },
   methods: {
-    ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader']),
+    ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader','setSiteBindings','setSitePackages','setSiteEndpoints']),
     async showDetails(item) {
       this.detailsInTab = await this.setSiteDetails(item.siteId)
       this.siteHeader = await this.setSiteHeader(item.siteId)
+
+      this.selectedBindings = item.siteId
+      this.siteBindings= await this.setSiteBindings(item.siteId);
+
+      this.selectedPackages = item.siteId
+      this.sitePackages= await this.setSitePackages(item.siteId);
+
+      this.selectedEndpoints = item.siteId
+      this.siteEndpoints= await this.setSiteEndpoints(item.siteId);
       this.dialogdetail = true
     },
     columnValueList(val) {
@@ -471,9 +467,17 @@ export default {
         this.sites = this.sites.concat(response);
         count++;
         response = await this.setSites(count);
-
       }
-    }
+    },
+    async GetSiteBindings(siteId) {
+      this.siteBindings= await this.setSiteBindings(siteId);
+    },
+    async GetSitePackages(siteId) {
+      this.sitePackages= await this.setSitePackages(siteId);
+    },
+    async GetSiteEndpoints(siteId) {
+      this.siteEndpoints= await this.setSiteEndpoints(siteId);
+    },
   },
   created() {
     this.GetSiteList();

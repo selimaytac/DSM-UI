@@ -4,6 +4,7 @@ import { auth} from "./modules/auth";
 import { server } from "./modules/server";
 import { site } from "./modules/site";
 import {company} from "./modules/company";
+import {responsible} from "./modules/responsible";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -15,10 +16,11 @@ export default new Vuex.Store({
     server,
     site,
     company,
+    responsible,
   },
   plugins: [
     createPersistedState({
-      paths: ["auth","server","site","company"],
+      paths: ["auth","server","site","company","responsible"],
     }),
   ],
 });

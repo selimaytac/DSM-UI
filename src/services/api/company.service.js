@@ -27,9 +27,12 @@ async function getCompanyHeader(data) {
     const result = await $axios.get(
         controllerName + "header/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -38,9 +41,12 @@ async function getCompanyServers(data) {
     const result = await $axios.get(
         controllerName + "servers/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -49,9 +55,12 @@ async function getCompanySites(data) {
     const result = await $axios.get(
         controllerName + "sites/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;

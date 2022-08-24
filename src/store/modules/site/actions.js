@@ -15,14 +15,20 @@ const actions = {
     vuexContext.commit("SET_SITE_HEADER", data);
     return res;
   },
-  setSiteBindings(vuexContext, data) {
+  async setSiteBindings(vuexContext, data) {
+    const res = await siteService.getSiteBindings(data);
     vuexContext.commit("SET_SITE_BINDINGS", data);
+    return res;
   },
-  setSitePackages(vuexContext, data) {
+  async setSitePackages(vuexContext, data) {
+    const res = await siteService.getSitePackages(data);
     vuexContext.commit("SET_SITE_PACKAGES", data);
+    return res;
   }, 
-  setSiteEndpoints(vuexContext, data) {
+  async setSiteEndpoints(vuexContext, data) {
+    const res = await siteService.getSiteEndpoints(data);
     vuexContext.commit("SET_SITE_ENDPOINTS", data);
+    return res;
   },   
 }
 export default actions;

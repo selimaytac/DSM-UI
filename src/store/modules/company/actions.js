@@ -5,14 +5,20 @@ const actions = {
     // vuexContext.commit("SET_SERVER_LIST", res);
     return res;
   },
-  setCompanyHeader(vuexContext, data) {
+  async setCompanyHeader(vuexContext, data) {
+    const res = await companyService.getCompanyHeader(data);
     vuexContext.commit("SET_COMPANY_HEADER", data);
+    return res;
   },
-  setCompanyServers(vuexContext, data) {
+  async setCompanyServers(vuexContext, data) {
+    const res = await companyService.getCompanyServers(data);
     vuexContext.commit("SET_COMPANY_SERVERS", data);
+    return res;
   },
-  setCompanySites(vuexContext, data) {
+  async setCompanySites(vuexContext, data) {
+    const res = await companyService.getCompanySites(data);
     vuexContext.commit("SET_COMPANY_SITES", data);
+    return res;
   }, 
 }
 export default actions;

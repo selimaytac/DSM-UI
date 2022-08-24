@@ -288,6 +288,7 @@ export default {
       search: '',
       options: {},
       serverFetchCount: 1,
+      searchedServers: [],
       headers: [
         { text: 'Server', align: 'start', sortable: false, value: 'machineName', width: "200px", fixed: true },
         { text: 'IP Adress', value: 'ipAddress', width: "200px", fixed: true },
@@ -355,21 +356,18 @@ export default {
     columnValueList(val) {
       return this.servers.map((d) => d[val]);
     },
-    async GetServerList() {
-      let count = 1;
+    // async GetServerList() {
+    //   let count = 1;
+    //   let response = await this.setServers(count);
+    //   while (response.length > 0) {
+    //     this.servers = this.servers.concat(response);
+    //     count++;
+    //     response = await this.setServers(count);
+    //   }
+    // },
+    async GetServerList(count) {
       let response = await this.setServers(count);
-      while (response.length > 0) {
         this.servers = this.servers.concat(response);
-        count++;
-        response = await this.setServers(count);
-      }
-    },
-    async GetServerListb(count) {
-      let response = await this.setServers(count);
-
-        this.servers = this.servers.concat(response);
-      
-      
     },
     async GetServerSites(serverId) {
       this.serverSites= await this.setServerSites(serverId);
@@ -381,7 +379,7 @@ export default {
   watch: {
     options: {
       handler () {
-          this.GetServerListb(this.serverFetchCount)
+          this.GetServerList(this.serverFetchCount)
           this.serverFetchCount++;
         },
         deep: true,

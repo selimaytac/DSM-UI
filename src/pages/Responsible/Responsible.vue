@@ -6,7 +6,7 @@
     </v-container>
     <v-card color="grey lighten-1">
       <v-card-title>
-        Companies
+        Responsibles
         <v-spacer></v-spacer>
         <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2"
           outlined @click="loader = 'loading2'">Export to Excel
@@ -17,7 +17,7 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterCompanies" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterResponsibles" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
@@ -73,14 +73,13 @@
               <v-tabs color="teal" vertical>
                 <v-tab>Servers</v-tab>
                 <v-tab>Sites</v-tab>
-                <v-tab>Statics</v-tab>
                 <v-tab-item>
                   <v-card color="teal">
                     <v-card-title>
                       Servers Details
                       <v-spacer></v-spacer>
                     </v-card-title>
-                    <v-data-table :headers="serverheaders" :items="companyServers" :items-per-page="10" :footer-props="{
+                    <v-data-table :headers="serverheaders" :items="respServers" :items-per-page="10" :footer-props="{
                       'items-per-page-options': [5, 10, 20, 50]
                     }" class="elevation-1">
                       ></v-data-table>
@@ -92,19 +91,10 @@
                       Site Details
                       <v-spacer></v-spacer>
                     </v-card-title>
-                    <v-data-table :headers="siteheaders" :items="companySites" :items-per-page="10" :footer-props="{
+                    <v-data-table :headers="siteheaders" :items="respSites" :items-per-page="10" :footer-props="{
                       'items-per-page-options': [5, 10, 20, 50]
                     }" class="elevation-1">
                       ></v-data-table>
-                  </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                  <v-card color="teal">
-                    <v-card-title>
-                      Statics Details
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-data-table ></v-data-table>
                   </v-card>
                 </v-tab-item>
               </v-tabs>
@@ -121,7 +111,7 @@ import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'company',
+  name: 'responsible',
   data() {
     return {
       filters: { name: [], },
@@ -134,11 +124,11 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
-      companies: [],
-      companyServers: [],
-      companySites: [],
+      responsibles: [],
+      respServers: [],
+      respSites: [],
       headers: [
-        { text: 'Company Name', align: 'start', sortable: false, value: 'name' },
+        { text: 'Responsible Name', align: 'start', sortable: false, value: 'name' },
         { text: 'View Details', value: 'details' },
       ],
       serverheaders: [
@@ -158,68 +148,38 @@ export default {
         { text: 'Domains', value: 'domains' },
         { text: 'State', value: 'state' },
       ],
-      staticheaders: [
-        { text: 'Static Name', align: 'start', sortable: false, value: 'staticname' },
-        { text: 'Physical Path', value: 'physicalpath', },
-        { text: 'Domains', value: 'domains' },
-        { text: 'State', value: 'state' },
-      ],
-      companies: [],
-      companyServers: [],
-      companySites: [],
-      staticitem: [
-        {
-          staticname: 'Tarık',
-          physicalpath: 159,
-          domains: 6.0,
-          service: 24,
-          state: 4.0,
-        },
-        {
-          staticname: 'Frozen Yogurt',
-          physicalpath: 159,
-          domains: 6.0,
-          service: 24,
-          state: 4.0,
-        },
-      ],
+      responsibles: [],
+      respServers: [],
+      respSites: [],
       dialogdetail: false,
     }
   },
   computed: {
-    ...mapGetters('company', ['getCompanies','getCompanyHeader', 'getCompanyServers', 'getCompanySites']),
+    ...mapGetters('responsible', []),
   },
   methods: {
-    ...mapActions('company', ['setCompanies','setCompanyHeader', 'setCompanyServers', 'setCompanySites']),
+    ...mapActions('responsible', []),
     async showDetails(item) {
       this.details = item
 
-      this.companyHeader = await this.setCompanyHeader(item.companyId)
-
-      this.companyServers= await this.setCompanyServers(item.companyId);
-      console.log(this.companyServers)
-
-     
-      this.companySites= await this.setCompanySites(item.companyId);
-      console.log(this.companySites)
       this.dialogdetail = true
     },
-    columnValueList(val) {
-      return this.companies.map((d) => d[val]);
-    },
-    async GetCompanyList() {
-      let count = 1;
-      let response = await this.setCompanies(count);
-      while (response.length > 0) {
-        this.companies = this.companies.concat(response);
-        count++;
-        response = await this.setCompanies(count);
-      }
-    },
+    // columnValueList(val) {
+    //   return this.companies.map((d) => d[val]);
+    // },
+    // async GetCompanyList() {
+    //   let count = 1;
+    //   let response = await this.setCompanies(count);
+    //   while (response.length > 0) {
+    //     this.companies = this.companies.concat(response);
+    //     count++;
+    //     response = await this.setCompanies(count);
+    //   }
+    // },
   },
-  created() {
-    this.GetCompanyList();
-  },
+//   created() {
+//     this.GetCompanyList();
+//   },
   watch: {
     loader() {
       const l = this.loader
@@ -231,8 +191,8 @@ export default {
     },
   },
   computed: {
-    filterCompanies() {
-      return this.companies.filter((d) => {
+    filterResponsibles() {
+      return this.responsibles.filter((d) => {
         return Object.keys(this.filters).every((f) => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });

@@ -1,7 +1,8 @@
 <template>
   <v-app-bar app dark color="grey" height="80px">
+    <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     <v-text-field v-model="search" label="Search..." filled prepend-inner-icon="mdi-magnify" dense solo flat
-      background-color="#1D1C21" dark class="ml-20 mt-5" ></v-text-field>
+      background-color="#1D1C21" dark class="ml-20 mt-5"></v-text-field>
     <v-spacer></v-spacer>
     <v-btn class="ma-2" icon>
       <v-badge bordered overlap color="red" content="5" class="mt-1" dark>
@@ -13,13 +14,13 @@
     </v-btn>
     <v-menu bottom min-width="200px" rounded offset-y>
       <template v-slot:activator="{ on }">
-      <div>
-        <v-btn icon x-large v-on="on">
-          <v-avatar size="48">
-            <v-img :src="profilePhoto" :alt="'User Photo'"></v-img>
-          </v-avatar>
-        </v-btn>
-      </div>
+        <div>
+          <v-btn icon x-large v-on="on">
+            <v-avatar size="48">
+              <v-img :src="profilePhoto" :alt="'User Photo'"></v-img>
+            </v-avatar>
+          </v-btn>
+        </div>
       </template>
       <v-card>
         <v-list-item-content class="justify-center">
@@ -68,6 +69,7 @@ export default {
   name: 'navbar',
   data() {
     return {
+      drawer: null,
       username: this.$route.params.userName,
     }
   },

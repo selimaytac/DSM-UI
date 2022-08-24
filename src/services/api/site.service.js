@@ -57,9 +57,12 @@ async function getSiteBindings(data) {
     const result = await $axios.get(
         controllerName + "bindings/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -68,9 +71,12 @@ async function getSitePackages(data) {
     const result = await $axios.get(
         controllerName + "packages/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;
@@ -79,9 +85,12 @@ async function getSiteEndpoints(data) {
     const result = await $axios.get(
         controllerName + "endpoints/" + data,
         {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     );
     return result.data;

@@ -45,6 +45,14 @@ export default[
       },
     },
     {
+      path: '/responsible',
+      name: 'responsible',
+      component: () => import('../../src/pages/Responsible/Responsible.vue'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
       path: '/databaseportal',
       name: 'dbportal',
       component: () => import('../../src/pages/Databaseportal/Databaseportal.vue'),

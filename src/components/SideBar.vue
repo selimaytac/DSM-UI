@@ -1,6 +1,6 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app color="grey" mini-variant mini-variant-width="90">
-      <v-avatar class="d-block text-center mx-auto mt-4" size="70">
+  <v-navigation-drawer v-model="drawer" app color="grey" mini-variant mini-variant-width="110" >
+      <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="70">
           <v-img src="../../public/logoo.png"></v-img>
       </v-avatar>
       <v-list flat class="mt-4">
@@ -27,6 +27,7 @@ data: () => ({
         {icon: 'fas fa-earth-americas', text:'Sites', link: '/sites'},
         {icon: 'fas fa-server', text:'Servers', link: '/servers'},
         {icon: 'fas fa-sitemap', text:'Companies', link: '/companies'},
+        {icon: 'fas fa-sitemap ', text:'Responsible', link: '/responsible'},
         {icon: 'fas fa-database', text:'Database Portal', link: '/databaseportal'},
         {icon: 'fas fa-file', text:'Reports', link: '/reports'},
         {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
