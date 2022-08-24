@@ -128,7 +128,9 @@ export default {
       respServers: [],
       respSites: [],
       headers: [
-        { text: 'Responsible Name', align: 'start', sortable: false, value: 'name' },
+        { text: 'Responsible Name', align: 'start', sortable: false, value: 'responsibleName' },
+        { text: 'Count Of Servers', value: 'countOfServers', },
+        { text: 'Count Of Sites', value: 'countOfSites', },
         { text: 'View Details', value: 'details' },
       ],
       serverheaders: [
@@ -147,6 +149,9 @@ export default {
         { text: 'Physical Path', value: 'physicalPath', },
         { text: 'Domains', value: 'domains' },
         { text: 'State', value: 'state' },
+        { text: 'Server Name', value: 'serverName', },
+        { text: 'DNS Name', value: 'dnsName', },
+        { text: 'App. Type', value: 'appType', },
       ],
       responsibles: [],
       respServers: [],
@@ -155,31 +160,29 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('responsible', []),
+    ...mapGetters('responsible', ['getResponsibles', 'getResponsibleServers', 'getResponsibleSites']),
   },
   methods: {
-    ...mapActions('responsible', []),
+    ...mapActions('responsible', ['setResponsibles', 'setResponsibleServers', 'setResponsibleSites']),
     async showDetails(item) {
       this.details = item
 
+      this.respServers= await this.setResponsibleServers(item.responsibleName);
+
+      this.respSites= await this.setResponsibleCompanySites(item.responsibleName);
       this.dialogdetail = true
     },
-    // columnValueList(val) {
-    //   return this.companies.map((d) => d[val]);
-    // },
-    // async GetCompanyList() {
-    //   let count = 1;
-    //   let response = await this.setCompanies(count);
-    //   while (response.length > 0) {
-    //     this.companies = this.companies.concat(response);
-    //     count++;
-    //     response = await this.setCompanies(count);
-    //   }
-    // },
+    async getAllResponsibles() {
+      this.loading = true
+      this.respServers = await this.setResponsibles()
+      this.loading = false
+    },
+  
   },
-//   created() {
-//     this.GetCompanyList();
-//   },
+  created() {
+    // this.getAllResponsibles()
+  },
+
   watch: {
     loader() {
       const l = this.loader

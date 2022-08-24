@@ -197,11 +197,8 @@ export default {
       this.companyHeader = await this.setCompanyHeader(item.companyId)
 
       this.companyServers= await this.setCompanyServers(item.companyId);
-      console.log(this.companyServers)
-
      
       this.companySites= await this.setCompanySites(item.companyId);
-      console.log(this.companySites)
       this.dialogdetail = true
     },
     columnValueList(val) {

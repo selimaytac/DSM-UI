@@ -1,17 +1,18 @@
 import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
-const controllerName = "/responsible/";
-export const responsibleService = {
-    getResponsibles,
-    getResponsibleServers,
-    getResponsibleSites,
+const controllerName = "/databaseportal/";
+export const dbportalService = {
+    getDatabases,
+    getDatabaseDetails,
     getExportList,
+    getRDPFile,
     getExportSearchList,
 };
-async function getResponsibles() {
+async function getDatabases(data) {
     const result = await $axios.get(
-        controllerName + 'responsibles',
+        controllerName + "databases",
         {
+            params: { page: data },
             headers:
             {
                 "Content-Type": "application/json",
@@ -22,24 +23,11 @@ async function getResponsibles() {
     );
     return result.data;
 }
-async function getResponsibleServers(data) {
+async function getDatabaseDetails(data) {
     const result = await $axios.get(
-        controllerName + "servers/" + data,
+        controllerName + "details",
         {
-            headers:
-            {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': authHeader()
-            }
-        }
-    );
-    return result.data;
-}
-async function getResponsibleSites(data) {
-    const result = await $axios.get(
-        controllerName + "sites/" + data,
-        {
+            params: { id: data },
             headers:
             {
                 "Content-Type": "application/json",
@@ -68,6 +56,25 @@ async function getExportList(data) {
 
         fileLink.click();
     })
+}
+async function getRDPFile(data) {
+    const result = await $axios.post(
+        controllerName + "content/" + data,
+        {
+            "Content-Type": "application/json-patch+json",
+            'Access-Control-Allow-Origin': '*',
+            Bearer: authHeader()
+        }
+    ).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'connection.rdp');
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+    });
 }
 async function getExportSearchList(data) {
     const result = await $axios.get(

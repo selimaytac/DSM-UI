@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app color="grey" mini-variant mini-variant-width="110" >
+  <v-navigation-drawer v-model="drawer" app color="grey" mini-variant mini-variant-width="90" >
       <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="70">
           <v-img src="../../public/logoo.png"></v-img>
       </v-avatar>

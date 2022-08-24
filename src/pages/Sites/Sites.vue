@@ -17,7 +17,7 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterSites" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterSites" :options.sync="options" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
@@ -308,6 +308,9 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      options: {},
+      siteFetchCount: 1,
+      searchedSites: [],
       headers: [
         { text: 'Site Name', align: 'start', sortable: false, value: 'siteName', width: 100 },
         { text: 'IP Adress', value: 'ipAddress', width: 150 },
@@ -362,53 +365,13 @@ export default {
       siteBindings: [],
       siteEndpoints: [],
       directdbitem: [
-        {
-          name: 'Tarık',
-          dbname: 159,
-          port: 6.0,
-          username: 24,
-          connectstring: 4.0,
-        },
-        {
-          name: 'Frozen Yogurt',
-          dbname: 159,
-          port: 6.0,
-          username: 24,
-          connectstring: 4.0,
-        },
       ],
       sitePackages: [],
       eventitem: [
-        {
-          ipadress: 'Tarık',
-          ipfam: 159,
-          port: 6.0,
-          host: 24,
-          protocol: 4.0,
-        },
-        {
-          ipadress: 'Frozen Yogurt',
-          ipfam: 159,
-          port: 6.0,
-          host: 24,
-          protocol: 4.0,
-        },
+
       ],
       staticitem: [
-        {
-          ipadress: 'Tarık',
-          ipfam: 159,
-          port: 6.0,
-          host: 24,
-          protocol: 4.0,
-        },
-        {
-          ipadress: 'Frozen Yogurt',
-          ipfam: 159,
-          port: 6.0,
-          host: 24,
-          protocol: 4.0,
-        },
+
       ],
       dialogdetail: false,
       detailsInTab: {
@@ -439,50 +402,61 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('site',['getSiteList', 'getSiteDetails', 'getSiteHeaders','getSiteBindings','getSitePackages','getSiteEndpoints']),
+    ...mapGetters('site', ['getSiteList', 'getSiteDetails', 'getSiteHeaders', 'getSiteBindings', 'getSitePackages', 'getSiteEndpoints']),
   },
   methods: {
-    ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader','setSiteBindings','setSitePackages','setSiteEndpoints']),
+    ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader', 'setSiteBindings', 'setSitePackages', 'setSiteEndpoints']),
     async showDetails(item) {
       this.detailsInTab = await this.setSiteDetails(item.siteId)
       this.siteHeader = await this.setSiteHeader(item.siteId)
 
       this.selectedBindings = item.siteId
-      this.siteBindings= await this.setSiteBindings(item.siteId);
+      this.siteBindings = await this.setSiteBindings(item.siteId);
 
       this.selectedPackages = item.siteId
-      this.sitePackages= await this.setSitePackages(item.siteId);
+      this.sitePackages = await this.setSitePackages(item.siteId);
 
       this.selectedEndpoints = item.siteId
-      this.siteEndpoints= await this.setSiteEndpoints(item.siteId);
+      this.siteEndpoints = await this.setSiteEndpoints(item.siteId);
       this.dialogdetail = true
     },
     columnValueList(val) {
       return this.sites.map((d) => d[val]);
     },
-    async GetSiteList() {
-      let count = 1;
+    // async GetSiteList() {
+    //   let count = 1;
+    //   let response = await this.setSites(count);
+    //   while (response.length > 0) {
+    //     this.sites = this.sites.concat(response);
+    //     count++;
+    //     response = await this.setSites(count);
+    //   }
+    // },
+    async GetSiteList(count) {
       let response = await this.setSites(count);
-      while (response.length > 0) {
         this.sites = this.sites.concat(response);
-        count++;
-        response = await this.setSites(count);
-      }
     },
     async GetSiteBindings(siteId) {
-      this.siteBindings= await this.setSiteBindings(siteId);
+      this.siteBindings = await this.setSiteBindings(siteId);
     },
     async GetSitePackages(siteId) {
-      this.sitePackages= await this.setSitePackages(siteId);
+      this.sitePackages = await this.setSitePackages(siteId);
     },
     async GetSiteEndpoints(siteId) {
-      this.siteEndpoints= await this.setSiteEndpoints(siteId);
+      this.siteEndpoints = await this.setSiteEndpoints(siteId);
     },
   },
-  created() {
-    this.GetSiteList();
-  },
+  // created() {
+  //   this.GetSiteList();
+  // },
   watch: {
+    options: {
+      handler () {
+          this.GetSiteList(this.siteFetchCount)
+          this.siteFetchCount++;
+        },
+        deep: true,
+      },
     loader() {
       const l = this.loader
       this[l] = !this[l]

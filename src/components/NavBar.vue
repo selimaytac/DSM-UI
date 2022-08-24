@@ -1,8 +1,6 @@
 <template>
-  <v-app-bar app dark color="grey" height="80px">
+  <v-app-bar app dark color="grey" height="60px">
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-    <v-text-field v-model="search" label="Search..." filled prepend-inner-icon="mdi-magnify" dense solo flat
-      background-color="#1D1C21" dark class="ml-20 mt-5"></v-text-field>
     <v-spacer></v-spacer>
     <v-btn class="ma-2" icon>
       <v-badge bordered overlap color="red" content="5" class="mt-1" dark>

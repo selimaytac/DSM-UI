@@ -2,9 +2,6 @@ const getters = {
     getCompanyList(state) {
       return state.CompanyList;
     },  
-    getSiteDetails(state) {
-      return state.SiteDetails;
-    },
     getCompanyHeader(state) {
       return state.CompanyHeaders;
     },

@@ -1,318 +1,346 @@
 <template>
-  <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
-    <SideBar/>
+  <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
+    <SideBar />
     <v-container>
-      <NavBar/>
+      <NavBar />
     </v-container>
-    <v-card color="grey lighten-1" >
-    <v-card-title>
-      DataBase Servers
-      <v-spacer></v-spacer>
-      <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2" outlined 
-      @click="loader = 'loading2'">Export to Excel 
-        <template v-slot:loader>
-          <span>Loading...</span>
-        </template>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
-    <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
-      {{ header.text }}
-      <v-menu :key="index" offset-y :close-on-content-click="false">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn icon v-bind="attrs" v-on="on" color="teal">
-                  <v-icon small :color="filters[header.value].length ? 'red' : ''">
-                    mdi-filter-variant
-                  </v-icon>
-                </v-btn>
-              </template>
-              <div style="background-color: white; width: 280px">
-                <v-list>
-                  <v-list-item>
-                    <div v-if="filters.hasOwnProperty(header.value)">
-                      <v-autocomplete multiple dense auto-select-first clearable chips small-chips 
-                      color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter" 
-                      v-model="filters[header.value]" :label="filters[header.value] ? `${header.text}` : ''" hide-details>
-                        <template v-slot:selection="{ item, index }">
-                          <v-chip small class="caption" v-if="index < 5">
-                            <span>
-                              {{ item }}
-                            </span>
-                          </v-chip>
-                          <span v-if="index === 5" class="grey--text caption">
-                            (+{{ filters[header.value].length - 5 }} others)
-                          </span>
-                        </template>
-                      </v-autocomplete>
-                    </div>
-                  </v-list-item>
-                </v-list>
-              </div>
-            </v-menu>
-    </template>
-    <template v-slot:item.details="{item}">
-      <v-btn depressed rounded text color="teal" @click="showDetails(item)"><v-icon>mdi-eye</v-icon>Show Details</v-btn>
-    </template>
-    </v-data-table>
-    <v-dialog v-model="dialogdetail">
-      <v-card>
-        <v-toolbar dark color="teal" >
-          <v-btn icon dark @click="dialogdetail = false"><v-icon>mdi-close</v-icon></v-btn>
-          <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-        </v-toolbar>
-        <v-container>
-          <template>        
-            <v-tabs color="teal" vertical>
-              <v-tab>General</v-tab>
-              <v-tab-item>
-                <v-container fluid>
-                  <v-row justify="center" class="space">
-                    <v-col cols="12" sm="4">
-                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
-                        <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                          <v-toolbar-title>Basic Details</v-toolbar-title>
-                          <v-spacer></v-spacer>
-                        </v-toolbar>
-                        <v-simple-table class="teal" dark>
-                          <template v-slot:default>
-                            <tbody>
-                      <tr>
-                        <td>Domain: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>IP Address: </td>
-                        <td></td> 
-                      </tr>
-                      <tr>
-                        <td>Operating System: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Oracle Version: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Logical CPU Count: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Physical CPU Count: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Memory: </td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
-                <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                  <v-toolbar-title>Basic Details</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-                <v-simple-table class="teal" dark>
-                  <template v-slot:default>
-                    <tbody>
-                      <tr>
-                        <td>Port: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Machine Type: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Record Date: </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>Delete Date: </td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                    <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                  <v-toolbar-title>Organization Details</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-                <v-simple-table class="teal" dark>
-                  <template v-slot:default>
-                    <tbody>
-                       <tr>
-                        <td>Owned By: </td>
-                        <td></td>
-                      </tr>
-                       <tr>
-                        <td>Environment: </td>
-                        <td></td>
-                      </tr>
-                       <tr>
-                        <td>Service: </td>
-                        <td></td>
-                      </tr>
-                       <tr>
-                        <td>Notes: </td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-                  </template>
-                </v-simple-table>
-              </v-card>
-            </v-col>  
-          </v-row>
-        </v-container>
-      </v-tab-item>
-    </v-tabs>
+    <v-card color="grey lighten-1">
+      <v-card-title>
+        DataBase Servers
+        <v-spacer></v-spacer>
+        <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2"
+          outlined @click="loader = 'loading2'">Export to Excel
+          <template v-slot:loader>
+            <span>Loading...</span>
           </template>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </v-card>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+      </v-card-title>
+      <v-data-table :headers="headers" :items="filterDbportals" :items-per-page="10" :footer-props="{
+        'items-per-page-options': [20, 50, 100, 200]
+      }" class="elevation-1" :search="search">
+        <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+          {{ header.text }}
+          <v-menu :key="index" offset-y :close-on-content-click="false">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                  mdi-filter-variant
+                </v-icon>
+              </v-btn>
+            </template>
+            <div style="background-color: white; width: 280px">
+              <v-list>
+                <v-list-item>
+                  <div v-if="filters.hasOwnProperty(header.value)">
+                    <v-autocomplete multiple dense auto-select-first clearable chips small-chips color="teal"
+                      :items="columnValueList(header.value)" append-icon="mdi-filter" v-model="filters[header.value]"
+                      :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                      <template v-slot:selection="{ item, index }">
+                        <v-chip small class="caption" v-if="index < 5">
+                          <span>
+                            {{ item }}
+                          </span>
+                        </v-chip>
+                        <span v-if="index === 5" class="grey--text caption">
+                          (+{{ filters[header.value].length - 5 }} others)
+                        </span>
+                      </template>
+                    </v-autocomplete>
+                  </div>
+                </v-list-item>
+              </v-list>
+            </div>
+          </v-menu>
+        </template>
+        <template v-slot:item.details="{ item }">
+          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
+            <v-icon>mdi-eye</v-icon>Show Details
+          </v-btn>
+        </template>
+      </v-data-table>
+      <v-dialog v-model="dialogdetail">
+        <v-card>
+          <v-toolbar dark color="teal">
+            <v-btn icon dark @click="dialogdetail = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+          </v-toolbar>
+          <v-container>
+            <template>
+              <v-tabs color="teal" vertical>
+                <v-tab>General</v-tab>
+                <v-tab-item>
+                  <v-container fluid>
+                    <v-row justify="center" class="space">
+                      <v-col cols="12" sm="4">
+                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                            <v-toolbar-title>Basic Details</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                          </v-toolbar>
+                          <v-simple-table class="teal" dark>
+                            <template v-slot:default>
+                              <tbody>
+                                <tr>
+                                  <td>Domain: </td>
+                                  <td>{{ detailsInTab.domain }}</td>
+                                </tr>
+                                <tr>
+                                  <td>IP Address: </td>
+                                  <td>{{ detailsInTab.ipAddress }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Operating System: </td>
+                                  <td>{{ detailsInTab.version }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Oracle Version: </td>
+                                  <td>{{ detailsInTab.osversion }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Logical CPU Count: </td>
+                                  <td>{{ detailsInTab.logicalCpuCount }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Physical CPU Count: </td>
+                                  <td>{{ detailsInTab.physicalCpuCount }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Memory: </td>
+                                  <td>{{ detailsInTab.memory }}</td>
+                                </tr>
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" sm="4">
+                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                            <v-toolbar-title>Basic Details</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                          </v-toolbar>
+                          <v-simple-table class="teal" dark>
+                            <template v-slot:default>
+                              <tbody>
+                                <tr>
+                                  <td>Port: </td>
+                                  <td>{{ detailsInTab.port }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Machine Type: </td>
+                                  <td>{{ detailsInTab.machineType }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Record Date: </td>
+                                  <td>{{ detailsInTab.recordDate }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Delete Date: </td>
+                                  <td>{{ detailsInTab.deleteDate }}</td>
+                                </tr>
+                              </tbody>
+                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                                <v-toolbar-title>Organization Details</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                              </v-toolbar>
+                              <v-simple-table class="teal" dark>
+                                <template v-slot:default>
+                                  <tbody>
+                                    <tr>
+                                      <td>Owned By: </td>
+                                      <td>{{ detailsInTab.owner }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Environment: </td>
+                                      <td>{{ detailsInTab.environment }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Service: </td>
+                                      <td>{{ detailsInTab.domain }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Notes: </td>
+                                      <td>{{ detailsInTab.description }}</td>
+                                    </tr>
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                            </template>
+                          </v-simple-table>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-tab-item>
+              </v-tabs>
+            </template>
+          </v-container>
+        </v-card>
+      </v-dialog>
+    </v-card>
   </v-app>
 </template>
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import NavBar from '@/components/NavBar.vue'  
+import NavBar from '@/components/NavBar.vue'
+import { mapGetters, mapActions } from "vuex";
+export default {
+  name: 'dbportal',
+  dbportals: [],
+  data() {
+    return {
+      filters: { serverName: [], owner: [], environment: [], ipAddress: [], version: [], osversion: [], description: [] },
+      dialog: false,
+      loader: null,
+      loading: false,
+      loading2: false,
+      loading3: false,
+      loading4: false,
+      loading5: false,
+      loading6: false,
+      search: '',
+      headers: [
+        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName' },
+        { text: 'Owner', value: 'owner', },
+        { text: 'Environment', value: 'environment' },
+        { text: 'IP Adress', value: 'ipAddress' },
+        { text: 'Version', value: 'version' },
+        { text: 'Operating System', value: 'osversion' },
+        { text: 'Description', value: 'description' },
+        { text: 'View Details', value: 'details' },
+      ],
+      dbportals: [],
+      dialogdetail: false,
+      detailsInTab: {
+        serverName: "",
+        owner: "",
+        environment: "",
+        ipAddress: "",
+        port: "",
+        description: "",
+        logicalCpuCount: "",
+        physicalCpuCount: "",
+        memory: "",
+        osversion: "",
+        version: "",
+        machineType: "",
+        recordDate: "",
+        deleteDate: "",
+        domain: "",
+      }
+    }
+  },
+  computed: {
+    ...mapGetters('databaseportal', ['getDatabaseList', 'getDatabaseDetails'])
+  },
+  methods: {
+    ...mapActions('databaseportal', ['setDatabases', 'setDatabaseDetails']),
+    async showDetails(item) {
+           console.log(item)
 
-  export default {
-    name: 'dbportal',
-    data () {
-      return {
-        filters: { name: [], owner: [], environment: [], ipadress: [], version: [], opsystem: [], desc: []},
-        dialog :false,
-        loader: null,
-        loading: false,
-        loading2: false,
-        loading3: false,
-        loading4: false,
-        loading5: false,
-        loading6: false,
-        search: '',
-        headers: [
-          { text: 'Server Name',align: 'start',sortable: false,value: 'name'},
-          { text: 'Owner', value: 'owner', },
-          { text: 'Environment', value: 'environment' },
-          { text: 'IP Adress', value: 'ipadress' },
-          { text: 'Version', value: 'version' },
-          { text: 'Operating System', value: 'opsystem' },
-          { text: 'Description', value: 'desc' },
-          { text: 'View Details', value: 'details'},
-        ],
-        servers: [
-          {
-            name: 'Tarık',
-            owner: 159,
-            environment: 6.0,
-            ipadress: 24,
-            version: 4.0,
-            opsystem: '1%',
-            desc: 4.0,
-          },
-          {
-            name: 'Frozen Yogurt',
-            owner: 159,
-            environment: 6.0,
-            ipadress: 24,
-            version: 4.0,
-            opsystem: '1%',
-            desc: 6.0,
-          },
-        ],
-        dialogdetail: false
+      this.detailsInTab = await this.setDatabaseDetails(item.id)
+      this.dialogdetail = true
+    },
+    columnValueList(val) {
+      return this.dbportals.map((d) => d[val]);
+    },
+    async GetDbList() {
+      let count = 1;
+      let response = await this.setDatabases(count);
+      while (response.length > 0) {
+        this.dbportals = this.dbportals.concat(response);
+        count++;
+        console.log(count)
+        response = await this.setDatabases(count);
       }
     },
-    methods:{
-      showDetails(item){
-        this.details=item
-        this.dialogdetail=true
-      },
-      columnValueList(val) {
-      return this.servers.map((d) => d[val]);
-    }
-    },
-    watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
+  },
+  created() {
+    this.GetDbList();
+  },
+  watch: {
+    loader() {
+      const l = this.loader
+      this[l] = !this[l]
 
-        setTimeout(() => (this[l] = false), 2000)
+      setTimeout(() => (this[l] = false), 2000)
 
-        this.loader = null
-      },
+      this.loader = null
     },
-    computed: {
-    filterServers() {
-      return this.servers.filter((d) => {
+  },
+  computed: {
+    filterDbportals() {
+      return this.dbportals.filter((d) => {
         return Object.keys(this.filters).every((f) => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });
       });
     }
   },
-    components: {
-      SideBar,
-      NavBar,
-    },
-  }
+  components: {
+    SideBar,
+    NavBar,
+  },
+}
 </script>
 
 <style>
-.v-btn.withoutupercase{
+.v-btn.withoutupercase {
   text-transform: none !important;
 }
-.v-btn:not(.v-btn--round).v-size--small{
+
+.v-btn:not(.v-btn--round).v-size--small {
   min-width: 30px !important;
   padding: 0 5px !important;
 }
+
 .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
+  animation: loader 1s infinite;
+  display: flex;
+}
+
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+
+  to {
+    transform: rotate(360deg);
   }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+
+  to {
+    transform: rotate(360deg);
   }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
   }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>

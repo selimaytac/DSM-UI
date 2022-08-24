@@ -1,16 +1,14 @@
 import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
-const controllerName = "/responsible/";
-export const responsibleService = {
-    getResponsibles,
-    getResponsibleServers,
-    getResponsibleSites,
+const controllerName = "/scheduledjobstatus/";
+export const scheduledjobsService = {
+    getJobs,
     getExportList,
     getExportSearchList,
 };
-async function getResponsibles() {
+async function getJobs(data) {
     const result = await $axios.get(
-        controllerName + 'responsibles',
+        controllerName + data,
         {
             headers:
             {
@@ -22,34 +20,7 @@ async function getResponsibles() {
     );
     return result.data;
 }
-async function getResponsibleServers(data) {
-    const result = await $axios.get(
-        controllerName + "servers/" + data,
-        {
-            headers:
-            {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': authHeader()
-            }
-        }
-    );
-    return result.data;
-}
-async function getResponsibleSites(data) {
-    const result = await $axios.get(
-        controllerName + "sites/" + data,
-        {
-            headers:
-            {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': authHeader()
-            }
-        }
-    );
-    return result.data;
-}
+
 async function getExportList(data) {
     const result = await $axios.get(
         controllerName + "export/" + data,
@@ -69,6 +40,7 @@ async function getExportList(data) {
         fileLink.click();
     })
 }
+
 async function getExportSearchList(data) {
     const result = await $axios.get(
         controllerName + "export/" + data,
