@@ -1,10 +1,10 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    <v-container>
+    
       <NavBar />
-    </v-container>
-    <v-card color="grey lighten-1">
+   
+    <v-card class="primary">
       <v-card-title>
         DataBase Servers
         <v-spacer></v-spacer>
@@ -17,9 +17,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterDbportals" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterDbportals" @click:row="rowClick" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1" :search="search">
+      }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -54,11 +54,11 @@
             </div>
           </v-menu>
         </template>
-        <template v-slot:item.details="{ item }">
+        <!-- <template v-slot:item.details="{ item }">
           <v-btn depressed rounded text color="teal" @click="showDetails(item)">
             <v-icon>mdi-eye</v-icon>Show Details
           </v-btn>
-        </template>
+        </template> -->
       </v-data-table>
       <v-dialog v-model="dialogdetail">
         <v-card>
@@ -75,7 +75,7 @@
                 <v-tab-item>
                   <v-container fluid>
                     <v-row justify="center" class="space">
-                      <v-col cols="12" sm="4">
+                      <v-col cols="12" sm="6">
                         <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
                           <v-toolbar flat color="rgba(0,0,0,0)" dark>
                             <v-toolbar-title>Basic Details</v-toolbar-title>
@@ -117,7 +117,7 @@
                           </v-simple-table>
                         </v-card>
                       </v-col>
-                      <v-col cols="12" sm="4">
+                      <v-col cols="12" sm="6">
                         <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
                           <v-toolbar flat color="rgba(0,0,0,0)" dark>
                             <v-toolbar-title>Basic Details</v-toolbar-title>
@@ -143,7 +143,10 @@
                                   <td>{{ detailsInTab.deleteDate }}</td>
                                 </tr>
                               </tbody>
-                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                              
+                            </template>
+                          </v-simple-table>
+                          <v-toolbar flat color="rgba(0,0,0,0)" dark>
                                 <v-toolbar-title>Organization Details</v-toolbar-title>
                                 <v-spacer></v-spacer>
                               </v-toolbar>
@@ -169,8 +172,6 @@
                                   </tbody>
                                 </template>
                               </v-simple-table>
-                            </template>
-                          </v-simple-table>
                         </v-card>
                       </v-col>
                     </v-row>
@@ -205,14 +206,14 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName' },
-        { text: 'Owner', value: 'owner', },
-        { text: 'Environment', value: 'environment' },
-        { text: 'IP Adress', value: 'ipAddress' },
-        { text: 'Version', value: 'version' },
-        { text: 'Operating System', value: 'osversion' },
-        { text: 'Description', value: 'description' },
-        { text: 'View Details', value: 'details' },
+        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName', width: "200px", fixed: true },
+        { text: 'Owner', value: 'owner',  width: "100px", fixed: true},
+        { text: 'Environment', value: 'environment', width: "200px", fixed: true },
+        { text: 'IP Adress', value: 'ipAddress', width: "200px", fixed: true },
+        { text: 'Version', value: 'version', width: "200px", fixed: true },
+        { text: 'Operating System', value: 'osversion', width: "200px", fixed: true },
+        { text: 'Description', value: 'description', width: "200px", fixed: true },
+        // { text: 'View Details', value: 'details' },
       ],
       dbportals: [],
       dialogdetail: false,
@@ -240,12 +241,19 @@ export default {
   },
   methods: {
     ...mapActions('databaseportal', ['setDatabases', 'setDatabaseDetails']),
-    async showDetails(item) {
-           console.log(item)
-
-      this.detailsInTab = await this.setDatabaseDetails(item.id)
-      this.dialogdetail = true
+    async rowClick(item) {
+      this.dialogdetail = true;
+      this.detailsInTab = item;
+      this.loading6 = true;
+      await this.setDatabaseDetails(item.id);
+      this.loading6 = false;
     },
+    // async showDetails(item) {
+    //        console.log(item)
+
+    //   this.detailsInTab = await this.setDatabaseDetails(item.id)
+    //   this.dialogdetail = true
+    // },
     columnValueList(val) {
       return this.dbportals.map((d) => d[val]);
     },
@@ -290,6 +298,9 @@ export default {
 </script>
 
 <style>
+.table-cursor tbody tr:hover {
+  cursor: pointer;
+}
 .v-btn.withoutupercase {
   text-transform: none !important;
 }

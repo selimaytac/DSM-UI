@@ -7,7 +7,6 @@
             <v-tab @click="appmanagement=true; serverstatics=false; overview=false">App Management</v-tab>
              <v-tab @click="elasticinventory=true; appmanagement=false; serverstatics=false; overview=false">Elastic Search Invetory</v-tab>
         </v-tabs>
-         <v-card-text></v-card-text>
         <div>
           <Overview v-if="overview"/>
           <ServerStatics v-else-if="serverstatics"/>

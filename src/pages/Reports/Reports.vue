@@ -7,7 +7,7 @@
             <v-tab @click="odmserverlist=true; scheduledjobs=false; overalldisk=false">Odm Server List</v-tab>
              <v-tab @click="monthlykpi=true; odmserverlist=false; scheduledjobs=false; overalldisk=false">Monthly Kpi Status</v-tab>
         </v-tabs>
-         <v-card-text></v-card-text>
+         
         <div>
           <OverallDisk v-if="overalldisk"/>
           <ScheduledJobs v-else-if="scheduledjobs"/>

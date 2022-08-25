@@ -1,14 +1,14 @@
 import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
 const controllerName = "/report/";
-export const scheduledjobsService = {
-    getScheduledJobs,
+export const odmserverService = {
+    getOdmServers,
     getExportList,
     getExportSearchList,
 };
-async function getScheduledJobs(data) {
+async function getOdmServers(data) {
     const result = await $axios.get(
-        controllerName +"scheduledjobstatus/" + data,
+        controllerName +"odmstatusreport/" + data,
         {
             headers:
             {

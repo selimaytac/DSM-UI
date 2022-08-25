@@ -6,7 +6,6 @@
            <v-tab @click="deploymentAgents=true; projects=false">Deployment Agents</v-tab>
             <v-tab @click="deploymentGroups=true; deploymentAgents=false; projects=false">Deployment Groups</v-tab>
         </v-tabs>
-         <v-card-text></v-card-text>
         <div>
           <Projects v-if="projects"/>
           <deploymentAgent v-else-if="deploymentAgents"/>

@@ -1,10 +1,8 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    <v-container>
       <NavBar />
-    </v-container>
-    <v-card color="grey lighten-1">
+    <v-card class="primary">
       <v-card-title>
         Responsibles
         <v-spacer></v-spacer>

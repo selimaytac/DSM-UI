@@ -1,68 +1,51 @@
 <template>
-  <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
-    <SideBar/>
-    <NavBar/>
-      <v-container fluid>
-      <v-row dense>
-        <v-col
-          v-for="card in cards"
-          :key="card.title"
-          :cols="card.flex"
-          md="4"
-        >
-          <v-card height="250px" width="400px">
-            <v-img :src="card.src" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="150px" width="400px">
-            </v-img>
-            <v-card-actions>
-              <v-card-title v-text="card.title"></v-card-title>
-              <v-btn class="ma-1" outlined color="teal" rounded>Open Page</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+  <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
+    <SideBar />
+    <NavBar />
+    <v-container>
+      <v-item-group mandatory class="mt-n2">
+        <v-container>
+          <v-row justify="center" class="space">
+            <v-col cols="12" xs="12" sm="4" md="2" v-for="(card, i) in cards" :key="i">
+              <v-item v-slot="{ active, toggle }">
+                <v-card :color="active ? 'primary' : 'white'" :class="active ? 'borderme' : 'borderout'"
+                  class="d-flex rounded-lg mx-auto" dark height="270" width="400" @click="toggle" flat>
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <a :href="card.url">
+                        <v-img :src="card.image" class="white--text align-end" height="200px" max-width="170px"></v-img>
+                        <v-card-title :class="active ? 'white--text' : 'grey--text'" class="caption text-center justify-center font-weight-bold">
+                          {{ card.description }}
+                        </v-card-title>
+                      </a>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-item-group>
     </v-container>
-
   </v-app>
 </template>
 
 <script>
 import SideBar from "@/components/SideBar.vue";
 import NavBar from "@/components/NavBar.vue";
-  export default {
-    data() {
-      return {
-        cards: [
-        { title: 'AppDynamics', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
-        { title: 'Automic Nöbetçi Telefon Tablosu', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Automic Talep Açma', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Automic Talimat', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Azure DevOps', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Cloud & Mobile Envanter', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'CyberArk', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
-        { title: 'Disk Doluluk ve Kullanımı', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Domino', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'DT-Uygulama Planner', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Eclit-Zabbix', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Elastic Search Envanteri', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Grafana', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
-        { title: 'Haftalık Rapor', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Microsoft Azure', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Nöbet - Mesai Sonrası Problem Listesi', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Nöbet Listesi', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Office 365', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Openshift 4.4.0', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6},
-        { title: 'Scorecard Erişim', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Self Service (AD Lock kaldırma)', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Uygulama Topolojileri', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Veritabanı Envanteri', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'VRealize VM Talep', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        
-      ],
-      };
-    },
-    components: {
-      SideBar,
-      NavBar
-    }
+import { appManagementService } from "@/services/api/appManagement.service";
+export default {
+  data() {
+    return {
+      cards: [],
+    };
+  },
+  async created() {
+    this.cards = await appManagementService.getApps();
+  },
+  components: {
+    SideBar,
+    NavBar,
   }
+}
 </script>

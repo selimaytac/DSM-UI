@@ -4,7 +4,7 @@
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab @click="alerts=true">Alerts</v-tab>
         </v-tabs>
-         <v-card-text></v-card-text>
+         
         <div>
           <Alerts v-if="alerts"/>
         </div>

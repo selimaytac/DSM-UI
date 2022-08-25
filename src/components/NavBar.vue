@@ -1,15 +1,18 @@
 <template>
-  <v-app-bar app dark color="grey" height="60px">
+  <v-app-bar app dark height="60px" class="primary">
     <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-    <v-spacer></v-spacer>
+    <v-list-item-content>
+      <v-list-item-title>
+        <span class="font-weight-bold title">DSM </span>
+        <span class="font-weight-light title">- Server Monitoing</span>
+      </v-list-item-title>
+    </v-list-item-content>
     <v-btn class="ma-2" icon>
       <v-badge bordered overlap color="red" content="5" class="mt-1" dark>
         <v-icon color="white">far fa-bell</v-icon>
       </v-badge>
     </v-btn>
-    <v-btn icon @click="toggle_dark_mode">
-      <v-icon>mdi-theme-light-dark</v-icon>
-    </v-btn>
+      <ThemeChanger />
     <v-menu bottom min-width="200px" rounded offset-y>
       <template v-slot:activator="{ on }">
         <div>
@@ -61,8 +64,10 @@
 </template>
 
 <script>
+import ThemeChanger from '@/components/ThemeChanger.vue'
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
+// import ThemeChanger from './ThemeChanger.vue';
 export default {
   name: 'navbar',
   data() {
@@ -107,7 +112,11 @@ export default {
       this.$vuetify.theme.dark = true;
       localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString());
     }
-  }
+  },
+  components: {
+    ThemeChanger,
+    ThemeChanger
+}
 };
 </script>
 <style>

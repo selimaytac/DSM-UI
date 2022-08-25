@@ -1,11 +1,11 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app color="grey" mini-variant mini-variant-width="90" >
+  <v-navigation-drawer v-model="drawer" app  mini-variant mini-variant-width="90" class="primary">
       <v-avatar class="d-block text-center mx-auto mt-4 mb-10" size="70">
           <v-img src="../../public/logoo.png"></v-img>
       </v-avatar>
-      <v-list flat class="mt-4">
-          <v-list-item-group v-model="selectedItem">
-              <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link active-class="border" :ripple="false">
+      <v-list flat class="mt-4 primary">
+          <v-list-item-group v-model="selectedItem" >
+              <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link active-class="border" :ripple="false" class="primary">
                   <v-list-item-content>
                       <v-icon v-text="item.icon"></v-icon>
                       <v-list-item-subtitle align="center" v-text="item.text" class="mt-3 caption"></v-list-item-subtitle>
@@ -30,7 +30,7 @@ data: () => ({
         {icon: 'fas fa-sitemap ', text:'Responsible', link: '/responsible'},
         {icon: 'fas fa-database', text:'Database Portal', link: '/databaseportal'},
         {icon: 'fas fa-file', text:'Reports', link: '/reports'},
-        {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
+        // {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
     ],
 }),
 

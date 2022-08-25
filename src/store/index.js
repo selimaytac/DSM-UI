@@ -1,11 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { auth} from "./modules/auth";
+import { auth } from "./modules/auth";
 import { server } from "./modules/server";
 import { site } from "./modules/site";
-import {company} from "./modules/company";
-import {responsible} from "./modules/responsible";
+import { company } from "./modules/company";
+import { responsible } from "./modules/responsible";
 import { databaseportal } from "./modules/database";
+import { scheduledjobs } from "./modules/scheduledJobs";
+import { odmservers } from "./modules/odmservers";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -19,10 +21,12 @@ export default new Vuex.Store({
     company,
     responsible,
     databaseportal,
+    scheduledjobs,
+    odmservers,
   },
   plugins: [
     createPersistedState({
-      paths: ["auth","server","site","company","responsible","databaseportal"],
+      paths: ["auth", "server", "site", "company", "responsible", "databaseportal", "scheduledjobs", "odmservers"],
     }),
   ],
 });

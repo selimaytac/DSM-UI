@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    <v-container>
+
       <NavBar />
-    </v-container>
+
     <v-card color="grey lighten-1">
       <v-card-title>
         Scheduled Jobs
@@ -60,7 +60,8 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
-
+import { mapGetters, mapActions } from "vuex";
+import { scheduledjobs } from '@/store/modules/scheduledJobs';
 export default {
   name: 'jobs',
   jobs: [],
@@ -83,19 +84,32 @@ export default {
         { text: 'Host Name', value: 'hostName' },
         { text: 'Repeat Time', value: 'repeatTime' },
         { text: 'Job Name', value: 'jobName' },
+        { text: 'View Details', value: 'details' },
       ],
       jobs: [],
       dialogdetail: false
     }
   },
+  computed: {
+    ...mapGetters('scheduledjobs', ['getScheduleJobsList']),
+  },
   methods: {
-    showDetails(item) {
-      this.details = item
-      this.dialogdetail = true
-    },
+    ...mapActions('scheduledjobs', ['setScheduledJobs']),
     columnValueList(val) {
       return this.jobs.map((d) => d[val]);
-    }
+    },
+    async GetScheduledJobsList() {
+      let count = 1;
+      let response = await this.setScheduledJobs(count);
+      while (response.length > 0) {
+        this.jobs = this.jobs.concat(response);
+        count++;
+        response = await this.setScheduledJobs(count);
+      }
+    },
+  },
+  created() {
+    this.GetScheduledJobsList();
   },
   watch: {
     loader() {

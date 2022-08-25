@@ -1,10 +1,10 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    <v-container>
+    
       <NavBar />
-    </v-container>
-    <v-card color="grey lighten-1">
+    
+    <v-card class="primary">
       <v-card-title>
         Companies
         <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
       </v-card-title>
       <v-data-table :headers="headers" :items="filterCompanies" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1" :search="search">
+      }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -142,21 +142,21 @@ export default {
         { text: 'View Details', value: 'details' },
       ],
       serverheaders: [
-        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName' },
-        { text: 'Full Name', value: 'fullName', },
-        { text: 'IP Adress', value: 'ipAddress', },
-        { text: 'Operating System', value: 'operatingSystem', },
-        { text: 'Environments', value: 'environments', },
-        { text: 'App. Type', value: 'applicationType', },
-        { text: 'Owner', value: 'owner', },
-        { text: 'Contact', value: 'contact' },
-        { text: 'Last Backup Date', value: 'lastBackupDate' },
+        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName', width: "100px", fixed: true},
+        { text: 'Full Name', value: 'fullName', width: "200px", fixed: true},
+        { text: 'IP Adress', value: 'ipAddress', width: "100px", fixed: true},
+        { text: 'Operating System', value: 'operatingSystem', width: "200px", fixed: true},
+        { text: 'Environments', value: 'environments', width: "100px", fixed: true},
+        { text: 'App. Type', value: 'applicationType', width: "100px", fixed: true},
+        { text: 'Owner', value: 'owner', width: "100px", fixed: true},
+        { text: 'Contact', value: 'contact', width: "200px", fixed: true},
+        { text: 'Last Backup Date', value: 'lastBackupDate', width: "200px", fixed: true},
       ],
       siteheaders: [
-        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName' },
-        { text: 'Physical Path', value: 'physicalPath', },
-        { text: 'Domains', value: 'domains' },
-        { text: 'State', value: 'state' },
+        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName', width: "200px", fixed: true },
+        { text: 'Physical Path', value: 'physicalPath', width: "200px", fixed: true},
+        { text: 'Domains', value: 'domains', width: "200px", fixed: true},
+        { text: 'State', value: 'state', width: "200px", fixed: true},
       ],
       staticheaders: [
         { text: 'Static Name', align: 'start', sortable: false, value: 'staticname' },
@@ -244,6 +244,9 @@ export default {
 </script>
 
 <style>
+.table-cursor tbody tr:hover {
+  cursor: pointer;
+}
 .v-btn.withoutupercase {
   text-transform: none !important;
 }

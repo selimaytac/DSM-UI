@@ -1,10 +1,10 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    <v-container>
+
       <NavBar />
-    </v-container>
-    <v-card color="grey lighten-1">
+
+    <v-card class="primary">
       <v-card-title>
         Sites
         <v-spacer></v-spacer>
@@ -17,9 +17,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterSites" :options.sync="options" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterSites" @click:row="rowClick" :options.sync="options" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1" :search="search">
+      }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -54,16 +54,8 @@
             </div>
           </v-menu>
         </template>
-        <template v-slot:item.details="{ item }">
-          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
-            <v-icon>mdi-eye</v-icon>Show Details
-          </v-btn>
-        </template>
         <template #item.physicalPath="{ value }">
           <div class="text-truncate" style="max-width: 130px">{{ value }}</div>
-        </template>
-        <template #item.siteName="{ value }">
-          <div class="text-truncate" style="max-width: 100px">{{ value }}</div>
         </template>
       </v-data-table>
       <v-dialog v-model="dialogdetail">
@@ -320,7 +312,6 @@ export default {
         { text: 'Machine', value: 'machinename', width: 150 },
         { text: 'Pool Name', value: 'appPoolName', width: 150 },
         { text: 'Physical Path', value: 'physicalPath', width: 130 },
-        { text: 'View Details', value: 'details', },
       ],
       bindheaders: [
         { text: 'IP Adress', value: 'ipAddress' },
@@ -406,7 +397,7 @@ export default {
   },
   methods: {
     ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader', 'setSiteBindings', 'setSitePackages', 'setSiteEndpoints']),
-    async showDetails(item) {
+    async rowClick(item) {
       this.detailsInTab = await this.setSiteDetails(item.siteId)
       this.siteHeader = await this.setSiteHeader(item.siteId)
 
@@ -420,6 +411,20 @@ export default {
       this.siteEndpoints = await this.setSiteEndpoints(item.siteId);
       this.dialogdetail = true
     },
+    // async showDetails(item) {
+    //   this.detailsInTab = await this.setSiteDetails(item.siteId)
+    //   this.siteHeader = await this.setSiteHeader(item.siteId)
+
+    //   this.selectedBindings = item.siteId
+    //   this.siteBindings = await this.setSiteBindings(item.siteId);
+
+    //   this.selectedPackages = item.siteId
+    //   this.sitePackages = await this.setSitePackages(item.siteId);
+
+    //   this.selectedEndpoints = item.siteId
+    //   this.siteEndpoints = await this.setSiteEndpoints(item.siteId);
+    //   this.dialogdetail = true
+    // },
     columnValueList(val) {
       return this.sites.map((d) => d[val]);
     },
@@ -483,6 +488,9 @@ export default {
 </script>
 
 <style>
+.table-cursor tbody tr:hover {
+  cursor: pointer;
+}
 .v-btn.withoutupercase {
   text-transform: none !important;
 }

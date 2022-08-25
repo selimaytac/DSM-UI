@@ -1,10 +1,10 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    <v-container>
+
       <NavBar />
-    </v-container>
-    <v-card color="grey lighten-1">
+
+    <v-card class="primary">
       <v-card-title>
         Servers
         <v-spacer></v-spacer>
@@ -17,9 +17,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterServers" :options.sync="options" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterServers" @click:row="rowClick" :options.sync="options" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1" :search="search">
+      }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -296,7 +296,6 @@ export default {
         { text: 'Service', value: 'serviceName', width: "200px", fixed: true },
         { text: 'Operating Sys.', value: 'operatingSystem', width: "200px", fixed: true },
         { text: 'Responsible', value: 'responsible' },
-        { text: 'View Details', value: 'details' },
       ],
       siteheaders: [
         { text: 'Site Name', align: 'start', sortable: false, value: 'siteName' },
@@ -343,7 +342,7 @@ export default {
   },
   methods: {
     ...mapActions('server', ['setServers', 'setServerDetails', 'setServerHeader', 'setServerSites']),
-    async showDetails(item) {
+    async rowClick(item) {
       this.detailsInTab = await this.setServerDetails(item.serverId)
       this.serverHeader = await this.setServerHeader(item.serverId)
       this.detailsInTab.ownedBy = this.serverHeader.companyName
@@ -353,6 +352,16 @@ export default {
       this.serverSites= await this.setServerSites(item.serverId);
       this.dialogdetail = true
     },
+    // async showDetails(item) {
+    //   this.detailsInTab = await this.setServerDetails(item.serverId)
+    //   this.serverHeader = await this.setServerHeader(item.serverId)
+    //   this.detailsInTab.ownedBy = this.serverHeader.companyName
+    //   this.detailsInTab.companyId = this.serverHeader.companyId
+
+    //   this.selectedServerId = item.serverId
+    //   this.serverSites= await this.setServerSites(item.serverId);
+    //   this.dialogdetail = true
+    // },
     columnValueList(val) {
       return this.servers.map((d) => d[val]);
     },
@@ -410,6 +419,9 @@ export default {
 </script>
 
 <style>
+.table-cursor tbody tr:hover {
+  cursor: pointer;
+}
 .v-btn.withoutupercase {
   text-transform: none !important;
 }
