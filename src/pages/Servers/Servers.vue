@@ -4,7 +4,7 @@
 
       <NavBar />
 
-    <v-card class="primary">
+    <v-card class="grey">
       <v-card-title>
         Servers
         <v-spacer></v-spacer>
@@ -15,11 +15,11 @@
           </template>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        <v-text-field v-model="search" @input="debounceInput" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="filterServers" @click:row="rowClick" :options.sync="options" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1 table-cursor" :search="search">
+      }" class="elevation-1 table-cursor" :search="search"  :loading="loaderTable">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -53,12 +53,6 @@
               </v-list>
             </div>
           </v-menu>
-        </template>
-        <template v-slot:item.details="{ item }">
-          <v-btn depressed rounded text color="teal" @click="
-          showDetails(item)">
-            <v-icon>mdi-eye</v-icon>Show Details
-          </v-btn>
         </template>
       </v-data-table>
       <v-dialog v-model="dialogdetail">
@@ -270,6 +264,7 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
+import { debounce } from 'debounce';
 export default {
   name: 'servers',
   servers: [],
@@ -286,6 +281,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       options: {},
       serverFetchCount: 1,
       searchedServers: [],
@@ -305,6 +301,7 @@ export default {
         { text: 'App Type', value: 'appType' },
       ],
       servers: [],
+      oldServers: [],
       serverSites: [],
       dialogdetail: false,
       detailsInTab: {
@@ -341,7 +338,7 @@ export default {
     ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders','getServerSites']),
   },
   methods: {
-    ...mapActions('server', ['setServers', 'setServerDetails', 'setServerHeader', 'setServerSites']),
+    ...mapActions('server', ['setServers','setServerSearch', 'setServerDetails', 'setServerHeader', 'setServerSites']),
     async rowClick(item) {
       this.detailsInTab = await this.setServerDetails(item.serverId)
       this.serverHeader = await this.setServerHeader(item.serverId)
@@ -377,20 +374,33 @@ export default {
     async GetServerList(count) {
       let response = await this.setServers(count);
         this.servers = this.servers.concat(response);
+        this.oldServers = this.servers;
     },
     async GetServerSites(serverId) {
       this.serverSites= await this.setServerSites(serverId);
     },
+    debounceInput: debounce(async function (e) {
+      this.loaderTable = true;
+      this.servers = [];
+      if (e.length > 0) {
+        this.servers = await this.setServerSearch(e);
+      } else {
+        this.servers = this.oldServers;
+      }
+      this.loaderTable = false;
+    }, 1000)
   },
   // created() {
   //   this.GetServerList();
   // },
   watch: {
     options: {
-      handler () {
+      handler() {
+        if (this.search.length == 0) {
           this.GetServerList(this.serverFetchCount)
           this.serverFetchCount++;
-        },
+        }
+      },
         deep: true,
       },
     loader() {

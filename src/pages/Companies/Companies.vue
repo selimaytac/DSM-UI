@@ -4,7 +4,7 @@
     
       <NavBar />
     
-    <v-card class="primary">
+    <v-card class="grey">
       <v-card-title>
         Companies
         <v-spacer></v-spacer>

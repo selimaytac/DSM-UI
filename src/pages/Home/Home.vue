@@ -5,7 +5,7 @@
           <v-tab @click="overview=true">Overview</v-tab>
            <v-tab @click="serverstatics=true; overview=false">Server Statics</v-tab>
             <v-tab @click="appmanagement=true; serverstatics=false; overview=false">App Management</v-tab>
-             <v-tab @click="elasticinventory=true; appmanagement=false; serverstatics=false; overview=false">Elastic Search Invetory</v-tab>
+             <v-tab @click="elasticinventory=true; appmanagement=false; serverstatics=false; overview=false">Elastic Search Inventory</v-tab>
         </v-tabs>
         <div>
           <Overview v-if="overview"/>

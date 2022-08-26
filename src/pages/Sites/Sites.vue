@@ -4,7 +4,7 @@
 
     <NavBar />
 
-    <v-card color="teal lighten-3">
+    <v-card color="grey">
       <v-card-title>
         Sites
         <v-spacer></v-spacer>

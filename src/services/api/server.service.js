@@ -3,6 +3,7 @@ import { authHeader } from "../helper";
 const controllerName = "/server/";
 export const serverService = {
     getServers,
+    getServerSearch,
     getServerDetails,
     getServerHeader,
     getServerSites,
@@ -21,6 +22,13 @@ async function getServers(data) {
                 'Authorization': authHeader()
             }
         }
+    );
+    return result.data;
+}
+async function getServerSearch(data) {
+    const result = await $axios.get(
+        controllerName + "search/" + data,
+        { headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*', 'Authorization': authHeader() } }
     );
     return result.data;
 }

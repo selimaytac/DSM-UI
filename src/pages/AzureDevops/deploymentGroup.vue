@@ -100,18 +100,7 @@ import NavBar from '@/components/NavBar.vue'
           { text: 'View Details', value: 'details'},
         ],
         servers: [
-          {
-            name: 'Tarık',
-            groupname: 159,
-            grouppool: 6.0,
-            mcount: 24,
-          },
-          {
-            name: 'Frozen Yogurt',
-            groupname: 159,
-            grouppool: 6.0,
-            mcount: 24,
-          },
+         
         ],
         dialogdetail: false
       }

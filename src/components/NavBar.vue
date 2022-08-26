@@ -4,7 +4,7 @@
     <v-list-item-content>
       <v-list-item-title>
         <span class="font-weight-bold title">DSM </span>
-        <span class="font-weight-light title">- Server Monitoing</span>
+        <span class="font-weight-light title">- Server Monitoring</span>
       </v-list-item-title>
     </v-list-item-content>
     <v-btn class="ma-2" icon>

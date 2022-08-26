@@ -5,5 +5,10 @@ const actions = {
     // vuexContext.commit("SET_SERVER_LIST", res);
     return res;
   },
+  async setJobsSearch(vuexContext, data) {
+    const res = await scheduledjobsService.getJobsSearch(data);
+    // vuexContext.commit("SET_SERVER_LIST", res);
+    return res;
+  },
 }
 export default actions;

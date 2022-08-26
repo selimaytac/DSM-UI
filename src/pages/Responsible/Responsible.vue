@@ -2,7 +2,7 @@
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
       <NavBar />
-    <v-card class="primary">
+    <v-card class="grey">
       <v-card-title>
         Responsibles
         <v-spacer></v-spacer>

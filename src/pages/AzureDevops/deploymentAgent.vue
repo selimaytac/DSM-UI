@@ -101,24 +101,7 @@ import NavBar from '@/components/NavBar.vue'
           { text: 'View Details', value: 'details'},
         ],
         servers: [
-          {
-            name: 'Tarık',
-            agentanme: 159,
-            agentvers: 6.0,
-            opsystem: 24,
-            status: 24,
-            installdate: 24,
-            changeddate: 24,
-          },
-          {
-            name: 'Frozen Yogurt',
-            agentanme: 159,
-            agentvers: 6.0,
-            opsystem: 24,
-            status: 24,
-            installdate: 24,
-            changeddate: 24,
-          },
+          
         ],
         dialogdetail: false
       }

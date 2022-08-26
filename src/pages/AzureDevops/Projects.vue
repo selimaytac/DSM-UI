@@ -99,18 +99,7 @@ import NavBar from '@/components/NavBar.vue'
           { text: 'View Details', value: 'details'},
         ],
         servers: [
-          {
-            name: 'Tarık',
-            publicvisible: 159,
-            revision: 6.0,
-            lasttime: 24,
-          },
-          {
-            name: 'Frozen Yogurt',
-            publicvisible: 159,
-            revision: 6.0,
-            lasttime: 24,
-          },
+          
         ],
         dialogdetail: false
       }

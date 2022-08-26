@@ -15,9 +15,9 @@
           </template>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        <v-text-field v-model="search"  append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterJobs" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterJobs" :loading="loaderTable" :options.sync="options" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
@@ -63,7 +63,7 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
-import { scheduledjobs } from '@/store/modules/scheduledJobs';
+// import { debounce } from 'debounce';
 export default {
   name: 'jobs',
   jobs: [],
@@ -79,6 +79,10 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
+      options: {},
+      jobFetchCount: 1,
+      searchedJobs: [],
       headers: [
         { text: 'Job Description', align: 'start', sortable: false, value: 'jobDescription', width: "200px", fixed: true },
         { text: 'Owner', value: 'owner',width: "200px", fixed: true },
@@ -88,6 +92,7 @@ export default {
         { text: 'Job Name', value: 'jobName', width: "200px", fixed: true },
       ],
       jobs: [],
+      oldJobs: [],
       dialogdetail: false
     }
   },
@@ -95,24 +100,55 @@ export default {
     ...mapGetters('scheduledjobs', ['getScheduleJobsList']),
   },
   methods: {
-    ...mapActions('scheduledjobs', ['setScheduledJobs']),
+    ...mapActions('scheduledjobs', ['setScheduledJobs', 'setJobsSearch']),
     columnValueList(val) {
       return this.jobs.map((d) => d[val]);
     },
+    // async GetScheduleJobsList(count) {
+    //   let response = await this.setScheduledJobs(count);
+    //     this.jobs = this.jobs.concat(response);
+    //     this.oldJobs = this.jobs;
+    // },
     async GetScheduledJobsList() {
+      this.loaderTable = true;
       let count = 1;
+      let temp = [];
       let response = await this.setScheduledJobs(count);
+      // this.oldJobs = this.jobs;
       while (response.length > 0) {
-        this.jobs = this.jobs.concat(response);
+        temp = temp.concat(response);
         count++;
         response = await this.setScheduledJobs(count);
       }
+      this.loaderTable = false;
+      this.jobs = temp;
+      temp = [];
+
     },
+    // debounceInput: debounce(async function (e) {
+    //   this.loaderTable = true;
+    //   this.jobs = [];
+    //   if (e.length > 0) {
+    //     this.jobs = await this.setJobsSearch(e);
+    //   } else {
+    //     this.jobs = this.oldJobs;
+    //   }
+    //   this.loaderTable = false;
+    // }, 1000)
   },
   created() {
     this.GetScheduledJobsList();
   },
   watch: {
+    options: {
+      handler() {
+        if (this.search.length == 0) {
+          this.GetScheduleJobsList(this.jobFetchCount)
+          this.jobFetchCount++;
+        }
+      },
+        deep: true,
+      },
     loader() {
       const l = this.loader
       this[l] = !this[l]
