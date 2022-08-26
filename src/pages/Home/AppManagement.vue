@@ -9,11 +9,11 @@
             <v-col cols="12" xs="12" sm="4" md="2" v-for="(card, i) in cards" :key="i">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" :class="active ? 'borderme' : 'borderout'"
-                  class="d-flex rounded-lg mx-auto" dark height="270" width="400" @click="toggle" flat>
+                  class="d-flex rounded-lg mx-auto" dark height="220" width="400" @click="toggle" flat>
                   <v-row>
                     <v-col cols="12" sm="12">
                       <a :href="card.url">
-                        <v-img :src="card.image" class="white--text align-end" height="200px" max-width="170px"></v-img>
+                        <v-img :src="card.image" class="white--text align-end" height="150px" max-width="170px"></v-img>
                         <v-card-title :class="active ? 'white--text' : 'grey--text'" class="caption text-center justify-center font-weight-bold">
                           {{ card.description }}
                         </v-card-title>

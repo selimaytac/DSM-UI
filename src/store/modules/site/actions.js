@@ -5,6 +5,11 @@ const actions = {
     // vuexContext.commit("SET_SERVER_LIST", res);
     return res;
   },
+  async setSiteSearch(vuexContext, data) {
+    const res = await siteService.getSiteSearch(data);
+    // vuexContext.commit("SET_SERVER_LIST", res);
+    return res;
+  },
   async setSiteDetails(vuexContext, data) {
     const res = await siteService.getSiteDetails(data);
     vuexContext.commit("SET_SITE_DETAILS", data);

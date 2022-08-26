@@ -17,8 +17,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterOdmServers" @click:row="rowClick" :items-per-page="5" class="elevation-1"
-        :search="search">
+      <v-data-table :headers="headers" :items="filterOdmServers" @click:row="rowClick" :items-per-page="10" :footer-props="{
+        'items-per-page-options': [20, 50, 100, 200]
+      }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">

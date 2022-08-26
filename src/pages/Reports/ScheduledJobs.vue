@@ -17,7 +17,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterJobs" :items-per-page="5" class="elevation-1" :search="search">
+      <v-data-table :headers="headers" :items="filterJobs" :items-per-page="10" :footer-props="{
+        'items-per-page-options': [20, 50, 100, 200]
+      }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -78,13 +80,12 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'Job Description', align: 'start', sortable: false, value: 'jobDescription' },
-        { text: 'Owner', value: 'owner', },
-        { text: 'Host Type', value: 'hostType' },
-        { text: 'Host Name', value: 'hostName' },
-        { text: 'Repeat Time', value: 'repeatTime' },
-        { text: 'Job Name', value: 'jobName' },
-        { text: 'View Details', value: 'details' },
+        { text: 'Job Description', align: 'start', sortable: false, value: 'jobDescription', width: "200px", fixed: true },
+        { text: 'Owner', value: 'owner',width: "200px", fixed: true },
+        { text: 'Host Type', value: 'hostType', width: "150px", fixed: true },
+        { text: 'Host Name', value: 'hostName', width: "150px", fixed: true },
+        { text: 'Repeat Time', value: 'repeatTime',width: "200px", fixed: true },
+        { text: 'Job Name', value: 'jobName', width: "200px", fixed: true },
       ],
       jobs: [],
       dialogdetail: false

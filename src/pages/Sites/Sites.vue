@@ -2,9 +2,9 @@
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
 
-      <NavBar />
+    <NavBar />
 
-    <v-card class="primary">
+    <v-card color="teal lighten-3">
       <v-card-title>
         Sites
         <v-spacer></v-spacer>
@@ -15,11 +15,13 @@
           </template>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        <v-text-field v-model="search" @input="debounceInput" append-icon="mdi-magnify" label="Search" single-line
+          hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterSites" @click:row="rowClick" :options.sync="options" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1 table-cursor" :search="search">
+      <v-data-table :headers="headers" :items="filterSites" @click:row="rowClick" :options.sync="options"
+        :items-per-page="10" :footer-props="{
+          'items-per-page-options': [20, 50, 100, 200]
+        }" class="elevation-1 table-cursor" :search="search" :loading="loaderTable">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -282,6 +284,7 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
+import { debounce } from 'debounce';
 export default {
   name: 'sites',
   sites: [],
@@ -300,6 +303,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       options: {},
       siteFetchCount: 1,
       searchedSites: [],
@@ -353,6 +357,7 @@ export default {
         { text: 'Protocol', value: 'protocol' },
       ],
       sites: [],
+      oldSites: [],
       siteBindings: [],
       siteEndpoints: [],
       directdbitem: [
@@ -396,7 +401,7 @@ export default {
     ...mapGetters('site', ['getSiteList', 'getSiteDetails', 'getSiteHeaders', 'getSiteBindings', 'getSitePackages', 'getSiteEndpoints']),
   },
   methods: {
-    ...mapActions('site', ['setSites', 'setSiteDetails', 'setSiteHeader', 'setSiteBindings', 'setSitePackages', 'setSiteEndpoints']),
+    ...mapActions('site', ['setSites', 'setSiteSearch', 'setSiteDetails', 'setSiteHeader', 'setSiteBindings', 'setSitePackages', 'setSiteEndpoints']),
     async rowClick(item) {
       this.detailsInTab = await this.setSiteDetails(item.siteId)
       this.siteHeader = await this.setSiteHeader(item.siteId)
@@ -439,7 +444,8 @@ export default {
     // },
     async GetSiteList(count) {
       let response = await this.setSites(count);
-        this.sites = this.sites.concat(response);
+      this.sites = this.sites.concat(response);
+      this.oldSites = this.sites;
     },
     async GetSiteBindings(siteId) {
       this.siteBindings = await this.setSiteBindings(siteId);
@@ -450,18 +456,30 @@ export default {
     async GetSiteEndpoints(siteId) {
       this.siteEndpoints = await this.setSiteEndpoints(siteId);
     },
+    debounceInput: debounce(async function (e) {
+      this.loaderTable = true;
+      this.sites = [];
+      if (e.length > 0) {
+        this.sites = await this.setSiteSearch(e);
+      } else {
+        this.sites = this.oldSites;
+      }
+      this.loaderTable = false;
+    }, 1000)
   },
   // created() {
   //   this.GetSiteList();
   // },
   watch: {
     options: {
-      handler () {
+      handler() {
+        if (this.search.length == 0) {
           this.GetSiteList(this.siteFetchCount)
           this.siteFetchCount++;
-        },
-        deep: true,
+        }
       },
+      deep: true,
+    },
     loader() {
       const l = this.loader
       this[l] = !this[l]
@@ -491,6 +509,7 @@ export default {
 .table-cursor tbody tr:hover {
   cursor: pointer;
 }
+
 .v-btn.withoutupercase {
   text-transform: none !important;
 }
