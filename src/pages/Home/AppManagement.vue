@@ -12,7 +12,7 @@
                   class="d-flex rounded-lg mx-auto" dark height="220" width="400" @click="toggle" flat>
                   <v-row>
                     <v-col cols="12" sm="12">
-                      <a :href="card.url">
+                      <a :href="card.url" target="_blank">
                         <v-img :src="card.image" class="white--text align-end" height="150px" max-width="170px"></v-img>
                         <v-card-title :class="active ? 'white--text' : 'grey--text'" class="caption text-center justify-center font-weight-bold">
                           {{ card.description }}

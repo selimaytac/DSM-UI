@@ -17,7 +17,7 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search"  append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterJobs" :loading="loaderTable" :options.sync="options" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterJobs" :loading="loaderTable" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
@@ -80,7 +80,7 @@ export default {
       loading6: false,
       search: '',
       loaderTable: false,
-      options: {},
+      // options: {},
       jobFetchCount: 1,
       searchedJobs: [],
       headers: [
@@ -140,15 +140,15 @@ export default {
     this.GetScheduledJobsList();
   },
   watch: {
-    options: {
-      handler() {
-        if (this.search.length == 0) {
-          this.GetScheduleJobsList(this.jobFetchCount)
-          this.jobFetchCount++;
-        }
-      },
-        deep: true,
-      },
+    // options: {
+    //   handler() {
+    //     if (this.search.length == 0) {
+    //       this.GetScheduleJobsList(this.jobFetchCount)
+    //       this.jobFetchCount++;
+    //     }
+    //   },
+    //     deep: true,
+    //   },
     loader() {
       const l = this.loader
       this[l] = !this[l]

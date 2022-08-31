@@ -10,7 +10,7 @@
               <v-card class="rounded-lg mx-auto" height="100%">
                 <v-card-text>
                   <p class="text-h6 text--primary">
-                    <a :href="inventory.url">{{ inventory.url }}</a>
+                    <a :href="inventory.url" target="_blank">{{ inventory.url }}</a>
                   </p>
                   <div class="my-4 text-subtitle-4">
                     IP Address : {{ inventory.ipAddress }}

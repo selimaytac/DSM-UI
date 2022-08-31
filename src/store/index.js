@@ -8,6 +8,7 @@ import { responsible } from "./modules/responsible";
 import { databaseportal } from "./modules/database";
 import { scheduledjobs } from "./modules/scheduledJobs";
 import { odmservers } from "./modules/odmservers";
+import { monthlykpi} from "./modules/monthlykpi";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -23,10 +24,11 @@ export default new Vuex.Store({
     databaseportal,
     scheduledjobs,
     odmservers,
+    monthlykpi,
   },
   plugins: [
     createPersistedState({
-      paths: ["auth", "server", "site", "company", "responsible", "databaseportal", "scheduledjobs", "odmservers"],
+      paths: ["auth", "server", "site", "company", "responsible", "databaseportal", "scheduledjobs", "odmservers","monthlykpi"],
     }),
   ],
 });
