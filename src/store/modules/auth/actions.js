@@ -10,6 +10,6 @@ const actions = {
   },
   setStateDomain(vuexContext, data) {
     vuexContext.commit("setDomain", data);
-  }
+  },
 };
 export default actions;

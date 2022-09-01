@@ -13,6 +13,6 @@ const mutations = {
   },
   setDomain(state, payload) {
     state.stateDomain = payload;
-  }
+  },
 };
 export default mutations;

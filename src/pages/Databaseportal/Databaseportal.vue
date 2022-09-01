@@ -263,7 +263,6 @@ export default {
       while (response.length > 0) {
         this.dbportals = this.dbportals.concat(response);
         count++;
-        console.log(count)
         response = await this.setDatabases(count);
       }
     },

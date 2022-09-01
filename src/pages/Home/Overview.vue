@@ -27,7 +27,7 @@
                     <v-list-item-content>
                       <div class="mb-4">
                         <v-btn tile fab color="orange" elevation="0">
-                          <v-icon color="">fab fa-btc</v-icon>
+                          
                         </v-btn>
                       </div>
                       <v-list-item-title class="headline mb-1 white--text">
@@ -53,7 +53,7 @@
                     <v-list-item-content>
                       <div class="mb-4">
                         <v-btn tile fab color="teal" elevation="0">
-                          <v-icon color="">fab fa-ethereum</v-icon>
+                          
                         </v-btn>
                       </div>
                       <v-list-item-title class="headline mb-1 white--text">
@@ -80,7 +80,7 @@
                     <v-list-item-content>
                       <div class="mb-4">
                         <v-btn tile fab color="#6e0b14" elevation="0">
-                          <v-icon color="">fas fa-lira-sign</v-icon>
+                          
                         </v-btn>
                       </div>
                       <v-list-item-title class="headline mb-1 white--text">

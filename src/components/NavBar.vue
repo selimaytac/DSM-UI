@@ -90,12 +90,13 @@ export default {
       localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString());
     },
     ...mapActions({
-      LogOut: 'auth/setLogout'
+      LogOut: 'auth/setLogout',
+      Test: 'auth/setTest'
     }),
     logout() {
       this.LogOut();
       this.$router.push('/').catch(() => { });
-    }
+    },
   },
   mounted() {
     const theme = localStorage.getItem("dark_theme");

@@ -10,10 +10,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterKpiStatus" :items-per-page="10"
-        :footer-props="{
-          'items-per-page-options': [20, 50, 100, 200]
-        }" class="elevation-1 table-cursor" :search="search">
+      <v-data-table :headers="headers" :items="filterKpiStatus" :items-per-page="10" :footer-props="{
+        'items-per-page-options': [20, 50, 100, 200]
+      }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -56,13 +55,21 @@
       </v-data-table>
       <v-dialog v-model="graphDetail">
         <v-card>
-          <v-toolbar dark color="teal">
+          <v-toolbar dark color="primary">
             <v-btn icon dark @click="graphDetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">GRAPH</v-toolbar-title>
           </v-toolbar>
-        </v-card>        
+          <template>
+            <v-container fluid>
+              <div>
+                <h3>{{appTitle}}</h3>
+                <line-chart :data="chartData" :legend="true" xtitle="Months" height="500px"  />
+              </div>
+            </v-container>
+          </template>
+        </v-card>
       </v-dialog>
     </v-card>
   </v-app>
@@ -71,13 +78,22 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
+
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: 'monthlykpi',
-  odmServer: [],
   data() {
     return {
-      filters: { application: []},
+      chartData: [
+        // { name: '', data: { 'Ocak': 0, 'Şubat': 4, 'Mart': 90, 'Nisan': 10, 'Mayıs': 20, 'Haziran': 21, 'Temmuz': 16, 'Ağustos': 53, 'Eylül': 99, 'Ekim': 40, 'Kasım': 75, 'Aralık': 99.70 } },
+        // { name: '2020', data: { 'Ocak': 0, 'Şubat': 4, 'Mart': 90, 'Nisan': 10, 'Mayıs': 20, 'Haziran': 32, 'Temmuz': 10, 'Ağustos': 50, 'Eylül': 99, 'Ekim': 100, 'Kasım': 100, 'Aralık': 100 } },
+        // { name: '2021', data: { 'Ocak': 0, 'Şubat': 4, 'Mart': 90, 'Nisan': 10, 'Mayıs': 20, 'Haziran': 45, 'Temmuz': 8, 'Ağustos': 59, 'Eylül': 99, 'Ekim': 60, 'Kasım': 100, 'Aralık': 98 } },
+        // { name: '2022', data: { 'Ocak': 51, 'Şubat': 54, 'Mart': 90, 'Nisan': 50, 'Mayıs': 50, 'Haziran': 51, 'Temmuz': 59, 'Ağustos': 72, 'Eylül': 99, 'Ekim': 90, 'Kasım': 95, 'Aralık': 93 } },
+      ],
+      filters: { application: [] },
+      loading: false,
+      selection: 1,
       graph: false,
       graphDetail: false,
       loader: null,
@@ -90,9 +106,11 @@ export default {
       search: '',
       headers: [
         { text: 'Application Name', value: 'application' },
-        { text: 'Graph',align: 'start', sortable: false, value: 'graph' },
+        { text: 'Graph', align: 'start', sortable: false, value: 'graph' },
       ],
+      applicationNames: [],
       kpistatus: [],
+      appTitle: '',
     }
   },
   computed: {
@@ -101,12 +119,15 @@ export default {
   methods: {
     ...mapActions('monthlykpi', ['setMonthlyKpi']),
     async showGraph(item) {
-      this.graph=item;
+      this.chartData = this.kpistatus.filter(x => x.application === item.application)
+      .map(kpi => ({ name: kpi.year, data: 
+        { 'Ocak': kpi.ocak, 'Şubat': kpi.subat, 'Mart': kpi.mart, 'Nisan': kpi.nisan, 'Mayıs': kpi.mayis, 'Haziran': kpi.haziran, 'Temmuz': kpi.temmuz, 'Ağustos': kpi.agustos, 'Eylül': kpi.eylul, 'Ekim': kpi.ekim, 'Kasım': kpi.kasim, 'Aralık': kpi.aralik } }))
 
+      this.appTitle = item.application;  
       this.graphDetail = true
     },
     columnValueList(val) {
-      return this.kpistatus.map((d) => d[val]);
+      return this.applicationNames.map((d) => d[val]);
     },
     async GetKpiList() {
       let count = 1;
@@ -117,16 +138,18 @@ export default {
         count++;
         response = await this.setMonthlyKpi(count);
       }
+      this.kpistatus = temp;
 
-      this.kpistatus= [...new Set(temp.map(item =>  item.application))].map(application => ({application: application}));
+      this.applicationNames = [...new Set(temp.map(item => item.application))].map(application => ({ application: application }));
     },
+
   },
   created() {
     this.GetKpiList();
   },
   computed: {
     filterKpiStatus() {
-      return this.kpistatus.filter((d) => {
+      return this.applicationNames.filter((d) => {
         return Object.keys(this.filters).every((f) => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });
@@ -136,11 +159,16 @@ export default {
   components: {
     SideBar,
     NavBar,
-},
+  },
 }
 </script>
 
 <style>
+.v-sheet--offset {
+  top: -24px;
+  position: relative;
+}
+
 .table-cursor tbody tr:hover {
   cursor: pointer;
 }

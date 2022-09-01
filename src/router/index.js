@@ -10,8 +10,6 @@ const router = new VueRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-
-  
   if(!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth" ) && to.name !== "signin") {
     to.meta.requiresAuth = true;
   }
