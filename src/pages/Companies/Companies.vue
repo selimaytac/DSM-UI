@@ -55,7 +55,7 @@
           </v-menu>
         </template>
         <template v-slot:item.details="{ item }">
-          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
+          <v-btn depressed rounded text color="primary" @click="showDetails(item)">
             <v-icon>mdi-eye</v-icon>Show Details
           </v-btn>
         </template>
@@ -70,12 +70,12 @@
           </v-toolbar>
           <v-container>
             <template>
-              <v-tabs color="teal" vertical>
+              <v-tabs color="primary" vertical>
                 <v-tab>Servers</v-tab>
                 <v-tab>Sites</v-tab>
                 <v-tab>Statics</v-tab>
                 <v-tab-item>
-                  <v-card color="teal">
+                  <v-card color="primary">
                     <v-card-title>
                       Servers Details
                       <v-spacer></v-spacer>
@@ -87,7 +87,7 @@
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                  <v-card color="teal">
+                  <v-card color="primary">
                     <v-card-title>
                       Site Details
                       <v-spacer></v-spacer>
@@ -99,7 +99,7 @@
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                  <v-card color="teal">
+                  <v-card color="primary">
                     <v-card-title>
                       Statics Details
                       <v-spacer></v-spacer>

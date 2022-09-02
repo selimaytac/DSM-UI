@@ -80,7 +80,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Company Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{ companyCount.companyCount }}</strong>
+                            <strong>{{ companyCount.userCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -189,7 +189,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="5" sm="12">
-          <v-toolbar color="rgba(0,0,0,0)" flat >
+          <v-toolbar color="rgba(0,0,0,0)" flat>
             <v-toolbar-title>DSM News</v-toolbar-title>
           </v-toolbar>
           <v-timeline>
@@ -210,80 +210,63 @@
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
         <v-toolbar-title>Uygulamalarımız</v-toolbar-title>
       </v-toolbar>
-      <v-col cols="12" sm="4">
 
-        <v-card class="cardOr mx-2 rounded-xl mt-n3" elevation="16">
-          <v-row>
-            <v-col cols="12" sm="8">
-              <a href="https://scorecard.fw.dteknoloji.com.tr/" target="_blank">
-                <v-list-item three-line>
-                  <v-list-item-content>
-                    <v-list-item-title class="headline mb-1 primary--text">
-                      Scorecard
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </a>
-              <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
+      <v-item-group mandatory class="mt-n5">
+        <v-container>
+          <v-row justify="center" class="space">
+            <v-col cols="12" md="3">
+              <v-item v-slot="{ active, toggle }">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="170"
+                  @click="toggle">
+                  <v-row>
+                    <v-col cols="12" sm="8">
+                      <a href="https://scorecard.fw.dteknoloji.com.tr/" target="_blank">
+                        <v-list-item three-line >
+                          <v-list-item-content>
+                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Scorecard
+                            </v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </a>
+                    </v-col>
+                    <v-col cols="12" sm="4">
+                      <v-avatar size="100" class="ml-n10 mt-6" tile>
+                        <v-img src="scorecard.png"></v-img>
+                      </v-avatar>
+                    </v-col>
+                  </v-row>
+
+                </v-card>
+              </v-item>
             </v-col>
-            <v-col cols="12" sm="4">
-              <v-avatar size="100" class="ml-n10 mt-6" tile>
-                <v-img src="lineO.png"></v-img>
-              </v-avatar>
+            <v-col cols="12" md="3">
+              <v-item v-slot="{ active, toggle }">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="170"
+                  @click="toggle">
+                  <v-row>
+                    <v-col cols="12" sm="8">
+                      <a href="http://dsm/#/login" target="_blank">
+                        <v-list-item three-line >
+                          <v-list-item-content>
+                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">DSM - Server Monitoring
+                            </v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </a>
+                    </v-col>
+                    <v-col cols="12" sm="4">
+                      <v-avatar size="100" class="ml-n10 mt-6" tile>
+                        <v-img src="logo3.png"></v-img>
+                      </v-avatar>
+                    </v-col>
+                  </v-row>
+
+                </v-card>
+              </v-item>
             </v-col>
           </v-row>
-        </v-card>
-
-      </v-col>
-      <v-col cols="12" sm="4">
-        <v-card class="cardVr mx-2 rounded-xl mt-n3" elevation="16">
-          <v-row>
-            <v-col cols="12" sm="8">
-              <a href="http://dsm/#/login" target="_blank">
-                <v-list-item three-line>
-                  <v-list-item-content>
-                    <v-list-item-title class="headline mb-1 primary--text">
-                      DSM
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </a>
-              <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-avatar size="100" class="ml-n10 mt-6" tile>
-                <v-img src="logo.png"></v-img>
-              </v-avatar>
-            </v-col>
-          </v-row>
-        </v-card>
-
-      </v-col>
-      <v-col cols="12" sm="4">
-        <v-card class="cardR mx-2 rounded-xl mt-n3" elevation="16">
-          <v-row>
-            <v-col cols="12" sm="8">
-              <a href="coming soon" target="_blank">
-                <v-list-item three-line>
-                  <v-list-item-content>
-                    <v-list-item-title class="headline mb-1 primary--text">
-                      Arıza Bildiri
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </a>
-              <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-avatar size="100" class="ml-n10 mt-6" tile>
-                <v-img src="line.png"></v-img>
-              </v-avatar>
-            </v-col>
-          </v-row>
-        </v-card>
-
-      </v-col>
-
+        </v-container>
+      </v-item-group>
     </v-container>
   </v-app>
 </template>

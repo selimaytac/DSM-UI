@@ -62,7 +62,7 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-            <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2"
+            <v-btn id="downloadexcel" class="ma-1 white--text" color="black" :loading="loading2" :disabled="loading2"
               outlined @click="loader = 'loading2'">Export to Excel
               <template v-slot:loader>
                 <span>Loading...</span>
@@ -70,7 +70,7 @@
             </v-btn>
           </v-toolbar>
           <template>
-            <v-tabs color="teal" vertical>
+            <v-tabs color="primary" vertical>
               <v-tab>General</v-tab>
               <v-tab>Sites</v-tab>
               <v-tab>Statics</v-tab>
@@ -78,12 +78,12 @@
                 <v-container fluid>
                   <v-row justify="center" class="space">
                     <v-col cols="12" sm="4">
-                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="600">
                         <v-toolbar flat color="rgba(0,0,0,0)" dark>
                           <v-toolbar-title>Basic Details</v-toolbar-title>
                           <v-spacer></v-spacer>
                         </v-toolbar>
-                        <v-simple-table class="teal" dark>
+                        <v-simple-table class="primary" dark>
                           <template v-slot:default>
                             <tbody>
                               <tr>
@@ -128,12 +128,12 @@
                       </v-card>
                     </v-col>
                     <v-col cols="12" sm="4">
-                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="600">
                         <v-toolbar flat color="rgba(0,0,0,0)" dark>
                           <v-toolbar-title>Disk Details</v-toolbar-title>
                           <v-spacer></v-spacer>
                         </v-toolbar>
-                        <v-simple-table class="teal" dark>
+                        <v-simple-table class="primary" dark>
                           <template v-slot:default>
                             <tbody>
                               <tr>
@@ -155,7 +155,7 @@
                               <v-toolbar-title>Organization Details</v-toolbar-title>
                               <v-spacer></v-spacer>
                             </v-toolbar>
-                            <v-simple-table class="teal" dark>
+                            <v-simple-table class="primary" dark>
                               <template v-slot:default>
                                 <tbody>
                                   <tr>
@@ -188,12 +188,12 @@
                       </v-card>
                     </v-col>
                     <v-col cols="12" sm="4">
-                      <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="300">
+                      <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="300">
                         <v-toolbar flat color="rgba(0,0,0,0)" dark>
                           <v-toolbar-title>Volume Details</v-toolbar-title>
                           <v-spacer></v-spacer>
                         </v-toolbar>
-                        <v-simple-table class="teal" dark>
+                        <v-simple-table class="primary" dark>
                           <template v-slot:default>
                             <thead>
                               <tr>
@@ -231,7 +231,7 @@
                 </v-container>
               </v-tab-item>
               <v-tab-item>
-                <v-card color="teal">
+                <v-card color="primary">
                   <v-card-title>
                     Sites Details
                     <v-spacer></v-spacer>
@@ -243,7 +243,7 @@
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card color="teal">
+                <v-card color="primary">
                   <v-card-title>
                     Statics Details
                     <v-spacer></v-spacer>

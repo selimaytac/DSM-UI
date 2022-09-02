@@ -11,10 +11,11 @@ export default new Vuetify({
         iconfont: 'fa' || 'md'
     },
     theme:{
+        dark: true,
         themes:{
             dark:{
-                background: 'grey'
-            }
+                background: 'rgb(128,128,128)'
+            },
         }
     }
 });

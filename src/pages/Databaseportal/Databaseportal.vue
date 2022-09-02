@@ -70,18 +70,18 @@
           </v-toolbar>
           <v-container>
             <template>
-              <v-tabs color="teal" vertical>
+              <v-tabs color="primary" vertical>
                 <v-tab>General</v-tab>
                 <v-tab-item>
                   <v-container fluid>
                     <v-row justify="center" class="space">
                       <v-col cols="12" sm="6">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                        <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="600">
                           <v-toolbar flat color="rgba(0,0,0,0)" dark>
                             <v-toolbar-title>Basic Details</v-toolbar-title>
                             <v-spacer></v-spacer>
                           </v-toolbar>
-                          <v-simple-table class="teal" dark>
+                          <v-simple-table class="primary" dark>
                             <template v-slot:default>
                               <tbody>
                                 <tr>
@@ -118,12 +118,12 @@
                         </v-card>
                       </v-col>
                       <v-col cols="12" sm="6">
-                        <v-card class=" mx-2 rounded-xl" elevation="8" color="teal" height="600">
+                        <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="600">
                           <v-toolbar flat color="rgba(0,0,0,0)" dark>
                             <v-toolbar-title>Basic Details</v-toolbar-title>
                             <v-spacer></v-spacer>
                           </v-toolbar>
-                          <v-simple-table class="teal" dark>
+                          <v-simple-table class="primary" dark>
                             <template v-slot:default>
                               <tbody>
                                 <tr>
@@ -150,7 +150,7 @@
                                 <v-toolbar-title>Organization Details</v-toolbar-title>
                                 <v-spacer></v-spacer>
                               </v-toolbar>
-                              <v-simple-table class="teal" dark>
+                              <v-simple-table class="primary" dark>
                                 <template v-slot:default>
                                   <tbody>
                                     <tr>

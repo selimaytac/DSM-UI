@@ -48,12 +48,12 @@
           </v-menu>
         </template>
         <template v-slot:item.graph="{ item }">
-          <v-btn depressed rounded text color="teal" @click="showGraph(item)">
+          <v-btn depressed rounded text color="primary" @click="showGraph(item)">
             <v-icon>mdi-chart-line </v-icon>Show Graph
           </v-btn>
         </template>
         <template v-slot:item.table="{ item }">
-          <v-btn depressed rounded text color="teal" @click="showTable(item)">
+          <v-btn depressed rounded text color="primary" @click="showTable(item)">
             <v-icon>mdi-view-sequential-outline </v-icon>Show Table
           </v-btn>
         </template>

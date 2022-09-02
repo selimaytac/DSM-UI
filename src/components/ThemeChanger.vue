@@ -14,7 +14,9 @@
                         Dark Mode</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-action>
-                    <v-switch v-model="$vuetify.theme.dark" />
+                    <v-btn icon @click="toggle_dark_mode">
+                        <v-icon>mdi-theme-light-dark</v-icon>
+                    </v-btn>
                 </v-list-item-action>
             </v-list-item>
             <v-divider />
@@ -33,16 +35,6 @@
                             </v-avatar>
                         </v-list-item-action>
                     </v-list-item>
-                    <!-- <div class="my-2">
-                        <v-chip class="mx-1" label :color="theme.dark[key]"
-                            v-for="(key, index) in Object.keys(theme.dark)" :key="index">
-                            {{ key }}</v-chip>
-                    </div>
-                    <div class="my-2">
-                        <v-chip class="mx-1" label :color="theme.light[key]"
-                            v-for="(key, index) in Object.keys(theme.light)" :key="index">
-                            {{ key }}</v-chip>
-                    </div> -->
                 </v-card>
             </v-card-text>
             <v-divider />
@@ -72,6 +64,10 @@ export default {
         ]
     }),
     methods: {
+        toggle_dark_mode: function () {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+            localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString());
+        },
         setTheme(theme) {
 
             this.menu = false;
@@ -87,6 +83,25 @@ export default {
             });
 
             this.$vuetify.theme.themes.name = name;
+        }
+    },
+    mounted() {
+        const theme = localStorage.getItem("dark_theme");
+        if (theme) {
+            if (theme === "true") {
+                this.$vuetify.theme.dark = true;
+            } else {
+                this.$vuetify.theme.dark = false;
+            }
+        } else if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+            this.$vuetify.theme.dark = true;
+            localStorage.setItem(
+                "dark_theme",
+                this.$vuetify.theme.dark.toString()
+            );
         }
     }
 };
