@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer v-model="drawer" app mini-variant mini-variant-width="100" class="primary" permanent expand-on-hover>
-        <v-avatar class="d-block text-center mx-auto mt-2 mb-2" size="70">
-            <v-img src="../../public/logoo.png"></v-img>
+        <v-avatar class="d-block mx-auto mt-2 mb-2" size="70">
+            <v-img src="../../public/logo.png"></v-img>
         </v-avatar>
         <v-list nav dense class="mt-4 primary">
             <v-list-item-group v-model="selectedItem">
@@ -15,8 +15,6 @@
                 </v-list-item>
             </v-list-item-group>
         </v-list>
-        <v-divider class="my-3"></v-divider>
-        <h5>DT-Uygulama Yönetimi</h5>
     </v-navigation-drawer>
 </template>
 

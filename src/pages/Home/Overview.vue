@@ -26,7 +26,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Server Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{serverCount.serverCount}}</strong>
+                            <strong>{{ serverCount.serverCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -53,7 +53,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Site Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{siteCount.siteCount}}</strong>
+                            <strong>{{ siteCount.siteCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -80,7 +80,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Company Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{companyCount.companyCount}}</strong>
+                            <strong>{{ companyCount.companyCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -108,7 +108,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Responsible Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{responsibilityCount.responsibilityCount}}</strong>
+                            <strong>{{ responsibilityCount.responsibilityCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -135,7 +135,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">DB Portal Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{dbCount.dbCount}}</strong>
+                            <strong>{{ dbCount.dbCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -162,7 +162,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Total User Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{userCount.userCount}}</strong>
+                            <strong>{{ userCount.userCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -178,26 +178,18 @@
       </v-item-group>
       <v-row class="mt-n6">
         <v-col cols="12" md="7" sm="12">
-          <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n2">
+          <v-toolbar color="rgba(0,0,0,0)" flat>
             <v-toolbar-title>DSM Nedir?</v-toolbar-title>
           </v-toolbar>
           <v-card>
             <v-card-text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
+              DSM, Doğuş Teknoloji Uygulama Yönetimi Ekibi tarafından geliştirilen, sunucu, site vb.assetlere ait
+              dataların görüntülenenip rapor olarak çekilebildiği bir asset management tooludur.
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" md="5" sm="12">
-          <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n2">
+          <v-toolbar color="rgba(0,0,0,0)" flat >
             <v-toolbar-title>DSM News</v-toolbar-title>
           </v-toolbar>
           <v-timeline>
@@ -219,78 +211,78 @@
         <v-toolbar-title>Uygulamalarımız</v-toolbar-title>
       </v-toolbar>
       <v-col cols="12" sm="4">
-            
-            <v-card class="cardOr mx-2 rounded-xl mt-n3" elevation="16">
-              <v-row>
-                <v-col cols="12" sm="8">
-                  <a href="https://scorecard.fw.dteknoloji.com.tr/" target="_blank">
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <v-list-item-title class="headline mb-1 primary--text">
-                        Scorecard
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </a>
-                <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="lineO.png"></v-img>
-                  </v-avatar>
-                </v-col>
-              </v-row>
-            </v-card>
-         
-          </v-col>
-          <v-col cols="12" sm="4">
-             <v-card class="cardVr mx-2 rounded-xl mt-n3" elevation="16">
-              <v-row>
-                <v-col cols="12" sm="8">
-                  <a href="http://dsm/#/login" target="_blank">
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <v-list-item-title class="headline mb-1 primary--text">
-                        DSM 
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </a>
-                <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="logo1.png"></v-img>
-                  </v-avatar>
-                </v-col>
-              </v-row>
-            </v-card>
-         
-          </v-col>
-          <v-col cols="12" sm="4">
-             <v-card class="cardR mx-2 rounded-xl mt-n3" elevation="16">
-              <v-row>
-                <v-col cols="12" sm="8">
-                  <a href="coming soon" target="_blank">
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <v-list-item-title class="headline mb-1 primary--text">
-                        Arıza Bildiri
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </a>
-                <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
-                </v-col>
-                <v-col cols="12" sm="4">
-                  <v-avatar size="100" class="ml-n10 mt-6" tile>
-                    <v-img src="line.png"></v-img>
-                  </v-avatar>
-                </v-col>
-              </v-row>
-            </v-card>
-         
-          </v-col>
+
+        <v-card class="cardOr mx-2 rounded-xl mt-n3" elevation="16">
+          <v-row>
+            <v-col cols="12" sm="8">
+              <a href="https://scorecard.fw.dteknoloji.com.tr/" target="_blank">
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="headline mb-1 primary--text">
+                      Scorecard
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </a>
+              <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-avatar size="100" class="ml-n10 mt-6" tile>
+                <v-img src="lineO.png"></v-img>
+              </v-avatar>
+            </v-col>
+          </v-row>
+        </v-card>
+
+      </v-col>
+      <v-col cols="12" sm="4">
+        <v-card class="cardVr mx-2 rounded-xl mt-n3" elevation="16">
+          <v-row>
+            <v-col cols="12" sm="8">
+              <a href="http://dsm/#/login" target="_blank">
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="headline mb-1 primary--text">
+                      DSM
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </a>
+              <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-avatar size="100" class="ml-n10 mt-6" tile>
+                <v-img src="logo.png"></v-img>
+              </v-avatar>
+            </v-col>
+          </v-row>
+        </v-card>
+
+      </v-col>
+      <v-col cols="12" sm="4">
+        <v-card class="cardR mx-2 rounded-xl mt-n3" elevation="16">
+          <v-row>
+            <v-col cols="12" sm="8">
+              <a href="coming soon" target="_blank">
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="headline mb-1 primary--text">
+                      Arıza Bildiri
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </a>
+              <v-list-item-subtitle class="primary--text">Ufak bir açıklama yazılabilir</v-list-item-subtitle>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-avatar size="100" class="ml-n10 mt-6" tile>
+                <v-img src="line.png"></v-img>
+              </v-avatar>
+            </v-col>
+          </v-row>
+        </v-card>
+
+      </v-col>
 
     </v-container>
   </v-app>
