@@ -62,7 +62,7 @@
       </v-data-table>
       <v-dialog v-model="dialogdetail">
         <v-card>
-          <v-toolbar dark color="teal">
+          <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialogdetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -95,7 +95,7 @@
                     <v-data-table :headers="siteheaders" :items="companySites" :items-per-page="10" :footer-props="{
                       'items-per-page-options': [5, 10, 20, 50]
                     }" class="elevation-1">
-                      ></v-data-table>
+                      </v-data-table>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>

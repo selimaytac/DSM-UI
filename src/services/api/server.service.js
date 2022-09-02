@@ -74,9 +74,9 @@ async function getServerSites(data) {
     );
     return result.data;
 }
-async function getExportList(data) {
+async function getExportList() {
     const result = await $axios.get(
-        controllerName + "export/" + data,
+        controllerName + "export/",
         {
             "Content-Type": "application/octet-stream",
             'Access-Control-Allow-Origin': '*',

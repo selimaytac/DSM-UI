@@ -62,7 +62,7 @@
       </v-data-table>
       <v-dialog v-model="dialogdetail">
         <v-card>
-          <v-toolbar dark color="teal">
+          <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialogdetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>

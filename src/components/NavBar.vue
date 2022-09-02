@@ -1,6 +1,5 @@
 <template>
   <v-app-bar app dark height="60px" class="primary">
-    <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     <v-list-item-content>
       <v-list-item-title>
         <span class="font-weight-bold title">DSM </span>
@@ -8,9 +7,7 @@
       </v-list-item-title>
     </v-list-item-content>
     <v-btn class="ma-2" icon>
-      <v-badge bordered overlap color="red" content="5" class="mt-1" dark>
         <v-icon color="white">far fa-bell</v-icon>
-      </v-badge>
     </v-btn>
       <ThemeChanger />
     <v-menu bottom min-width="200px" rounded offset-y>
@@ -72,7 +69,6 @@ export default {
   name: 'navbar',
   data() {
     return {
-      drawer: null,
       username: this.$route.params.userName,
     }
   },
