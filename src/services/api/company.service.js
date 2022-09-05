@@ -65,16 +65,20 @@ async function getCompanySites(data) {
     );
     return result.data;
 }
-async function getExportList(data) {
+async function getExportList() {
     const result = await $axios.get(
-        controllerName + "export/" + data,
+        controllerName + "export/",
         {
-            "Content-Type": "application/octet-stream",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;
@@ -88,12 +92,16 @@ async function getExportSearchList(data) {
     const result = await $axios.get(
         controllerName + "export/" + data,
         {
-            "Content-Type": "application/octet-stream",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;

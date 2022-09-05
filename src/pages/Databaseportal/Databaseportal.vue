@@ -8,7 +8,7 @@
       <v-card-title>
         DataBase Servers
         <v-spacer></v-spacer>
-        <v-tooltip bottom>
+        <!-- <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
               outlined @click="loader = 'loading2'">
@@ -17,7 +17,7 @@
             </v-btn>
           </template>
           <span>Export to Excel</span>
-        </v-tooltip>
+        </v-tooltip> -->
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>

@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer v-model="drawer" app mini-variant mini-variant-width="100" class="primary" permanent expand-on-hover>
+    <v-navigation-drawer v-model="drawer" app mini-variant mini-variant-width="100" class="primary" permanent expand-off-hover>
         <v-avatar class="d-block mx-auto mt-2 mb-2" size="70">
             <v-img src="../../public/logo.png"></v-img>
         </v-avatar>
@@ -32,6 +32,7 @@ export default {
             { icon: 'mdi-transit-connection-variant ', text: 'Responsible', link: '/responsible' },
             { icon: 'fas fa-database', text: 'Database Portal', link: '/databaseportal' },
             { icon: 'fas fa-file', text: 'Reports', link: '/reports' },
+            { icon : 'fas fa-house-chimney', text: 'Scorecard', link:'/scorecard'}
             // {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
         ],
     }),

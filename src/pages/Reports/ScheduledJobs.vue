@@ -10,8 +10,8 @@
         <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2'">
+            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+              outlined @click="loader = 'loading2',ExportExcel()">
               <v-icon color="primary" dark v-bind="attrs" v-on="on">
                 mdi-microsoft-excel </v-icon>
             </v-btn>
@@ -67,6 +67,7 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
+import { scheduledjobsService } from '@/services/api/scheduledjobs.service';
 // import { debounce } from 'debounce';
 export default {
   name: 'jobs',
@@ -129,6 +130,13 @@ export default {
       temp = [];
 
     },
+    ExportExcel(){
+      if(this.search.length > 0){
+        scheduledjobsService.getExportSearchList(this.search);
+    }else{
+      scheduledjobsService.getExportList();
+    }
+    }
     // debounceInput: debounce(async function (e) {
     //   this.loaderTable = true;
     //   this.jobs = [];

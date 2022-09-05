@@ -10,8 +10,8 @@
         <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2'">
+            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+              outlined @click="loader = 'loading2',ExportExcel()">
               <v-icon color="primary" dark v-bind="attrs" v-on="on">
                 mdi-microsoft-excel </v-icon>
             </v-btn>
@@ -67,6 +67,7 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
+import { odmserverService } from '@/services/api/odmserver.service';
 export default {
   name: 'odmserver',
   odmServer: [],
@@ -115,6 +116,13 @@ export default {
         response = await this.setOdmServers(count);
       }
     },
+    ExportExcel(){
+      if(this.search.length > 0){
+        odmserverService.getExportSearchList(this.search);
+    }else{
+        odmserverService.getExportList();
+    }
+    }
   },
   created() {
       this.GetOdmServerList();

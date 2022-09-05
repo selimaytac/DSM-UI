@@ -78,12 +78,16 @@ async function getExportList() {
     const result = await $axios.get(
         controllerName + "export/",
         {
-            "Content-Type": "application/octet-stream",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;
@@ -94,15 +98,23 @@ async function getExportList() {
     })
 }
 async function getRDPFile(data) {
+    console.log(data);
     const result = await $axios.post(
-        controllerName + "content/" + data,
+        controllerName + "connect/" ,{
+            ...data
+        },
         {
-            "Content-Type": "application/json-patch+json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        console.log(response);
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;
@@ -116,12 +128,16 @@ async function getExportSearchList(data) {
     const result = await $axios.get(
         controllerName + "export/" + data,
         {
-            "Content-Type": "application/octet-stream",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;

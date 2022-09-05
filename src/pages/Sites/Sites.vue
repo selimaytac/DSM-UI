@@ -10,8 +10,8 @@
         <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2'">
+            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+              outlined @click="loader = 'loading2',ExportExcel()">
               <v-icon color="primary" dark v-bind="attrs" v-on="on">
                 mdi-microsoft-excel </v-icon>
             </v-btn>
@@ -289,6 +289,7 @@ import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
 import { debounce } from 'debounce';
+import { siteService } from '@/services/api/site.service';
 export default {
   name: 'sites',
   sites: [],
@@ -469,7 +470,14 @@ export default {
         this.sites = this.oldSites;
       }
       this.loaderTable = false;
-    }, 1000)
+    }, 1000),
+    ExportExcel(){
+      if(this.search.length > 0){
+        siteService.getExportSearchList(this.search);
+    }else{
+        siteService.getExportList();
+    }
+    }
   },
   // created() {
   //   this.GetSiteList();

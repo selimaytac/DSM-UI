@@ -4,15 +4,15 @@
     <NavBar />
     <v-container>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n5">
-        <v-toolbar-title  class="black--text font-weight-bold">Overview</v-toolbar-title>
+        <v-toolbar-title class="black--text font-weight-bold">Overview</v-toolbar-title>
       </v-toolbar>
       <v-item-group mandatory class="mt-n4">
         <v-container>
           <v-row justify="center" class="space">
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl  text-center" dark height="150"
-                  @click="toggle">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl  text-center" dark
+                  height="150" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
@@ -38,8 +38,8 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
-                  @click="toggle">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
+                  height="150" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
@@ -65,8 +65,8 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
-                  @click="toggle">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
+                  height="150" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
@@ -92,8 +92,8 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
-                  @click="toggle">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
+                  height="150" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
@@ -120,8 +120,8 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
-                  @click="toggle">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
+                  height="150" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
@@ -147,8 +147,8 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
-                  @click="toggle">
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
+                  height="150" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
@@ -188,7 +188,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-divider vertical ></v-divider>
+        <v-divider vertical></v-divider>
         <v-col cols="12" md="5" sm="12">
           <v-toolbar color="rgba(0,0,0,0)" flat>
             <v-toolbar-title class="black--text font-weight-bold">DSM News</v-toolbar-title>
@@ -210,65 +210,45 @@
       </v-row>
       <v-divider class="my-5"></v-divider>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
-        <v-toolbar-title class="black--text font-weight-bold">Uygulamalarımız</v-toolbar-title>
+        <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçisi</v-toolbar-title>
       </v-toolbar>
+      <template>
+        <v-card max-width="375" class="mx-auto">
+          <div class="text-h5 pl-4 pt-4">
+            Koray AY
+          </div>
+          <v-divider></v-divider>
+          <v-list two-line>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="indigo">
+                  mdi-phone
+                </v-icon>
+              </v-list-item-icon>
 
-      <v-item-group mandatory class="mt-n5">
-        <v-container>
-          <v-row justify="center" class="space">
-            <v-col cols="12" md="3">
-              <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="170"
-                  @click="toggle">
-                  <v-row>
-                    <v-col cols="12" sm="8">
-                      <a href="https://scorecard.fw.dteknoloji.com.tr/" target="_blank">
-                        <v-list-item three-line >
-                          <v-list-item-content>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Scorecard
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </a>
-                    </v-col>
-                    <v-col cols="12" sm="4">
-                      <v-avatar size="100" class="ml-n10 mt-6" tile>
-                        <v-img src="logo.png"></v-img>
-                      </v-avatar>
-                    </v-col>
-                  </v-row>
+              <v-list-item-content>
+                <v-list-item-title>(650) 555-1234</v-list-item-title>
+                <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-divider inset></v-divider>
 
-                </v-card>
-              </v-item>
-            </v-col>
-            <v-col cols="12" md="3">
-              <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="170"
-                  @click="toggle">
-                  <v-row>
-                    <v-col cols="12" sm="8">
-                      <a href="http://dsm/#/login" target="_blank">
-                        <v-list-item three-line >
-                          <v-list-item-content>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">DSM - Server Monitoring
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </a>
-                    </v-col>
-                    <v-col cols="12" sm="4">
-                      <v-avatar size="100" class="ml-n10 mt-6" tile>
-                        <v-img src="logo.png"></v-img>
-                      </v-avatar>
-                    </v-col>
-                  </v-row>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="indigo">
+                  mdi-email
+                </v-icon>
+              </v-list-item-icon>
 
-                </v-card>
-              </v-item>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-item-group>
+              <v-list-item-content>
+                <v-list-item-title>koray_ay@example.com</v-list-item-title>
+                <v-list-item-subtitle>Work</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </template>
+
     </v-container>
   </v-app>
 </template>

@@ -11,7 +11,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2'">
+              outlined @click="loader = 'loading2', ExportExcel()">
               <v-icon color="primary" dark v-bind="attrs" v-on="on">
                 mdi-microsoft-excel </v-icon>
             </v-btn>
@@ -68,7 +68,7 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small>Conenct with RDP</v-btn>
+            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small @click="downloadRdp">Conenct with RDP</v-btn>
           </v-toolbar>
           <template>
             <v-tabs color="primary" vertical>
@@ -264,8 +264,9 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import { debounce } from 'debounce';
+import { serverService } from '@/services/api/server.service';
 export default {
   name: 'servers',
   servers: [],
@@ -332,11 +333,18 @@ export default {
         ownedBy: "",
         companyId: "",
       },
-      selectedServerId: {},
+      selectedServer: {},
     }
   },
   computed: {
-    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders', 'getServerSites']),
+    ...mapGetters({
+      userName: 'auth/getUsername',
+      profilePhoto: 'auth/getProfilePhoto',
+      fullName: 'auth/getFullName',
+      department: 'auth/getDepartment',
+      getDomain: 'auth/getStateDomain',
+    }),
+    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders', 'getServerSites',])
   },
   methods: {
     ...mapActions('server', ['setServers', 'setServerSearch', 'setServerDetails', 'setServerHeader', 'setServerSites']),
@@ -346,7 +354,7 @@ export default {
       this.detailsInTab.ownedBy = this.serverHeader.companyName
       this.detailsInTab.companyId = this.serverHeader.companyId
 
-      this.selectedServerId = item.serverId
+      this.selectedServer = item
       this.serverSites = await this.setServerSites(item.serverId);
       this.dialogdetail = true
     },
@@ -390,6 +398,17 @@ export default {
       }
       this.loaderTable = false;
     }, 1000),
+    ExportExcel(){
+      if(this.search.length > 0){
+        serverService.getExportSearchList(this.search);
+    }else{
+        serverService.getExportList();
+    }
+    },
+    downloadRdp(){
+      serverService.getRDPFile({serverId: this.selectedServer.serverId,userName: this.userName});
+    },
+
   },
   // created() {
   //   this.GetServerList();
