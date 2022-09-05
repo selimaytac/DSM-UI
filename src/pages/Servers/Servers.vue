@@ -2,24 +2,30 @@
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
 
-      <NavBar />
+    <NavBar />
 
     <v-card class="grey">
       <v-card-title>
         Servers
         <v-spacer></v-spacer>
-        <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2"
-          outlined @click="loader = 'loading2'">Export to Excel
-          <template v-slot:loader>
-            <span>Loading...</span>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+              outlined @click="loader = 'loading2'">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                mdi-microsoft-excel </v-icon>
+            </v-btn>
           </template>
-        </v-btn>
+          <span>Export to Excel</span>
+        </v-tooltip>
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" @input="debounceInput" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        <v-text-field v-model="search" @input="debounceInput" append-icon="mdi-magnify" label="Search" single-line
+          hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterServers" @click:row="rowClick" :options.sync="options" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1 table-cursor" :search="search"  :loading="loaderTable">
+      <v-data-table :headers="headers" :items="filterServers" @click:row="rowClick" :options.sync="options"
+        :items-per-page="10" :footer-props="{
+          'items-per-page-options': [20, 50, 100, 200]
+        }" class="elevation-1 table-cursor" :search="search" :loading="loaderTable">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -62,12 +68,7 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-            <v-btn id="downloadexcel" class="ma-1 white--text" color="black" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2'">Export to Excel
-              <template v-slot:loader>
-                <span>Loading...</span>
-              </template>
-            </v-btn>
+            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small>Conenct with RDP</v-btn>
           </v-toolbar>
           <template>
             <v-tabs color="primary" vertical>
@@ -152,39 +153,39 @@
                           </template>
                         </v-simple-table>
                         <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                              <v-toolbar-title>Organization Details</v-toolbar-title>
-                              <v-spacer></v-spacer>
-                            </v-toolbar>
-                            <v-simple-table class="primary" dark>
-                              <template v-slot:default>
-                                <tbody>
-                                  <tr>
-                                    <td>Owned By: </td>
-                                    <td>{{ detailsInTab.ownedBy }}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Managing By: </td>
-                                    <td>{{ detailsInTab.responsible }}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Environment: </td>
-                                    <td>{{ detailsInTab.serverType }}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>ODM Replication: </td>
-                                    <td>{{ detailsInTab.odmReplication }}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Service: </td>
-                                    <td>{{ detailsInTab.serviceName }}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Notes: </td>
-                                    <td>{{ detailsInTab.notes }}</td>
-                                  </tr>
-                                </tbody>
-                              </template>
-                            </v-simple-table>
+                          <v-toolbar-title>Organization Details</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-simple-table class="primary" dark>
+                          <template v-slot:default>
+                            <tbody>
+                              <tr>
+                                <td>Owned By: </td>
+                                <td>{{ detailsInTab.ownedBy }}</td>
+                              </tr>
+                              <tr>
+                                <td>Managing By: </td>
+                                <td>{{ detailsInTab.responsible }}</td>
+                              </tr>
+                              <tr>
+                                <td>Environment: </td>
+                                <td>{{ detailsInTab.serverType }}</td>
+                              </tr>
+                              <tr>
+                                <td>ODM Replication: </td>
+                                <td>{{ detailsInTab.odmReplication }}</td>
+                              </tr>
+                              <tr>
+                                <td>Service: </td>
+                                <td>{{ detailsInTab.serviceName }}</td>
+                              </tr>
+                              <tr>
+                                <td>Notes: </td>
+                                <td>{{ detailsInTab.notes }}</td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
                       </v-card>
                     </v-col>
                     <v-col cols="12" sm="4">
@@ -335,10 +336,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders','getServerSites']),
+    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders', 'getServerSites']),
   },
   methods: {
-    ...mapActions('server', ['setServers','setServerSearch', 'setServerDetails', 'setServerHeader', 'setServerSites']),
+    ...mapActions('server', ['setServers', 'setServerSearch', 'setServerDetails', 'setServerHeader', 'setServerSites']),
     async rowClick(item) {
       this.detailsInTab = await this.setServerDetails(item.serverId)
       this.serverHeader = await this.setServerHeader(item.serverId)
@@ -346,7 +347,7 @@ export default {
       this.detailsInTab.companyId = this.serverHeader.companyId
 
       this.selectedServerId = item.serverId
-      this.serverSites= await this.setServerSites(item.serverId);
+      this.serverSites = await this.setServerSites(item.serverId);
       this.dialogdetail = true
     },
     // async showDetails(item) {
@@ -373,11 +374,11 @@ export default {
     // },
     async GetServerList(count) {
       let response = await this.setServers(count);
-        this.servers = this.servers.concat(response);
-        this.oldServers = this.servers;
+      this.servers = this.servers.concat(response);
+      this.oldServers = this.servers;
     },
     async GetServerSites(serverId) {
-      this.serverSites= await this.setServerSites(serverId);
+      this.serverSites = await this.setServerSites(serverId);
     },
     debounceInput: debounce(async function (e) {
       this.loaderTable = true;
@@ -388,7 +389,7 @@ export default {
         this.servers = this.oldServers;
       }
       this.loaderTable = false;
-    }, 1000)
+    }, 1000),
   },
   // created() {
   //   this.GetServerList();
@@ -401,8 +402,8 @@ export default {
           this.serverFetchCount++;
         }
       },
-        deep: true,
-      },
+      deep: true,
+    },
     loader() {
       const l = this.loader
       this[l] = !this[l]
@@ -432,6 +433,7 @@ export default {
 .table-cursor tbody tr:hover {
   cursor: pointer;
 }
+
 .v-btn.withoutupercase {
   text-transform: none !important;
 }

@@ -2,17 +2,16 @@
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
     <NavBar />
-
     <v-container>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n5">
-        <v-toolbar-title>Overview</v-toolbar-title>
+        <v-toolbar-title  class="black--text font-weight-bold">Overview</v-toolbar-title>
       </v-toolbar>
       <v-item-group mandatory class="mt-n4">
         <v-container>
           <v-row justify="center" class="space">
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="150"
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl  text-center" dark height="150"
                   @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
@@ -25,7 +24,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Server Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ serverCount.serverCount }}</strong>
                           </v-list-item-title>
 
@@ -39,7 +38,7 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="150"
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
                   @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
@@ -52,7 +51,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Site Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ siteCount.siteCount }}</strong>
                           </v-list-item-title>
 
@@ -66,7 +65,7 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="150"
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
                   @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
@@ -79,7 +78,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Company Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ companyCount.userCount }}</strong>
                           </v-list-item-title>
 
@@ -93,7 +92,7 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="150"
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
                   @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
@@ -107,7 +106,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Responsible Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ responsibilityCount.responsibilityCount }}</strong>
                           </v-list-item-title>
 
@@ -121,7 +120,7 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="150"
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
                   @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
@@ -134,7 +133,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">DB Portal Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ dbCount.dbCount }}</strong>
                           </v-list-item-title>
 
@@ -148,7 +147,7 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
-                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl" dark height="150"
+                <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark height="150"
                   @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
@@ -161,7 +160,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Total User Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ userCount.userCount }}</strong>
                           </v-list-item-title>
 
@@ -176,10 +175,11 @@
           </v-row>
         </v-container>
       </v-item-group>
+      <v-divider class="my-5"></v-divider>
       <v-row class="mt-n6">
         <v-col cols="12" md="7" sm="12">
           <v-toolbar color="rgba(0,0,0,0)" flat>
-            <v-toolbar-title>DSM Nedir?</v-toolbar-title>
+            <v-toolbar-title class="black--text font-weight-bold">DSM Nedir?</v-toolbar-title>
           </v-toolbar>
           <v-card>
             <v-card-text>
@@ -188,9 +188,10 @@
             </v-card-text>
           </v-card>
         </v-col>
+        <v-divider vertical ></v-divider>
         <v-col cols="12" md="5" sm="12">
           <v-toolbar color="rgba(0,0,0,0)" flat>
-            <v-toolbar-title>DSM News</v-toolbar-title>
+            <v-toolbar-title class="black--text font-weight-bold">DSM News</v-toolbar-title>
           </v-toolbar>
           <v-timeline>
             <v-timeline-item v-for="n in 2" :key="n" color="primary" small>
@@ -207,8 +208,9 @@
           </v-timeline>
         </v-col>
       </v-row>
+      <v-divider class="my-5"></v-divider>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
-        <v-toolbar-title>Uygulamalarımız</v-toolbar-title>
+        <v-toolbar-title class="black--text font-weight-bold">Uygulamalarımız</v-toolbar-title>
       </v-toolbar>
 
       <v-item-group mandatory class="mt-n5">
@@ -231,7 +233,7 @@
                     </v-col>
                     <v-col cols="12" sm="4">
                       <v-avatar size="100" class="ml-n10 mt-6" tile>
-                        <v-img src="scorecard.png"></v-img>
+                        <v-img src="logo.png"></v-img>
                       </v-avatar>
                     </v-col>
                   </v-row>
@@ -256,7 +258,7 @@
                     </v-col>
                     <v-col cols="12" sm="4">
                       <v-avatar size="100" class="ml-n10 mt-6" tile>
-                        <v-img src="logo3.png"></v-img>
+                        <v-img src="logo.png"></v-img>
                       </v-avatar>
                     </v-col>
                   </v-row>

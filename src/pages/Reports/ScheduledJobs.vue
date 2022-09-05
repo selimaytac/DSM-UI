@@ -8,12 +8,16 @@
       <v-card-title>
         Scheduled Jobs
         <v-spacer></v-spacer>
-        <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2"
-          outlined @click="loader = 'loading2'">Export to Excel
-          <template v-slot:loader>
-            <span>Loading...</span>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+              outlined @click="loader = 'loading2'">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                mdi-microsoft-excel </v-icon>
+            </v-btn>
           </template>
-        </v-btn>
+          <span>Export to Excel</span>
+        </v-tooltip>
         <v-spacer></v-spacer>
         <v-text-field v-model="search"  append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>

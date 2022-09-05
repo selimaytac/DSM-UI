@@ -1,25 +1,30 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-    
-      <NavBar />
-   
+
+    <NavBar />
+
     <v-card class="grey">
       <v-card-title>
         DataBase Servers
         <v-spacer></v-spacer>
-        <v-btn id="downloadexcel" class="ma-1 white--text" color="teal" :loading="loading2" :disabled="loading2"
-          outlined @click="loader = 'loading2'">Export to Excel
-          <template v-slot:loader>
-            <span>Loading...</span>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+              outlined @click="loader = 'loading2'">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                mdi-microsoft-excel </v-icon>
+            </v-btn>
           </template>
-        </v-btn>
+          <span>Export to Excel</span>
+        </v-tooltip>
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterDbportals" @click:row="rowClick" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1 table-cursor" :search="search">
+      <v-data-table :headers="headers" :items="filterDbportals" @click:row="rowClick" :items-per-page="10"
+        :footer-props="{
+          'items-per-page-options': [20, 50, 100, 200]
+        }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -67,6 +72,7 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small>Conenct with RDP</v-btn>
           </v-toolbar>
           <v-container>
             <template>
@@ -143,35 +149,35 @@
                                   <td>{{ detailsInTab.deleteDate }}</td>
                                 </tr>
                               </tbody>
-                              
+
                             </template>
                           </v-simple-table>
                           <v-toolbar flat color="rgba(0,0,0,0)" dark>
-                                <v-toolbar-title>Organization Details</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                              </v-toolbar>
-                              <v-simple-table class="primary" dark>
-                                <template v-slot:default>
-                                  <tbody>
-                                    <tr>
-                                      <td>Owned By: </td>
-                                      <td>{{ detailsInTab.owner }}</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Environment: </td>
-                                      <td>{{ detailsInTab.environment }}</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Service: </td>
-                                      <td>{{ detailsInTab.domain }}</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Notes: </td>
-                                      <td>{{ detailsInTab.description }}</td>
-                                    </tr>
-                                  </tbody>
-                                </template>
-                              </v-simple-table>
+                            <v-toolbar-title>Organization Details</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                          </v-toolbar>
+                          <v-simple-table class="primary" dark>
+                            <template v-slot:default>
+                              <tbody>
+                                <tr>
+                                  <td>Owned By: </td>
+                                  <td>{{ detailsInTab.owner }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Environment: </td>
+                                  <td>{{ detailsInTab.environment }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Service: </td>
+                                  <td>{{ detailsInTab.domain }}</td>
+                                </tr>
+                                <tr>
+                                  <td>Notes: </td>
+                                  <td>{{ detailsInTab.description }}</td>
+                                </tr>
+                              </tbody>
+                            </template>
+                          </v-simple-table>
                         </v-card>
                       </v-col>
                     </v-row>
@@ -207,7 +213,7 @@ export default {
       search: '',
       headers: [
         { text: 'Server Name', align: 'start', sortable: false, value: 'serverName', width: "200px", fixed: true },
-        { text: 'Owner', value: 'owner',  width: "100px", fixed: true},
+        { text: 'Owner', value: 'owner', width: "100px", fixed: true },
         { text: 'Environment', value: 'environment', width: "200px", fixed: true },
         { text: 'IP Adress', value: 'ipAddress', width: "200px", fixed: true },
         { text: 'Version', value: 'version', width: "200px", fixed: true },
@@ -300,6 +306,7 @@ export default {
 .table-cursor tbody tr:hover {
   cursor: pointer;
 }
+
 .v-btn.withoutupercase {
   text-transform: none !important;
 }
