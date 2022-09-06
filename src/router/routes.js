@@ -21,6 +21,14 @@ export default [
     },
   },
   {
+    path: '/azureInventory',
+    name: 'azureInventory',
+    component: () => import('../../src/pages/AzureInventory/AzureInventory.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/sites',
     name: 'sites',
     component: () => import('../../src/pages/Sites/Sites.vue'),

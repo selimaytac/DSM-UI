@@ -25,9 +25,9 @@
         :footer-props="{
           'items-per-page-options': [20, 50, 100, 200]
         }" class="elevation-1 table-cursor" :search="search">
-        <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+        <template v-for="(col, indexx) in filters" v-slot:[`header.${indexx}`]="{ header }">
           {{ header.text }}
-          <v-menu :key="index" offset-y :close-on-content-click="false">
+          <v-menu :key="indexx" offset-y :close-on-content-click="false">
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" color="teal">
                 <v-icon small :color="filters[header.value].length ? 'red' : ''">
@@ -42,13 +42,13 @@
                     <v-autocomplete multiple dense auto-select-first clearable chips small-chips color="teal"
                       :items="columnValueList(header.value)" append-icon="mdi-filter" v-model="filters[header.value]"
                       :label="filters[header.value] ? `${header.text}` : ''" hide-details>
-                      <template v-slot:selection="{ item, index }">
-                        <v-chip small class="caption" v-if="index < 5">
+                      <template v-slot:selection="{ item, indexx }">
+                        <v-chip small class="caption" v-if="indexx < 5">
                           <span>
                             {{ item }}
                           </span>
                         </v-chip>
-                        <span v-if="index === 5" class="grey--text caption">
+                        <span v-if="indexx === 5" class="grey--text caption">
                           (+{{ filters[header.value].length - 5 }} others)
                         </span>
                       </template>

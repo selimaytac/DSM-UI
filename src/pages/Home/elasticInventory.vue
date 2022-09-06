@@ -90,13 +90,7 @@ export default {
       return this.elastic.map((d) => d[val]);
     },
     async GetElasticList() {
-      let count = 1;
-      let response = await this.setElastic(count);
-      while (response.length > 0) {
-        this.elastic = this.elastic.concat(response);
-        count++;
-        response = await this.setElastic(count);
-      }
+      this.elastic = await this.setElastic();
     },
   },
   created() {
