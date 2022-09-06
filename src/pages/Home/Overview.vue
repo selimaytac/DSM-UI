@@ -213,42 +213,254 @@
         <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçisi</v-toolbar-title>
       </v-toolbar>
       <template>
-        <v-card max-width="375" class="mx-auto">
-          <div class="text-h5 pl-4 pt-4">
-            Koray AY
-          </div>
-          <v-divider></v-divider>
-          <v-list two-line>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="indigo">
-                  mdi-phone
-                </v-icon>
-              </v-list-item-icon>
+        <v-item-group mandatory class="mt-n4">
+          <v-container>
+            <v-row justify="center" class="space">
+              <v-col cols="12" md="3">
 
-              <v-list-item-content>
-                <v-list-item-title>(650) 555-1234</v-list-item-title>
-                <v-list-item-subtitle>Mobile</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider inset></v-divider>
+                <v-card class="d-flex align-center rounded-xl mx-auto">
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item three-line>
+                        <v-list-item-content>
+                          <div class="mb-2 text-h5">
+                            Koray Ay
+                          </div>
+                          <div class="text-2 pl-6">
+                            Uygulama Yönetimi
+                          </div>
+                          <v-divider></v-divider>
 
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="indigo">
-                  mdi-email
-                </v-icon>
-              </v-list-item-icon>
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-phone
+                              </v-icon>
+                            </v-list-item-icon>
 
-              <v-list-item-content>
-                <v-list-item-title>koray_ay@example.com</v-list-item-title>
-                <v-list-item-subtitle>Work</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-card>
+                            <v-list-item-content>
+                              <v-list-item-title>Mobile</v-list-item-title>
+                              <v-list-item-subtitle>(650) 555-1234</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-email
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Work Mail</v-list-item-title>
+                              <v-list-item-subtitle>koray.ay@d-teknoloji.com.tr</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+
+                <v-card max-width="375" class="d-flex align-center rounded-xl mx-auto">
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item three-line>
+                        <v-list-item-content>
+                          <div class="mb-2 text-h5">
+                            Koray Ay
+                          </div>
+                          <div class="text-2 pl-6">
+                            Veri Tabanı Yönetimi
+                          </div>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-phone
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Mobile</v-list-item-title>
+                              <v-list-item-subtitle>(650) 555-1234</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-email
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Work Mail</v-list-item-title>
+                              <v-list-item-subtitle>koray.ay@d-teknoloji.com.tr</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+
+                <v-card max-width="375" class="d-flex align-center rounded-xl mx-auto">
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item three-line>
+                        <v-list-item-content>
+                          <div class="mb-2 text-h5">
+                            Koray Ay
+                          </div>
+                          <div class="text-2 pl-6">
+                            Network Güvenliği Yönetimi
+                          </div>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-phone
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Mobile</v-list-item-title>
+                              <v-list-item-subtitle>(650) 555-1234</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-email
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Work Mail</v-list-item-title>
+                              <v-list-item-subtitle>koray.ay@d-teknoloji.com.tr</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+
+                <v-card max-width="375" class="d-flex align-center rounded-xl mx-auto">
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item three-line>
+                        <v-list-item-content>
+                          <div class="mb-2 text-h5">
+                            Koray Ay
+                          </div>
+                          <div class="text-2 pl-6">
+                            Cloud Yönetimi
+                          </div>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-phone
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Mobile</v-list-item-title>
+                              <v-list-item-subtitle>(650) 555-1234</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-email
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Work Mail</v-list-item-title>
+                              <v-list-item-subtitle>koray.ay@d-teknoloji.com.tr</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="3">
+
+                <v-card max-width="375" class="d-flex align-center rounded-xl mx-auto">
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item three-line>
+                        <v-list-item-content>
+                          <div class="mb-2 text-h5">
+                            Koray Ay
+                          </div>
+                          <div class="text-2 pl-6">
+                            Platform Yönetimi
+                          </div>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-phone
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Mobile</v-list-item-title>
+                              <v-list-item-subtitle>(650) 555-1234</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider></v-divider>
+
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="primary">
+                                mdi-email
+                              </v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Work Mail</v-list-item-title>
+                              <v-list-item-subtitle>koray.ay@d-teknoloji.com.tr</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-item-group>
+
       </template>
-
     </v-container>
   </v-app>
 </template>

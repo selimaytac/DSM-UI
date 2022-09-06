@@ -21,7 +21,7 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterOdmServers" @click:row="rowClick" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterOdmServers" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
@@ -100,10 +100,6 @@ export default {
   },
   methods: {
     ...mapActions('odmservers', ['setOdmServers']),
-    async rowClick(item) {
-      this.odmservers = await this.getOdmServerList(item)
-      
-    },
     columnValueList(val) {
       return this.odmservers.map((d) => d[val]);
     },

@@ -2,9 +2,9 @@ import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
 const controllerName = "/dashboard/";
 export const elasticSearchService = {
-    getElastics,
+    getElastic,
 };
-async function getElastics() {
+async function getElastic() {
     const result = await $axios.get(
         controllerName + "elastic-search-inventory",
         {
