@@ -19,14 +19,14 @@
 </template>
 
 <script>
+import store from '../store';
 export default {
     data: () => ({
         selectedItem: 0,
         drawer: null,
         items: [
             { icon: 'fas fa-home', text: 'Home', link: '/home' },
-            { icon: 'fas fa-code', text: 'Azure DevOps', link: '/azureHome' },
-            { icon: 'fas fa-code', text: 'Azure Inventory', link:'/azureInventory'},
+            { icon: 'fas fa-cloud', text: 'Azure Inventory', link:'/azureInventory'},
             { icon: 'fas fa-earth-americas', text: 'Sites', link: '/sites' },
             { icon: 'fas fa-server', text: 'Servers', link: '/servers' },
             { icon: 'fas fa-sitemap', text: 'Companies', link: '/companies' },
@@ -38,6 +38,11 @@ export default {
             // {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
         ],
     }),
+    created() {
+        if(store.getters["auth/getRole"].includes("Administrator","CIFANG")){
+            this.items.splice(1, 0, { icon: 'fas fa-code', text: 'Azure DevOps', link: '/azureHome' })
+        }
+    }
 
 }
 </script>

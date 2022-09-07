@@ -10,8 +10,20 @@ const router = new VueRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  if(!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth" ) && to.name !== "signin") {
+  if (!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth") && to.name !== "signin") {
     to.meta.requiresAuth = true;
+  }
+  if (to.name == 'azureHome') {
+    const role = store.getters["auth/getRole"];
+    if (role === 'Administrator' || role === 'CIFANG') {
+      next();
+    } else {
+      next({
+        path: "/home",
+        params: { nextUrl: to.fullPath },
+      });
+    }
+
   }
   next();
 })

@@ -8,9 +8,12 @@ import { responsible } from "./modules/responsible";
 import { databaseportal } from "./modules/database";
 import { scheduledjobs } from "./modules/scheduledJobs";
 import { odmservers } from "./modules/odmservers";
-import { monthlykpi} from "./modules/monthlykpi";
+import { monthlykpi } from "./modules/monthlykpi";
 import { elastic } from "./modules/elasticSearch";
-import { azureprojects} from "./modules/azureProjects";
+import { azureprojects } from "./modules/azureProjects";
+import { deploymentagent } from "./modules/deploymentAgent";
+import { deploymentgroup } from "./modules/deploymentGroup";
+import { inventory } from "./modules/azureInventory";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -28,12 +31,15 @@ export default new Vuex.Store({
     odmservers,
     monthlykpi,
     elastic,
-    azureprojects
-
+    azureprojects,
+    deploymentagent,
+    deploymentgroup,
+    inventory,
   },
   plugins: [
     createPersistedState({
-      paths: ["auth", "server", "site", "company", "responsible", "databaseportal", "scheduledjobs", "odmservers","monthlykpi","elastic","azureprojects"],
+      paths: ["auth", "server", "site", "company", "responsible", "databaseportal",
+      "scheduledjobs", "odmservers", "monthlykpi", "elastic", "azureprojects", "deploymentagent", "deploymentgroup", "inventory"],
     }),
   ],
 });

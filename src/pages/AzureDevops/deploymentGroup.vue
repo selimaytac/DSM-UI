@@ -8,7 +8,7 @@
       <v-card-title>
         Deployment Groups
         <v-spacer></v-spacer>
-        <v-tooltip bottom>
+        <!-- <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2" outlined
               @click="loader = 'loading2'">
@@ -18,10 +18,13 @@
           </template>
           <span>Export to Excel</span>
         </v-tooltip>
-        <v-spacer></v-spacer>
+        <v-spacer></v-spacer> -->
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+      <v-data-table :headers="headers" :items="filterGroup" :items-per-page="10"
+        :footer-props="{
+          'items-per-page-options': [20, 50, 100, 200]
+        }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -56,22 +59,7 @@
             </div>
           </v-menu>
         </template>
-        <template v-slot:item.details="{item}">
-          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
-            <v-icon>mdi-eye</v-icon>Show Details
-          </v-btn>
-        </template>
       </v-data-table>
-      <v-dialog v-model="dialogdetail">
-        <v-card>
-          <v-toolbar dark color="teal">
-            <v-btn icon dark @click="dialogdetail = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-            <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-          </v-toolbar>
-        </v-card>
-      </v-dialog>
     </v-card>
   </v-app>
 </template>
@@ -79,13 +67,13 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
-
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'deploymentGroup',
+  deploymentgroup: [],
   data() {
     return {
       filters: { deploymentGroupName: [], deploymentGroupPool: [], projectName: [], machineCount: []},
-      dialog: false,
       loader: null,
       loading: false,
       loading2: false,
@@ -100,20 +88,23 @@ export default {
         { text: 'Deployment Group Pool', value: 'projectName' },
         { text: 'Machine Count', value: 'machineCount', },
       ],
-      servers: [
-
-      ],
-      dialogdetail: false
+      deploymentgroup: [],
     }
   },
+  computed: {
+    ...mapGetters('deploymentgroup', ['getGroupsList'])
+  },
   methods: {
-    showDetails(item) {
-      this.details = item
-      this.dialogdetail = true
-    },
+    ...mapActions('deploymentgroup', ['setGroups']),
     columnValueList(val) {
-      return this.servers.map((d) => d[val]);
-    }
+      return this.deploymentgroup.map((d) => d[val]);
+    },
+    async GetGroupsList() {
+      this.deploymentgroup = await this.setGroups();
+    },
+  },
+  created() {
+    this.GetGroupsList();
   },
   watch: {
     loader() {
@@ -126,8 +117,8 @@ export default {
     },
   },
   computed: {
-    filterServers() {
-      return this.servers.filter((d) => {
+    filterGroup() {
+      return this.deploymentgroup.filter((d) => {
         return Object.keys(this.filters).every((f) => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });

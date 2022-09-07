@@ -79,7 +79,7 @@
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Company Count
                           </v-list-item-subtitle>
                           <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{ companyCount.userCount }}</strong>
+                            <strong>{{ companyCount.companyCount }}</strong>
                           </v-list-item-title>
 
                         </v-list-item-content>
@@ -191,7 +191,7 @@
         <v-divider vertical></v-divider>
         <v-col cols="12" md="5" sm="12">
           <v-toolbar color="rgba(0,0,0,0)" flat>
-            <v-toolbar-title class="black--text font-weight-bold">DSM News</v-toolbar-title>
+            <v-toolbar-title class="black--text font-weight-bold">DSM News (Coming Soon...)</v-toolbar-title>
           </v-toolbar>
           <v-timeline>
             <v-timeline-item v-for="n in 2" :key="n" color="primary" small>
@@ -210,7 +210,7 @@
       </v-row>
       <v-divider class="my-5"></v-divider>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
-        <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçisi</v-toolbar-title>
+        <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçisi (Coming Soon...)</v-toolbar-title>
       </v-toolbar>
       <template>
         <v-item-group mandatory class="mt-n4">

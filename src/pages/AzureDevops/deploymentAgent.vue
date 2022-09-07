@@ -6,7 +6,7 @@
       <v-card-title>
         Deployment Agents
         <v-spacer></v-spacer>
-        <v-tooltip bottom>
+        <!-- <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2" outlined
               @click="loader = 'loading2'">
@@ -16,10 +16,13 @@
           </template>
           <span>Export to Excel</span>
         </v-tooltip>
-        <v-spacer></v-spacer>
+        <v-spacer></v-spacer> -->
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterServers" :items-per-page="5" class="elevation-1" :search="search">
+      <v-data-table :headers="headers" :items="filterAgent" :items-per-page="10"
+        :footer-props="{
+          'items-per-page-options': [20, 50, 100, 200]
+        }" class="elevation-1 table-cursor" :search="search">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -54,22 +57,7 @@
             </div>
           </v-menu>
         </template>
-        <template v-slot:item.details="{item}">
-          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
-            <v-icon>mdi-eye</v-icon>Show Details
-          </v-btn>
-        </template>
       </v-data-table>
-      <v-dialog v-model="dialogdetail">
-        <v-card>
-          <v-toolbar dark color="teal">
-            <v-btn icon dark @click="dialogdetail = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-            <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-          </v-toolbar>
-        </v-card>
-      </v-dialog>
     </v-card>
   </v-app>
 </template>
@@ -77,13 +65,13 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
-
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'deploymentAgent',
+  deploymentagent: [],
   data() {
     return {
-      filters: { projectName: [], deploymentGroupId: [], deploymentGroupName: [], maxParellelism: [], createdOn: [], statusChangedOn: [], baseId: [], agentId: [], agentName: [], agentVersion: [], operatingSystem: [], enabled: [], status: []},
-      dialog: false,
+      filters: { projectName: [], deploymentGroupId: [], deploymentGroupName: [], agentName: [], agentVersion: [], operatingSystem: []},
       loader: null,
       loading: false,
       loading2: false,
@@ -93,34 +81,33 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'Project Name', align: 'start', sortable: false, value: 'projectName' },
-        { text: 'Group ID', value: 'deploymentGroupId', },
-        { text: 'Group Name', value: 'deploymentGroupName' },
-        { text: 'Parellelism', value: 'maxParellelism' },
-        { text: 'Created On', value: 'createdOn' },
-        { text: 'Status Changed On', value: 'statusChangedOn' },
-        { text: 'Base ID', value: 'baseId' },
-        { text: 'Agent ID', value: 'agentId' },
-        { text: 'Agent Name', value: 'agentName' },
-        { text: 'Agent Version', value: 'agentVersion' },
-        { text: 'Operating System', value: 'operatingSystem' },
-        { text: 'Enabled', value: 'enabled' },
-        { text: 'Status', value: 'status' }, 
+        { text: 'Project Name', align: 'start', sortable: false, value: 'projectName', width:150},
+        { text: 'Group ID', value: 'deploymentGroupId', width:150},
+        { text: 'Group Name', value: 'deploymentGroupName', width:100},
+        { text: 'Parellelism', value: 'maxParellelism',width:150 },
+        { text: 'Agent Name', value: 'agentName' ,width:100},
+        { text: 'Agent Version', value: 'agentVersion', width:150},
+        { text: 'Operating Sys.', value: 'operatingSystem', width:150},
+        { text: 'Enabled', value: 'enabled', width:100},  
+        { text: 'Status', value: 'status' ,width:100}, 
       ],
-      servers: [
-
-      ],
-      dialogdetail: false
+      deploymentagent:[],
     }
   },
+  computed: {
+    ...mapGetters('deploymentagent', ['getAgentsList'])
+  },
   methods: {
-    showDetails(item) {
-      this.details = item
-      this.dialogdetail = true
-    },
+    ...mapActions('deploymentagent', ['setAgents']),
     columnValueList(val) {
-      return this.servers.map((d) => d[val]);
-    }
+      return this.deploymentagent.map((d) => d[val]);
+    },
+    async GetAgentsList() {
+      this.deploymentagent = await this.setAgents();
+    },
+  },
+  created() {
+    this.GetAgentsList();
   },
   watch: {
     loader() {
@@ -133,8 +120,8 @@ export default {
     },
   },
   computed: {
-    filterServers() {
-      return this.servers.filter((d) => {
+    filterAgent() {
+      return this.deploymentagent.filter((d) => {
         return Object.keys(this.filters).every((f) => {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });

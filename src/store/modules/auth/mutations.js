@@ -6,6 +6,7 @@ const mutations = {
     state.profilePhoto = payload.profilePhoto;
     state.department = payload.department;
     state.isLoggedIn = true;
+    state.role = payload.role;
   },
   logOut(state) {
     state.isLoggedIn = false;

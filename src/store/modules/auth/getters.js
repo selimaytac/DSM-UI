@@ -20,5 +20,8 @@ const getters = {
     getStateDomain(state) {
       return state.stateDomain;
     },
+    getRole(state){
+      return state.role;
+    }
   };
   export default getters;

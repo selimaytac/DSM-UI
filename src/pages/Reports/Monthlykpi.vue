@@ -76,7 +76,7 @@
                 <v-divider class="my-10 bold"></v-divider>
                 <area-chart :data="chartData"></area-chart>
                 <v-divider class="my-10 bold"></v-divider>
-                <bar-chart :data="chartData" suffix="%" height="700px"></bar-chart>
+                <bar-chart :data="chartData" height="700px"></bar-chart>
                 <v-divider class="my-10 bold"></v-divider>
                 <column-chart :data="chartData"></column-chart>
               </div>
