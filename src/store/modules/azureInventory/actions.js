@@ -5,9 +5,9 @@ const actions = {
     // vuexContext.commit("SET_SERVER_LIST", res);
     return res;
   },
-  async setSiteBindings(vuexContext, data) {
-    const res = await azureInventoryService.getSiteBindings(data);
-    vuexContext.commit("SET_INVENTORY_BINDINGS", data);
+  async setSiteBindings(vuexContext) {
+    const res = await azureInventoryService.getSiteBindings();
+    vuexContext.commit("SET_INVENTORY_BINDINGS", res.data);
     return res;
   },
 }

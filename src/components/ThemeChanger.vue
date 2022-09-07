@@ -69,10 +69,7 @@ export default {
             localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString());
         },
         setTheme(theme) {
-
-            this.$vuetify.theme.red = !this.$vuetify.theme.red;
-            localStorage.setItem("red_theme", this.$vuetify.theme.red.toString());
-
+            
             this.menu = false;
             const name = theme.name;
             const dark = theme.dark;

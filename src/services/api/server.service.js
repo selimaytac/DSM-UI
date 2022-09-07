@@ -98,7 +98,6 @@ async function getExportList() {
     })
 }
 async function getRDPFile(data) {
-    console.log(data);
     const result = await $axios.post(
         controllerName + "connect/" ,{
             ...data
@@ -113,7 +112,6 @@ async function getRDPFile(data) {
             }
         }
     ).then((response) => {
-        console.log(response);
         var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 

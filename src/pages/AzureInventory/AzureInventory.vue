@@ -69,11 +69,13 @@
                     <v-card-title>
                       Binding Details
                       <v-spacer></v-spacer>
+                      <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details color="black">
+                      </v-text-field>
                     </v-card-title>
                     <v-data-table :headers="bindingheaders" :items="bindings" :items-per-page="10" :footer-props="{
                       'items-per-page-options': [5, 10, 20, 50]
-                    }" class="elevation-1">
-                      </v-data-table>
+                    }" class="elevation-1" :search="search">
+                    </v-data-table>
                   </v-card>
                 </v-tab-item>
               </v-tabs>
@@ -125,18 +127,15 @@ export default {
   methods: {
     ...mapActions('inventory', ['setInventories', 'setSiteBindings']),
     async showBindings(item) {
-      this.inventories = this.bindings.filter(x => x.id === item.id)[0].map(bind => ({
-        name: bind.bindings,
-      }));
-
-      
+      this.details = item
+      this.bindings = item.bindings.map(binding => {return {bindings: binding}});
       this.dialogdetail = true
     },
     columnValueList(val) {
       return this.inventories.map((d) => d[val]);
     },
     async GetInventoryList() {
-      this.inventories = await this.setInventories();
+      this.inventories = await this.setSiteBindings();
     },
   },
   created() {

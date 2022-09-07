@@ -254,12 +254,6 @@ export default {
       await this.setDatabaseDetails(item.id);
       this.loading6 = false;
     },
-    // async showDetails(item) {
-    //        console.log(item)
-
-    //   this.detailsInTab = await this.setDatabaseDetails(item.id)
-    //   this.dialogdetail = true
-    // },
     columnValueList(val) {
       return this.dbportals.map((d) => d[val]);
     },

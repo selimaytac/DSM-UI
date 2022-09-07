@@ -12,7 +12,6 @@ export default new Vuetify({
     },
     theme:{
         dark: null,
-        red: null,
         themes:{
             dark:{
                 background: 'rgb(128,128,128)'

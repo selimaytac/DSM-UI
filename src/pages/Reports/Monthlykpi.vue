@@ -191,7 +191,6 @@ export default {
         }))
       this.appTitle = item.application;
       this.tableDetail = true
-      console.log(this.tableData)
     },
     columnValueList(val) {
       return this.applicationNames.map((d) => d[val]);
