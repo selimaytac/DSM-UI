@@ -96,7 +96,7 @@ export default {
   name: 'AzureInventory',
   data() {
     return {
-      filters: { siteName: [], defaultHostName: [], outboundIpAddresses: [], resourceGroup: [] },
+      filters: { siteName: [], defaultHostName: [], outboundIpAddresses: [], resourceGroup: [], subscriptionName:[]},
       dialog: false,
       loader: null,
       loading: false,
@@ -107,11 +107,12 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName' },
+        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName' , width: '200px' },
         { text: 'Bindings', value: 'details', },
         { text: 'Host Name', value: 'defaultHostName' },
         { text: 'Ip Addresses', value: 'outboundIpAddresses' },
         { text: 'Resource Group', value: 'resourceGroup' },
+        { text: 'Subs. Name', value: 'subscriptionName'}
       ],
       bindingheaders: [
         { text: 'Bindings', value: 'bindings' },
