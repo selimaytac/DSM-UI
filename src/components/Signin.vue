@@ -26,7 +26,7 @@
                               In</v-btn>
                             </v-card-actions>
                             <v-alert class="text-center" small type="success" v-model="success" shaped>Giriş Başarılı</v-alert>
-                            <v-alert class="text-center" small type="error" v-model="error" shaped>Giriş Başarısız</v-alert>
+                            <v-alert class="text-center" small type="error" v-model="error" shaped>{{errorMessage}}</v-alert>
                            
                           </form>
                         </v-col>
@@ -76,6 +76,7 @@ export default {
       loading: false,
       success: false,
       error: false,
+      errorMessage: 'Giriş Başarısız',
       username: this.userName ?? '',
       usernameRules: [
         v => !!v || 'Kullanıcı adı boş olamaz',
@@ -112,7 +113,6 @@ export default {
 
     async login() {
       
-      this.success = true;
       try {
         this.setDomain(this.selectedDomain);
         const res = await this.authLogin({
@@ -121,14 +121,20 @@ export default {
           
         });
         if (res.isAdUser) {
+          this.success = true;
           
           this.$router.push('/home').catch(() => { });
         } else {
         }
       } catch (error) {
+        this.error = true;
+        if(error.errorCode == 400){
+          this.errorMessage = 'Kullanıcı adı veya şifre hatalı'
+        }
+        else{
+          this.errorMessage = 'Sunucu Hatası'
+        }
       }
-      this.success = false;
-      this.error = true;
     }
 
   },
