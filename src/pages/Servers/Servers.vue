@@ -408,7 +408,6 @@ export default {
     downloadRdp(){
       serverService.getRDPFile({serverId: this.selectedServer.serverId,userName: this.userName});
     },
-
   },
   // created() {
   //   this.GetServerList();

@@ -11,7 +11,7 @@
       </v-card-title>
       <v-data-table :headers="headers" :items="filterInventories" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1 table-cursor" :search="search">
+      }" class="elevation-1 table-cursor" :search="search" :custom-filter="customSearch">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -137,6 +137,9 @@ export default {
     async GetInventoryList() {
       this.inventories = await this.setSiteBindings();
     },
+    customSearch (value, search, item) {
+          return Object.values(item).some(v=>v&&v.toString().toLowerCase().includes(search))
+      }
   },
   created() {
     this.GetInventoryList();

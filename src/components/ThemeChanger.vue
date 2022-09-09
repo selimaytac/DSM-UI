@@ -71,6 +71,7 @@ export default {
         setTheme(theme) {
             
             this.menu = false;
+            
             const name = theme.name;
             const dark = theme.dark;
             const light = theme.light;
@@ -83,10 +84,12 @@ export default {
             });
 
             this.$vuetify.theme.themes.name = name;
+            localStorage.setItem("sidebar_theme",JSON.stringify(theme));
         }
     },
     mounted() {
         const theme = localStorage.getItem("dark_theme");
+        const sidebarTheme = localStorage.getItem("sidebar_theme");
         if (theme) {
             if (theme === "true") {
                 this.$vuetify.theme.dark = true;
@@ -102,6 +105,9 @@ export default {
                 "dark_theme",
                 this.$vuetify.theme.dark.toString()
             );
+        }
+        if (sidebarTheme) {
+            this.setTheme(JSON.parse(sidebarTheme));
         }
     }
 };

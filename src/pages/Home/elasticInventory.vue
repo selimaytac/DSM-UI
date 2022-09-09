@@ -13,6 +13,9 @@
       <v-data-table :headers="headers" :items="filterElastic" :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
       }" class="elevation-1 table-cursor" :search="search">
+      <template v-slot:item.url="{ item }">
+        <a :href="item.url" target="_blank">{{item.url}}</a>
+      </template>
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -71,12 +74,12 @@ export default {
       loading6: false,
       search: '',
       headers: [
-        { text: 'URL', align: 'start', sortable: false, value: 'url', width: "200px", fixed: true },
-        { text: 'IP Address', value: 'ipAddress',width: "200px", fixed: true },
-        { text: 'LoadBalancer IP', value: 'loadbalancerIp', width: "150px", fixed: true },
+        { text: 'URL', align: 'start', sortable: false, value: 'url', width: "150px", fixed: true },
+        { text: 'IP Address', value: 'ipAddress',width: "100px", fixed: true },
+        { text: 'LoadBalancer IP', value: 'loadbalancerIp', width: "100px", fixed: true },
         { text: 'Company Name', value: 'companyName', width: "150px", fixed: true },
-        { text: 'Host Name', value: 'hostname',width: "200px", fixed: true },
-        { text: 'Description', value: 'description', width: "200px", fixed: true },
+        { text: 'Host Name', value: 'hostname',width: "100px", fixed: true },
+        { text: 'Description', value: 'description', width: "100px", fixed: true },
       ],
       elastic: [],
     }

@@ -13,21 +13,27 @@
                       <v-row align="center" justify="center">
                         <v-col cols="12" sm="8">
                           <form class="mt-12" ref="form" @submit.prevent="login()">
-                            <v-text-field v-model="username" name="username" prepend-icon="person"
-                              label="Your User Name" required placeholder="username" type="text"></v-text-field>
-                            <v-select v-model="selectedDomain" :items="domain" label="@" required
-                              name="domain"></v-select>
-                            <v-text-field v-model="password" prepend-icon="lock" name="password" placeholder="password"
-                              label="Your Password" type="password" required></v-text-field>
+                            <v-text-field v-model="username" :rules="usernameRules" name="username"
+                              prepend-icon="person" label="Your User Name" required placeholder="username" type="text">
+                            </v-text-field>
+                            <v-select v-model="selectedDomain" :items="domain" label="@" required name="domain">
+                            </v-select>
+                            <v-text-field v-model="password" :rules="passwordRules"  prepend-icon="lock" name="password"
+                              placeholder="password" label="Your Password" type="password" required></v-text-field>
                             <br>
-                            <v-btn type="submit" color="black" dark block title value="log in">Log In</v-btn>
+                            <v-card-actions class="justify-center">
+                              <v-btn :loading="loading" type="submit" color="primary" dark block title value="log in">Log
+                              In</v-btn>
+                            </v-card-actions>
+                            <v-alert class="text-center" small type="success" v-model="success" shaped>Giriş Başarılı</v-alert>
+                            <v-alert class="text-center" small type="error" v-model="error" shaped>Giriş Başarısız</v-alert>
+                           
                           </form>
                         </v-col>
                       </v-row>
                     </v-card-text>
                   </v-col>
-
-                  <v-col cols="12" md="6" class="black rounded-bl-xl">
+                  <v-col cols="12" md="6" class="primary rounded-bl-xl">
                     <div style="  text-align: center; padding: 180px 0;">
                       <v-card-text class="white--text">
                         <v-avatar size="128" class="ml-1" v-if="this.profilePhoto.length > 1">
@@ -56,6 +62,7 @@
         </v-col>
       </v-row>
     </v-container>
+
   </v-app>
 </template>
 
@@ -66,8 +73,18 @@ export default {
   name: "signin",
   data() {
     return {
+      loading: false,
+      success: false,
+      error: false,
       username: this.userName ?? '',
+      usernameRules: [
+        v => !!v || 'Kullanıcı adı boş olamaz',
+      ],
       password: "",
+      passwordRules: [
+        v => !!v || 'Şifre boş olamaz',
+        v => v.length >= 6 || 'Şifre en az 6 karakter olmalıdır',
+      ],
       selectedDomain: this.getDomain ?? '@d-teknoloji.com.tr',
       domain: [
         '@d-teknoloji.com.tr',
@@ -94,14 +111,15 @@ export default {
     }),
 
     async login() {
+      
+      this.success = true;
       try {
         this.setDomain(this.selectedDomain);
         const res = await this.authLogin({
           username: this.username + this.selectedDomain,
           password: this.password,
-
-        });
           
+        });
         if (res.isAdUser) {
           
           this.$router.push('/home').catch(() => { });
@@ -109,6 +127,8 @@ export default {
         }
       } catch (error) {
       }
+      this.success = false;
+      this.error = true;
     }
 
   },
