@@ -72,7 +72,7 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small>Conenct with RDP</v-btn>
+            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small>Connect with RDP</v-btn>
           </v-toolbar>
           <v-container>
             <template>
@@ -93,14 +93,30 @@
                                 <tr>
                                   <td>Domain: </td>
                                   <td>{{detailsInTab.domain}}</td>
-                                  <v-btn x-small fab class="mx-2" @click="copyText" v-clipboard:copy='detailsInTab.domain' v-clipboard:success='onCopy'
-                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
+                                  <v-btn x-small fab class="mx-2" @click="copyText() , snackbar=true">
+                                    <v-icon small>mdi-content-copy</v-icon>
+                                  </v-btn>
+                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                      v-slot:action="{ attrs }">
+                                      <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                        Close
+                                      </v-btn>
+                                    </template>
+                                  </v-snackbar>
                                 </tr>
                                 <tr>
                                   <td>IP Address: </td>
                                   <td>{{detailsInTab.ipAddress}}</td>
-                                  <v-btn x-small fab class="mx-2" @click="copyTextt" v-clipboard:copy='detailsInTab.ipAddress' v-clipboard:success='onCopy'
-                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
+                                  <v-btn x-small fab class="mx-2" @click="copyTextt() , snackbar=true">
+                                    <v-icon small>mdi-content-copy</v-icon>
+                                  </v-btn>
+                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                      v-slot:action="{ attrs }">
+                                      <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                        Close
+                                      </v-btn>
+                                    </template>
+                                  </v-snackbar>
                                 </tr>
                                 <tr>
                                   <td>Operating System: </td>
@@ -206,6 +222,9 @@ export default {
   data() {
     return {
       filters: { serverName: [], owner: [], environment: [], ipAddress: [], version: [], osversion: [], description: [] },
+      snackbar: false,
+      multiLine: true,
+      text: 'Copy Successful ! ',
       dialog: false,
       loader: null,
       loading: false,
@@ -270,16 +289,10 @@ export default {
         response = await this.setDatabases(count);
       }
     },
-    onCopy: function (e) {
-      alert('You just copied: ' + e.text + '   You have to click OK button!');
-    },
-    onError: function (e) {
-      alert('Failed to copy texts')
-    },
     copyText() {
       navigator.clipboard.writeText(this.detailsInTab.domain);
     },
-    copyTextt(){
+    copyTextt() {
       navigator.clipboard.writeText(this.detailsInTab.ipAddress);
     }
   },

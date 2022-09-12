@@ -96,14 +96,30 @@
                               <tr>
                                 <td>Machine Name: </td>
                                 <td>{{detailsInTab.machineName}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyText" v-clipboard:copy='detailsInTab.machineName' v-clipboard:success='onCopy'
-                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
+                                <v-btn x-small fab class="mx-2" @click="copyText() , snackbar=true">
+                                    <v-icon small>mdi-content-copy</v-icon>
+                                  </v-btn>
+                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                      v-slot:action="{ attrs }">
+                                      <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                        Close
+                                      </v-btn>
+                                    </template>
+                                  </v-snackbar>
                               </tr>
                               <tr>
                                 <td>Name: </td>
                                 <td>{{detailsInTab.name}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyTextt" v-clipboard:copy='detailsInTab.name' v-clipboard:success='onCopy'
-                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
+                                <v-btn x-small fab class="mx-2" @click="copyTextt() , snackbar=true">
+                                    <v-icon small>mdi-content-copy</v-icon>
+                                  </v-btn>
+                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                      v-slot:action="{ attrs }">
+                                      <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                        Close
+                                      </v-btn>
+                                    </template>
+                                  </v-snackbar>
                               </tr>
                               <tr>
                                 <td>Application Pool Name: </td>
@@ -112,8 +128,16 @@
                               <tr>
                                 <td>Physical Path: </td>
                                 <td>{{detailsInTab.physicalPath}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyTexttt" v-clipboard:copy='detailsInTab.physicalPath' v-clipboard:success='onCopy'
-                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
+                                <v-btn x-small fab class="mx-2" @click="copyTexttt() , snackbar=true">
+                                    <v-icon small>mdi-content-copy</v-icon>
+                                  </v-btn>
+                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                      v-slot:action="{ attrs }">
+                                      <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                        Close
+                                      </v-btn>
+                                    </template>
+                                  </v-snackbar>
                               </tr>
                               <tr>
                                 <td>Enabled Protocols: </td>
@@ -305,6 +329,9 @@ export default {
   data() {
     return {
       filters: { siteName: [], ipAddress: [], port: [], hostName: [], appType: [], machinename: [], appPoolName: [], physicalPath: [] },
+      snackbar: false,
+      multiLine: true,
+      text: 'Copy Successful ! ',
       dialog: false,
       loader: null,
       loading: false,
@@ -483,12 +510,6 @@ export default {
     }else{
         siteService.getExportList();
     }
-    },
-    onCopy: function (e) {
-      alert('You just copied: ' + e.text + '   You have to click OK button!');
-    },
-    onError: function (e) {
-      alert('Failed to copy texts')
     },
     copyText() {
       navigator.clipboard.writeText(this.detailsInTab.machineName);
