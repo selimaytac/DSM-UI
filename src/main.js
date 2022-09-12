@@ -6,7 +6,9 @@ import vuetify from './plugins/vuetify'
 import axios from "./plugins/axios";
 import {Chart} from 'chart.js'
 import VueChartkick from 'vue-chartkick'
+import VueClipboard from 'vue-clipboard2'
 
+Vue.use(VueClipboard)
 Vue.use(Chartkick.use(Chart));
 
 Vue.use(axios);

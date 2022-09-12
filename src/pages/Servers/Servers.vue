@@ -10,8 +10,8 @@
         <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2', ExportExcel()">
+            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2" outlined
+              @click="loader = 'loading2', ExportExcel()">
               <v-icon color="primary" dark v-bind="attrs" v-on="on">
                 mdi-microsoft-excel </v-icon>
             </v-btn>
@@ -68,7 +68,8 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small @click="downloadRdp">Conenct with RDP</v-btn>
+            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small @click="downloadRdp">Conenct
+              with RDP</v-btn>
           </v-toolbar>
           <template>
             <v-tabs color="primary" vertical>
@@ -89,11 +90,15 @@
                             <tbody>
                               <tr>
                                 <td>Domain: </td>
-                                <td>{{ detailsInTab.domain }}</td>
+                                <td>{{detailsInTab.domain}}</td>
+                                <v-btn x-small fab class="mx-2" @click="copyText" v-clipboard:copy='detailsInTab.domain' v-clipboard:success='onCopy'
+                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
                               </tr>
                               <tr>
                                 <td>IP Address: </td>
-                                <td>{{ detailsInTab.ipAddress }}</td>
+                                <td>{{detailsInTab.ipAddress}}</td>
+                                <v-btn x-small fab class="mx-2" @click="copyTextt" v-clipboard:copy='detailsInTab.ipAddress' v-clipboard:success='onCopy'
+                                  v-clipboard:error='onError'><v-icon small>mdi-content-copy</v-icon></v-btn>
                               </tr>
                               <tr>
                                 <td>Custom Ip: </td>
@@ -398,16 +403,28 @@ export default {
       }
       this.loaderTable = false;
     }, 1000),
-    ExportExcel(){
-      if(this.search.length > 0){
+    ExportExcel() {
+      if (this.search.length > 0) {
         serverService.getExportSearchList(this.search);
-    }else{
+      } else {
         serverService.getExportList();
+      }
+    },
+    downloadRdp() {
+      serverService.getRDPFile({ serverId: this.selectedServer.serverId, userName: this.userName });
+    },
+    onCopy: function (e) {
+      alert('You just copied: ' + e.text + '   You have to click OK button!');
+    },
+    onError: function (e) {
+      alert('Failed to copy texts')
+    },
+    copyText() {
+      navigator.clipboard.writeText(this.detailsInTab.domain);
+    },
+    copyTextt(){
+      navigator.clipboard.writeText(this.detailsInTab.ipAddress);
     }
-    },
-    downloadRdp(){
-      serverService.getRDPFile({serverId: this.selectedServer.serverId,userName: this.userName});
-    },
   },
   // created() {
   //   this.GetServerList();
