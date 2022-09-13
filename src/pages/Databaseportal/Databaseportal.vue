@@ -96,7 +96,7 @@
                                   <v-btn x-small fab class="mx-2" @click="copyText() , snackbar=true">
                                     <v-icon small>mdi-content-copy</v-icon>
                                   </v-btn>
-                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                  <v-snackbar v-model="snackbar">{{text}}<template
                                       v-slot:action="{ attrs }">
                                       <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
                                         Close
@@ -110,7 +110,7 @@
                                   <v-btn x-small fab class="mx-2" @click="copyTextt() , snackbar=true">
                                     <v-icon small>mdi-content-copy</v-icon>
                                   </v-btn>
-                                  <v-snackbar v-model="snackbar" :multi-line="multiline">{{text}}<template
+                                  <v-snackbar v-model="snackbar" >{{text}}<template
                                       v-slot:action="{ attrs }">
                                       <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
                                         Close

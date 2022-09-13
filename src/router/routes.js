@@ -90,5 +90,19 @@ export default [
     beforeEnter: (to, from, next) => {
       window.open('https://scorecard.fw.dteknoloji.com.tr/', '_blank');
     }
-  }
+  },
+  {
+    path: '/grafana',
+    name: 'grafana',
+    beforeEnter: (to, from, next) => {
+      window.open('http://grafana/', '_blank');
+    }
+  },
+  {
+    path: '/appdynamic',
+    name: 'appdynamic',
+    beforeEnter: (to, from, next) => {
+      window.open('http://dtappdynamcspoc01:8090/controller/#/', '_blank');
+    }
+  },
 ]
