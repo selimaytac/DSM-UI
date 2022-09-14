@@ -91,11 +91,11 @@
                               <tr>
                                 <td>Domain: </td>
                                 <td>{{detailsInTab.domain}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyText() , snackbar=true">
+                                <v-btn x-small fab class="mx-2 ma-4"
+                                  @click="doCopy(detailsInTab.domain) , snackbar=true">
                                   <v-icon small>mdi-content-copy</v-icon>
                                 </v-btn>
-                                <v-snackbar v-model="snackbar">{{text}}<template
-                                    v-slot:action="{ attrs }">
+                                <v-snackbar v-model="snackbar">{{text}}<template v-slot:action="{ attrs }">
                                     <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
                                       Close
                                     </v-btn>
@@ -105,11 +105,11 @@
                               <tr>
                                 <td>IP Address: </td>
                                 <td>{{detailsInTab.ipAddress}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyTextt() , snackbar=true">
+                                <v-btn x-small fab class="mx-2 ma-4"
+                                  @click="doCopy(detailsInTab.ipAddress) , snackbar=true">
                                   <v-icon small>mdi-content-copy</v-icon>
                                 </v-btn>
-                                <v-snackbar v-model="snackbar">{{text}}<template
-                                    v-slot:action="{ attrs }">
+                                <v-snackbar v-model="snackbar">{{text}}<template v-slot:action="{ attrs }">
                                     <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
                                       Close
                                     </v-btn>
@@ -119,6 +119,16 @@
                               <tr>
                                 <td>Custom Ip: </td>
                                 <td>{{ detailsInTab.customIp }}</td>
+                                <v-btn x-small fab class="mx-2 ma-4"
+                                  @click="doCopy(detailsInTab.customIp) , snackbar=true">
+                                  <v-icon small>mdi-content-copy</v-icon>
+                                </v-btn>
+                                <v-snackbar v-model="snackbar">{{text}}<template v-slot:action="{ attrs }">
+                                    <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                      Close
+                                    </v-btn>
+                                  </template>
+                                </v-snackbar>
                               </tr>
                               <tr>
                                 <td>Operating System: </td>
@@ -432,12 +442,13 @@ export default {
     downloadRdp() {
       serverService.getRDPFile({ serverId: this.selectedServer.serverId, userName: this.userName });
     },
-    copyText() {
-      navigator.clipboard.writeText(this.detailsInTab.domain);
+    doCopy: function (text) {
+      var copyText = document.createElement('input');
+      copyText.setAttribute('value', text);
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
     },
-    copyTextt() {
-      navigator.clipboard.writeText(this.detailsInTab.ipAddress);
-    }
   },
   // created() {
   //   this.GetServerList();

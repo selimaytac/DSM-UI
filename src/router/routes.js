@@ -105,4 +105,11 @@ export default [
       window.open('http://dtappdynamcspoc01:8090/controller/#/', '_blank');
     }
   },
+  {
+    path: '/zabbix',
+    name: 'zabbix',
+    beforeEnter: (to, from, next) => {
+      window.open('https://dogus-zabbix-web.cloneye.net/', '_blank');
+    }
+  }
 ]

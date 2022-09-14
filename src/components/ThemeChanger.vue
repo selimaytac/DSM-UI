@@ -52,15 +52,15 @@ export default {
     data: () => ({
         menu: false,
         themes: [
-            { name: "Red", dark: { primary: "#FF0000", }, light: { primary: "#F70D1A", } },
-            { name: "Green", dark: { primary: "#33691E", }, light: { primary: "#6ae240", } },
-            { name: "Blue", dark: { primary: "#0D47A1", }, light: { primary: "#00b0ff", } },
-            { name: "Yellow", dark: { primary: "#FFEB3B", }, light: { primary: "#ffff00", } },
+            { name: "Red", dark: { primary: "#FF0000", }, light: { primary: "#FF0000", } },
+            { name: "Green", dark: { primary: "#33691E", }, light: { primary: "#008000", } },
+            { name: "Blue", dark: { primary: "#0D47A1", }, light: { primary: "#0000FF", } },
+            { name: "Yellow", dark: { primary: "#FFEB3B", }, light: { primary: "#FFFF00", } },
             { name: "Orange", dark: { primary: "#E65100", }, light: { primary: "#ffa450", } },
-            { name: "Purple", dark: { primary: "#9C27B0", }, light: { primary: "#e040fb", } },
+            { name: "Purple", dark: { primary: "#9C27B0", }, light: { primary: "#800080", } },
             { name: "Brown", dark: { primary: "#795548", }, light: { primary: "#a1887f", } },
-            { name: "Grey", dark: { primary: "#9E9E9E", }, light: { primary: "#e0e0e0", } },
-            { name: "Pink", dark: { primary: "#E91E63", }, light: { primary: "#ff4081", } },
+            { name: "Grey", dark: { primary: "#9E9E9E", }, light: { primary: "#808080", } },
+            { name: "Pink", dark: { primary: "#E91E63", }, light: { primary: "#FF00FF", } },
         ]
     }),
     methods: {

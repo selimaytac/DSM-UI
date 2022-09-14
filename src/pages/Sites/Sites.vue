@@ -96,7 +96,7 @@
                               <tr>
                                 <td>Machine Name: </td>
                                 <td>{{detailsInTab.machineName}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyText() , snackbar=true">
+                                <v-btn x-small fab class="mx-2 ma-4" @click="doCopy(detailsInTab.machineName) , snackbar=true">
                                     <v-icon small>mdi-content-copy</v-icon>
                                   </v-btn>
                                   <v-snackbar v-model="snackbar">{{text}}<template
@@ -110,7 +110,7 @@
                               <tr>
                                 <td>Name: </td>
                                 <td>{{detailsInTab.name}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyTextt() , snackbar=true">
+                                <v-btn x-small fab class="mx-2 ma-4" @click="doCopy(detailsInTab.name) , snackbar=true">
                                     <v-icon small>mdi-content-copy</v-icon>
                                   </v-btn>
                                   <v-snackbar v-model="snackbar">{{text}}<template
@@ -128,7 +128,7 @@
                               <tr>
                                 <td>Physical Path: </td>
                                 <td>{{detailsInTab.physicalPath}}</td>
-                                <v-btn x-small fab class="mx-2" @click="copyTexttt() , snackbar=true">
+                                <v-btn x-small fab class="mx-2 ma-4" @click="doCopy(detailsInTab.physicalPath) , snackbar=true">
                                     <v-icon small>mdi-content-copy</v-icon>
                                   </v-btn>
                                   <v-snackbar v-model="snackbar">{{text}}<template
@@ -511,14 +511,12 @@ export default {
         siteService.getExportList();
     }
     },
-    copyText() {
-      navigator.clipboard.writeText(this.detailsInTab.machineName);
-    },
-    copyTextt(){
-      navigator.clipboard.writeText(this.detailsInTab.name);
-    },
-    copyTexttt(){
-      navigator.clipboard.writeText(this.detailsInTab.physicalPath);
+    doCopy: function (text) {
+      var copyText = document.createElement('input');
+      copyText.setAttribute('value', text);
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
     },
   },
   // created() {

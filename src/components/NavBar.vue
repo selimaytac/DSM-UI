@@ -1,17 +1,28 @@
 <template>
   <v-app-bar app dark height="60px" class="primary">
+    <v-avatar class="d-block mx-auto" size="120">
+      <v-img src="../../public/logo.png"></v-img>
+    </v-avatar>
     <v-list-item-content>
       <v-list-item-title>
-        <span class="font-weight-bold title">DSM </span>
-        <span class="font-weight-light title">- Server Monitoring</span>
-        <v-divider></v-divider>
-        <h5>DT-Uygulama Yönetimi</h5>
+        <span class="font-weight-light title">Application Management</span>
       </v-list-item-title>
     </v-list-item-content>
-    <v-btn class="ma-2" icon>
-        <v-icon color="white">far fa-bell</v-icon>
-    </v-btn>
-      <ThemeChanger />
+    <v-spacer></v-spacer>
+    <v-menu transition="slide-y-transition" bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn small class="ma-2" outlined  dark v-bind="attrs" v-on="on">
+          Uygulamalar
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link active-class="border"
+                    :ripple="false">
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    <ThemeChanger />
     <v-menu bottom min-width="200px" rounded offset-y>
       <template v-slot:activator="{ on }">
         <div>
@@ -72,6 +83,12 @@ export default {
   data() {
     return {
       username: this.$route.params.userName,
+      items: [
+        { title: 'Scorecard', link:'/scorecard' },
+        { title: 'Grafana', link:'/grafana' },
+        { title: 'AppDynamics', link:'/appdynamic' },
+        { title: 'Zabbix', link:'/zabbix'},
+      ],
     }
   },
   computed: {
@@ -94,8 +111,9 @@ export default {
   },
   components: {
     ThemeChanger,
-}
+  }
 };
 </script>
 <style>
+
 </style>

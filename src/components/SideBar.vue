@@ -1,8 +1,5 @@
 <template>
     <v-navigation-drawer v-model="drawer" app mini-variant mini-variant-width="100" class="primary" permanent expand-off-hover>
-        <v-avatar class="d-block mx-auto mt-2 mb-2" size="70">
-            <v-img src="../../public/logo.png"></v-img>
-        </v-avatar>
         <v-list nav dense class="mt-4 primary">
             <v-list-item-group v-model="selectedItem">
                 <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link active-class="border"
@@ -33,8 +30,6 @@ export default {
             { icon: 'mdi-transit-connection-variant ', text: 'Responsible', link: '/responsible' },
             { icon: 'fas fa-database', text: 'Database Portal', link: '/databaseportal' },
             { icon: 'fas fa-file', text: 'Reports', link: '/reports' },
-            { icon : 'fas fa-house-chimney', text: 'Scorecard', link:'/scorecard'},
-
             // {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
         ],
     }),

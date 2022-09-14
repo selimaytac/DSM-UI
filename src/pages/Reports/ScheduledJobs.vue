@@ -4,7 +4,7 @@
 
       <NavBar />
 
-    <v-card color="grey lighten-1">
+    <v-card color="grey">
       <v-card-title>
         Scheduled Jobs
         <v-spacer></v-spacer>
