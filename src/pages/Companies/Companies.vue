@@ -83,8 +83,9 @@
                     <v-card-title>
                       Servers Details
                       <v-spacer></v-spacer>
+                      <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
                     </v-card-title>
-                    <v-data-table :headers="serverheaders" :items="companyServers" :items-per-page="10" :footer-props="{
+                    <v-data-table :headers="serverheaders" :items="companyServers" :search="searchh" :items-per-page="10" :footer-props="{
                       'items-per-page-options': [5, 10, 20, 50]
                     }" class="elevation-1">
                       ></v-data-table>
@@ -95,8 +96,9 @@
                     <v-card-title>
                       Site Details
                       <v-spacer></v-spacer>
+                      <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
                     </v-card-title>
-                    <v-data-table :headers="siteheaders" :items="companySites" :items-per-page="10" :footer-props="{
+                    <v-data-table :headers="siteheaders" :items="companySites" :search="search" :items-per-page="10" :footer-props="{
                       'items-per-page-options': [5, 10, 20, 50]
                     }" class="elevation-1">
                       </v-data-table>
@@ -139,6 +141,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      searchh: '',
       companies: [],
       companyServers: [],
       companySites: [],

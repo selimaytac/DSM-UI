@@ -268,10 +268,24 @@
                     Sites Details
                     <v-spacer></v-spacer>
                   </v-card-title>
-                  <v-data-table :headers="siteheaders" :items="serverSites" :items-per-page="10" :footer-props="{
-                    'items-per-page-options': [5, 10, 20, 50]
-                  }" class="elevation-1">
+                  <v-data-table :headers="siteheaders" :items="serverSites" @click:row="goToSite" :items-per-page="10"
+                    :footer-props="{
+                      'items-per-page-options': [5, 10, 20, 50]
+                    }" class="elevation-1 table-cursor">
                   </v-data-table>
+                  <v-dialog v-model="dialogdetail2" max-width="1200px">
+                    <v-card>
+                      <v-toolbar dark color="primary">
+                        <v-btn icon dark @click="dialogdetail2 = false">
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                        <v-toolbar-title class="flex text-center text-h5">SITE</v-toolbar-title>
+                      </v-toolbar>
+                      <v-card-text>
+                          Yönlendirilecek...
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
                 </v-card>
               </v-tab-item>
               <v-tab-item>
@@ -298,6 +312,7 @@ import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions, mapState } from "vuex";
 import { debounce } from 'debounce';
 import { serverService } from '@/services/api/server.service';
+import { siteService } from '@/services/api/site.service';
 import store from '@/store';
 export default {
   name: 'servers',
@@ -341,6 +356,7 @@ export default {
       oldServers: [],
       serverSites: [],
       dialogdetail: false,
+      dialogdetail2: false,
       detailsInTab: {
         domain: "",
         ipAddress: "",
@@ -393,28 +409,20 @@ export default {
       this.serverSites = await this.setServerSites(item.serverId);
       this.dialogdetail = true
     },
-    // async showDetails(item) {
-    //   this.detailsInTab = await this.setServerDetails(item.serverId)
-    //   this.serverHeader = await this.setServerHeader(item.serverId)
-    //   this.detailsInTab.ownedBy = this.serverHeader.companyName
-    //   this.detailsInTab.companyId = this.serverHeader.companyId
+    async goToSite(item) {
+      
+       await siteService.getSiteDetails(item.siteId).then((response) => {
+        store.dispatch('site/setSites', response.data)
+        console.log(item.siteId)
+        console.log(response)
+      })
+      this.dialogdetail2 = true
+    },
 
-    //   this.selectedServerId = item.serverId
-    //   this.serverSites= await this.setServerSites(item.serverId);
-    //   this.dialogdetail = true
-    // },
     columnValueList(val) {
       return this.servers.map((d) => d[val]);
     },
-    // async GetServerList() {
-    //   let count = 1;
-    //   let response = await this.setServers(count);
-    //   while (response.length > 0) {
-    //     this.servers = this.servers.concat(response);
-    //     count++;
-    //     response = await this.setServers(count);
-    //   }
-    // },
+ 
     async GetServerList(count) {
       let response = await this.setServers(count);
       this.servers = this.servers.concat(response);
@@ -441,7 +449,7 @@ export default {
       }
     },
     downloadRdp() {
-      serverService.getRDPFile({ serverId: parseInt(this.selectedServer.serverId) , userName: store.state.auth.username });
+      serverService.getRDPFile({ serverId: parseInt(this.selectedServer.serverId), userName: store.state.auth.username });
     },
     doCopy: function (text) {
       var copyText = document.createElement('input');
@@ -485,7 +493,7 @@ export default {
   components: {
     SideBar,
     NavBar,
-  },
+},
 }
 </script>
 
