@@ -20,7 +20,7 @@
         <v-spacer></v-spacer> -->
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterProjects" :items-per-page="10"
+      <v-data-table :headers="headers" :items="filterProjects" :loading="loaderTable" :items-per-page="10"
         :footer-props="{
           'items-per-page-options': [20, 50, 100, 200]
         }" class="elevation-1 table-cursor" :search="search">
@@ -81,6 +81,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       headers: [
         { text: 'Project Name', align: 'start', sortable: false, value: 'projectName' },
         { text: 'URL', value: 'projectUrl', },
@@ -101,7 +102,9 @@ export default {
       return this.azureprojects.map((d) => d[val]);
     },
     async GetProjectsList() {
+      this.loaderTable = true;
       this.azureprojects = await this.setProjects();
+      this.loaderTable = false;
     },
   },
   created() {

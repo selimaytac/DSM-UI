@@ -5,7 +5,6 @@ export const dbportalService = {
     getDatabases,
     getDatabaseDetails,
     getExportList,
-    getRDPFile,
     getExportSearchList,
 };
 async function getDatabases(data) {
@@ -56,25 +55,6 @@ async function getExportList(data) {
 
         fileLink.click();
     })
-}
-async function getRDPFile(data) {
-    const result = await $axios.post(
-        controllerName + "content/" + data,
-        {
-            "Content-Type": "application/json-patch+json",
-            'Access-Control-Allow-Origin': '*',
-            Bearer: authHeader()
-        }
-    ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
-        var fileLink = document.createElement('a');
-
-        fileLink.href = fileURL;
-        fileLink.setAttribute('download', 'connection.rdp');
-        document.body.appendChild(fileLink);
-
-        fileLink.click();
-    });
 }
 async function getExportSearchList(data) {
     const result = await $axios.get(

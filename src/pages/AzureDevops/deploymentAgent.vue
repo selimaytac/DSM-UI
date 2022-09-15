@@ -19,7 +19,7 @@
         <v-spacer></v-spacer> -->
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterAgent" :items-per-page="10"
+      <v-data-table :headers="headers" :items="filterAgent" :loading="loaderTable" :items-per-page="10"
         :footer-props="{
           'items-per-page-options': [20, 50, 100, 200]
         }" class="elevation-1 table-cursor" :search="search">
@@ -80,6 +80,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       headers: [
         { text: 'Project Name', align: 'start', sortable: false, value: 'projectName', width:150},
         { text: 'Group ID', value: 'deploymentGroupId', width:150},
@@ -103,7 +104,9 @@ export default {
       return this.deploymentagent.map((d) => d[val]);
     },
     async GetAgentsList() {
+      this.loaderTable = true;
       this.deploymentagent = await this.setAgents();
+      this.loaderTable = false;
     },
   },
   created() {

@@ -99,20 +99,20 @@ async function getExportList() {
 }
 async function getRDPFile(data) {
     const result = await $axios.post(
-        controllerName + "connect/" ,{
+        controllerName + "connect" ,{
             ...data
         },
         {
             responseType: 'blob',
             headers:
             {
-                "Content-Type": "application/octet-stream",
+                "Content-Type": "application/json",
                 'Access-Control-Allow-Origin': '*',
                 'Authorization': authHeader()
             }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileURL = window.URL.createObjectURL(new Blob([response]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;

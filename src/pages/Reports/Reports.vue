@@ -2,17 +2,17 @@
   <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
     <v-card>
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-          <v-tab @click="overalldisk=true">Overall Disk Status</v-tab>
-           <v-tab @click="scheduledjobs=true; overalldisk=false">Scheduled Jobs</v-tab>
-            <v-tab @click="odmserverlist=true; scheduledjobs=false; overalldisk=false">Odm Server List</v-tab>
-             <v-tab @click="monthlykpi=true; odmserverlist=false; scheduledjobs=false; overalldisk=false">Monthly Kpi Status</v-tab>
+          <v-tab @click="monthlykpi=true">Monthly Kpi Status</v-tab>
+           <v-tab @click="scheduledjobs=true; monthlykpi=false">Scheduled Jobs</v-tab>
+            <v-tab @click="odmserverlist=true; scheduledjobs=false; monthlykpi=false">Odm Server List</v-tab>
+             <v-tab @click="overalldisk=true; odmserverlist=false; scheduledjobs=false; monthlykpi=false">Overall Disk Status</v-tab>
         </v-tabs>
          
         <div>
-          <OverallDisk v-if="overalldisk"/>
+          <Monthlykpi v-if="monthlykpi"/>
           <ScheduledJobs v-else-if="scheduledjobs"/>
           <OdmServer v-else-if="odmserverlist"/>
-          <Monthlykpi v-else="monthlykpi"/>
+          <OverallDisk v-else="overalldisk"/>
         </div>
     </v-card>
   </v-app>
@@ -28,10 +28,10 @@ import Monthlykpi from './Monthlykpi.vue'
     name: 'reports',
     data () {
       return {
-        overalldisk:true,
+        monthlykpi:true,
         scheduledjobs:false,
         odmserverlist:false,
-        monthlykpi:false,
+        overalldisk:false,
       }
     },
     components: {

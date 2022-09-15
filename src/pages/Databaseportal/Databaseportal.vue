@@ -21,7 +21,7 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterDbportals" @click:row="rowClick" :items-per-page="10"
+      <v-data-table :headers="headers" :items="filterDbportals" @click:row="rowClick" :loading="loaderTable" :items-per-page="10"
         :footer-props="{
           'items-per-page-options': [20, 50, 100, 200]
         }" class="elevation-1 table-cursor" :search="search">
@@ -72,7 +72,6 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
-            <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small>Connect with RDP</v-btn>
           </v-toolbar>
           <v-container>
             <template>
@@ -234,6 +233,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       headers: [
         { text: 'Server Name', align: 'start', sortable: false, value: 'serverName', width: "200px", fixed: true },
         { text: 'Owner', value: 'owner', width: "100px", fixed: true },
@@ -274,7 +274,7 @@ export default {
       this.dialogdetail = true;
       this.detailsInTab = item;
       this.loading6 = true;
-      await this.setDatabaseDetails(item.id);
+      await this.setDatabaseDetails(item.detailsId);
       this.loading6 = false;
     },
     columnValueList(val) {
@@ -282,12 +282,17 @@ export default {
     },
     async GetDbList() {
       let count = 1;
+      this.loaderTable = true;
+      let temp = []
       let response = await this.setDatabases(count);
       while (response.length > 0) {
-        this.dbportals = this.dbportals.concat(response);
+        temp = temp.concat(response);
         count++;
         response = await this.setDatabases(count);
       }
+      let number = 1
+      this.dbportals = temp.map(a => ({ ...a, id: a+number++, detailsId: a.id }));
+      this.loaderTable = false;
     },
     doCopy: function (text) {
       var copyText = document.createElement('input');

@@ -298,6 +298,7 @@ import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions, mapState } from "vuex";
 import { debounce } from 'debounce';
 import { serverService } from '@/services/api/server.service';
+import store from '@/store';
 export default {
   name: 'servers',
   servers: [],
@@ -440,7 +441,7 @@ export default {
       }
     },
     downloadRdp() {
-      serverService.getRDPFile({ serverId: this.selectedServer.serverId, userName: this.userName });
+      serverService.getRDPFile({ serverId: parseInt(this.selectedServer.serverId) , userName: store.state.auth.username });
     },
     doCopy: function (text) {
       var copyText = document.createElement('input');

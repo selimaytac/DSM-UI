@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app dark height="60px" class="primary">
     <v-avatar class="d-block mx-auto" size="120">
-      <v-img src="../../public/logo.png"></v-img>
+      <v-img src="../../public/dsm (6).png"></v-img>
     </v-avatar>
     <v-list-item-content>
       <v-list-item-title>

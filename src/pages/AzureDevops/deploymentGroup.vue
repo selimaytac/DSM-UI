@@ -21,7 +21,7 @@
         <v-spacer></v-spacer> -->
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterGroup" :items-per-page="10"
+      <v-data-table :headers="headers" :items="filterGroup" :loading="loaderTable" :items-per-page="10"
         :footer-props="{
           'items-per-page-options': [20, 50, 100, 200]
         }" class="elevation-1 table-cursor" :search="search">
@@ -82,6 +82,7 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       headers: [
         { text: 'Project Name', align: 'start', sortable: false, value: 'deploymentGroupName' },
         { text: 'Deployment Group Name', value: 'deploymentGroupPool', },
@@ -100,7 +101,9 @@ export default {
       return this.deploymentgroup.map((d) => d[val]);
     },
     async GetGroupsList() {
+      this.loaderTable = true;
       this.deploymentgroup = await this.setGroups();
+      this.loaderTable = false;
     },
   },
   created() {
