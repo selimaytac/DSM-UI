@@ -112,7 +112,7 @@ async function getRDPFile(data) {
             }
         }
     ).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response]));
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;
