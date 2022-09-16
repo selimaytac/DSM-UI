@@ -273,7 +273,7 @@
                       'items-per-page-options': [5, 10, 20, 50]
                     }" class="elevation-1 table-cursor">
                   </v-data-table>
-                  <v-dialog v-model="dialogdetail2" max-width="1200px">
+                  <v-dialog v-model="dialogdetail2" max-width="1400px">
                     <v-card>
                       <v-toolbar dark color="primary">
                         <v-btn icon dark @click="dialogdetail2 = false">
@@ -281,9 +281,173 @@
                         </v-btn>
                         <v-toolbar-title class="flex text-center text-h5">SITE</v-toolbar-title>
                       </v-toolbar>
-                      <v-card-text>
-                          Yönlendirilecek...
-                      </v-card-text>
+                      <v-container>
+                        <v-row justify="center" class="space">
+                          <v-col cols="12" sm="4">
+                            <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="450">
+                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                                <v-toolbar-title>Site Details</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                              </v-toolbar>
+                              <v-simple-table class="primary" dark>
+                                <template v-slot:default>
+                                  <tbody>
+                                    <tr>
+                                      <td>Machine Name: </td>
+                                      <td>{{siteDetails.machineName}}</td>
+                                      <v-btn x-small fab class="mx-2 ma-4"
+                                        @click="doCopy(siteDetails.machineName) , snackbar=true">
+                                        <v-icon small>mdi-content-copy</v-icon>
+                                      </v-btn>
+                                      <v-snackbar v-model="snackbar">{{text}}<template v-slot:action="{ attrs }">
+                                          <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                            Close
+                                          </v-btn>
+                                        </template>
+                                      </v-snackbar>
+                                    </tr>
+                                    <tr>
+                                      <td>Name: </td>
+                                      <td>{{siteDetails.name}}</td>
+                                      <v-btn x-small fab class="mx-2 ma-4"
+                                        @click="doCopy(siteDetails.name) , snackbar=true">
+                                        <v-icon small>mdi-content-copy</v-icon>
+                                      </v-btn>
+                                      <v-snackbar v-model="snackbar">{{text}}<template v-slot:action="{ attrs }">
+                                          <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                            Close
+                                          </v-btn>
+                                        </template>
+                                      </v-snackbar>
+                                    </tr>
+                                    <tr>
+                                      <td>Application Pool Name: </td>
+                                      <td>{{ siteDetails.applicationPoolName }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Physical Path: </td>
+                                      <td>{{siteDetails.physicalPath}}</td>
+                                      <v-btn x-small fab class="mx-2 ma-4"
+                                        @click="doCopy(siteDetails.physicalPath) , snackbar=true">
+                                        <v-icon small>mdi-content-copy</v-icon>
+                                      </v-btn>
+                                      <v-snackbar v-model="snackbar">{{text}}<template v-slot:action="{ attrs }">
+                                          <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                                            Close
+                                          </v-btn>
+                                        </template>
+                                      </v-snackbar>
+                                    </tr>
+                                    <tr>
+                                      <td>Enabled Protocols: </td>
+                                      <td>{{ siteDetails.enabledProtocols }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Max Band With: </td>
+                                      <td>{{ siteDetails.maxBandwidth }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Max Connections: </td>
+                                      <td>{{ siteDetails.maxConnections }}</td>
+                                    </tr>
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                            </v-card>
+                          </v-col>
+                          <v-col cols="12" sm="4">
+                            <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="450">
+                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                                <v-toolbar-title>Web Config</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                              </v-toolbar>
+                              <v-simple-table class="primary" dark>
+                                <template v-slot:default>
+                                  <tbody>
+                                    <tr>
+                                      <td>Web Config Last Backup Date: </td>
+                                      <td>{{ siteDetails.webConfigLastBackupDate }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Web Config Backup Directory: </td>
+                                      <td>{{ siteDetails.webcConfigBackupDirectory }}</td>
+                                    </tr>
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                                <v-toolbar-title>Other</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                              </v-toolbar>
+                              <v-simple-table class="primary" dark>
+                                <template v-slot:default>
+                                  <tbody>
+                                    <tr>
+                                      <td>Net Framework Version: </td>
+                                      <td>{{ siteDetails.netFrameworkVersion }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Send Alert Mail When Unavailable: </td>
+                                      <td>{{ siteDetails.sendAlertMAilWhenUnavailable }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>App Type: </td>
+                                      <td>{{ siteDetails.appType }}</td>
+                                    </tr>
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                            </v-card>
+                          </v-col>
+                          <v-col cols="12" sm="4">
+                            <v-card class=" mx-2 rounded-xl" elevation="8" color="primary" height="450">
+                              <v-toolbar flat color="rgba(0,0,0,0)" dark>
+                                <v-toolbar-title>Log</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                              </v-toolbar>
+                              <v-simple-table class="primary" dark>
+                                <template v-slot:default>
+                                  <tbody>
+                                    <tr>
+                                      <td>Log File Enabled: </td>
+                                      <td>{{ siteDetails.logFileEnabled }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Log File Directory: </td>
+                                      <td>{{ siteDetails.logFileDirectory }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Log Format: </td>
+                                      <td>{{ siteDetails.logFormat }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Log Period: </td>
+                                      <td>{{ siteDetails.logPeriod }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Server Auto Start: </td>
+                                      <td>{{ siteDetails.serverAutoStart }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Trace Failed Requests Logging Enabled: </td>
+                                      <td>{{ siteDetails.traceFailedRequestsLoggingEnabled }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Last Updated: </td>
+                                      <td>{{ siteDetails.lastUpdated }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Date Deleted: </td>
+                                      <td>{{ siteDetails.dateDeleted }}</td>
+                                    </tr>
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                            </v-card>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+
                     </v-card>
                   </v-dialog>
                 </v-card>
@@ -309,7 +473,7 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { debounce } from 'debounce';
 import { serverService } from '@/services/api/server.service';
 import { siteService } from '@/services/api/site.service';
@@ -355,6 +519,7 @@ export default {
       servers: [],
       oldServers: [],
       serverSites: [],
+      siteDetails: [],
       dialogdetail: false,
       dialogdetail2: false,
       detailsInTab: {
@@ -410,19 +575,17 @@ export default {
       this.dialogdetail = true
     },
     async goToSite(item) {
-      
-       await siteService.getSiteDetails(item.siteId).then((response) => {
-        store.dispatch('site/setSites', response.data)
-        console.log(item.siteId)
-        console.log(response)
-      })
+
+      this.siteDetails = await siteService.getSiteDetails(item.siteId)
+      console.log(item.siteId)
+
       this.dialogdetail2 = true
     },
 
     columnValueList(val) {
       return this.servers.map((d) => d[val]);
     },
- 
+
     async GetServerList(count) {
       let response = await this.setServers(count);
       this.servers = this.servers.concat(response);
@@ -493,7 +656,7 @@ export default {
   components: {
     SideBar,
     NavBar,
-},
+  },
 }
 </script>
 
