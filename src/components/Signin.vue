@@ -36,13 +36,16 @@
                   <v-col cols="12" md="6" class="primary rounded-bl-xl">
                     <div style="  text-align: center; padding: 180px 0;">
                       <v-card-text class="white--text">
-                        <v-avatar size="128" class="ml-1" v-if="this.profilePhoto.length > 1">
+                        <v-avatar size="128" class="ml-1" v-if="this.profilePhoto">
                           <v-img :src="this.profilePhoto" :alt="'User Photo'"></v-img>
                         </v-avatar>
+                        <v-avatar size="128" class="ml-1" v-else>
+                          <v-icon>mdi-account-outline</v-icon>
+                        </v-avatar>
                         <v-list-item-content>
-                          <v-list-item-title v-if="this.fullName.length > 1">Welcome back {{ this.fullName }}!
+                          <v-list-item-title v-if="this.fullName">Welcome back {{ this.fullName }}!
                           </v-list-item-title>
-                          <v-list-item-subtitle v-if="this.department.length > 1"> {{ this.department }}
+                          <v-list-item-subtitle v-if="this.department"> {{ this.department }}
                           </v-list-item-subtitle>
                         </v-list-item-content>
                         <br>

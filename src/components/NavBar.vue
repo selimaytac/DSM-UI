@@ -39,6 +39,9 @@
             <v-avatar size="70" class="ml-1" v-if="this.profilePhoto">
               <v-img :src="this.profilePhoto" :alt="'User Photo'"></v-img>
             </v-avatar>
+            <v-avatar size="70" class="ml-1" v-else>
+              <v-icon>mdi-account-outline</v-icon>
+            </v-avatar>
             <v-list>
               <v-list-item link>
                 <v-list-item-content>
