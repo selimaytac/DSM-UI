@@ -27,8 +27,11 @@
       <template v-slot:activator="{ on }">
         <div>
           <v-btn icon x-large v-on="on">
-            <v-avatar size="48">
+            <v-avatar size="48" v-if="profilePhoto">
               <v-img :src="profilePhoto" :alt="'User Photo'"></v-img>
+            </v-avatar>
+            <v-avatar size="70" class="ml-1" v-else>
+              <v-icon>mdi-account-outline</v-icon>
             </v-avatar>
           </v-btn>
         </div>
