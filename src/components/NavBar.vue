@@ -36,15 +36,15 @@
       <v-card>
         <v-list-item-content class="justify-center">
           <div class="mx-auto text-center">
-            <v-avatar size="70" class="ml-1" v-if="this.profilePhoto.length > 1">
+            <v-avatar size="70" class="ml-1" v-if="this.profilePhoto">
               <v-img :src="this.profilePhoto" :alt="'User Photo'"></v-img>
             </v-avatar>
             <v-list>
               <v-list-item link>
                 <v-list-item-content>
-                  <v-list-item-title class="text-h8" v-if="this.fullName.length > 1">{{ this.fullName }}
+                  <v-list-item-title class="text-h8" v-if="this.fullName">{{ this.fullName }}
                   </v-list-item-title>
-                  <v-list-item-subtitle v-if="this.department.length > 1"> {{ this.department }}
+                  <v-list-item-subtitle v-if="this.department"> {{ this.department }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
