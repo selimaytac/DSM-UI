@@ -9,7 +9,7 @@
         <v-row>
         <v-col cols="12" sm="12">
           <v-toolbar flat color="rgba(0,0,0,0)" dark>
-            <v-toolbar-title>Dashboard</v-toolbar-title>
+            <v-toolbar-title>Dashboard (Coming Soon...)</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
 
@@ -50,6 +50,14 @@ import NavBar from '@/components/NavBar.vue'
     SideBar,
     NavBar,
   },
+  mounted: function() {
+    let elHtml = document.getElementsByTagName('html')[0]
+    elHtml.style.overflowY = 'hidden'
+  },
+  destroyed: function() {
+    let elHtml = document.getElementsByTagName('html')[0]
+    elHtml.style.overflowY = null
+  }
 };
 </script>
 <style scoped>
