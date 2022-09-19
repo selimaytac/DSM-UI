@@ -70,7 +70,7 @@
             <v-btn icon dark @click="dialogdetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+            <v-toolbar-title class="flex text-center text-h5">{{selectedSite.siteName}} Details</v-toolbar-title>
           </v-toolbar>
 
           <template>
@@ -433,6 +433,7 @@ export default {
       selectedBindings: [],
       selectedPackages: [],
       selectedEndpoints: [],
+      selectedSite: {},
     }
   },
   computed: {
@@ -443,6 +444,7 @@ export default {
     async rowClick(item) {
       this.detailsInTab = await this.setSiteDetails(item.siteId)
       this.siteHeader = await this.setSiteHeader(item.siteId)
+      this.selectedSite = item
 
       this.selectedBindings = item.siteId
       this.siteBindings = await this.setSiteBindings(item.siteId);

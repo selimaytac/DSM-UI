@@ -67,7 +67,7 @@
             <v-btn icon dark @click="dialogdetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
+            <v-toolbar-title class="flex text-center text-h5">{{selectedServer.machineName}} Details</v-toolbar-title>
             <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small @click="downloadRdp()">Connect
               with RDP</v-btn>
           </v-toolbar>
@@ -575,10 +575,7 @@ export default {
       this.dialogdetail = true
     },
     async goToSite(item) {
-
       this.siteDetails = await siteService.getSiteDetails(item.siteId)
-      console.log(item.siteId)
-
       this.dialogdetail2 = true
     },
 
