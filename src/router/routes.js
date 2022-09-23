@@ -21,6 +21,14 @@ export default [
     },
   },
   {
+    path: '/vdf',
+    name: 'vdf',
+    component: () => import('../../src/pages/VDF/VDF.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/azureInventory',
     name: 'azureInventory',
     component: () => import('../../src/pages/AzureInventory/AzureInventory.vue'),

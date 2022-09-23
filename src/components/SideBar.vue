@@ -37,6 +37,9 @@ export default {
         if(store.getters["auth/getRole"].includes("Administrator","CIFANG")){
             this.items.splice(1, 0, { icon: 'fas fa-code', text: 'Azure DevOps', link: '/azureHome' })
         }
+        if(store.getters["auth/getRole"].includes("Administrator","CIFANG")){
+            this.items.splice(2, 0, { icon: 'fas fa-clipboard', text: 'VDF', link: '/vdf' })
+        }
     }
 
 }
