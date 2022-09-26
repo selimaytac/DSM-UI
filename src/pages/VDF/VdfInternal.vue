@@ -6,14 +6,27 @@
             <v-card-title>
                 VDF Internal
                 <v-spacer></v-spacer>
-                <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
+                            outlined @click="loader = 'loading2', ExportExcel()">
+                            <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                                mdi-microsoft-excel </v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Export to Excel</span>
+                </v-tooltip>
+                <v-spacer></v-spacer>
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
+                </v-text-field>
             </v-card-title>
             <v-data-table :headers="headers" :items="internalUrls" :items-per-page="10" :footer-props="{
-          'items-per-page-options': [20, 50, 100, 200]
-        }" class="elevation-1" :search="search">
+              'items-per-page-options': [20, 50, 100, 200]
+            }" class="elevation-1" :search="search">
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-divider></v-divider>
+                        Düzenleme veya silme yapabilirsiniz!
                         <v-dialog v-model="dialog" max-width="500px">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">İtem Ekle</v-btn>
@@ -27,7 +40,8 @@
                                     <v-container>
                                         <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.applicationTeam" label="Applicataion Team">
+                                                <v-text-field v-model="editedItem.applicationTeam"
+                                                    label="Applicataion Team">
                                                 </v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
@@ -47,7 +61,8 @@
                                                 </v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.destinationURL" label="Destination Url">
+                                                <v-text-field v-model="editedItem.destinationURL"
+                                                    label="Destination Url">
                                                 </v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
@@ -55,7 +70,8 @@
                                                 </v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.destinationPort" label="Destination Port">
+                                                <v-text-field v-model="editedItem.destinationPort"
+                                                    label="Destination Port">
                                                 </v-text-field>
                                             </v-col>
                                         </v-row>
@@ -104,6 +120,13 @@ export default {
         return {
             dialog: false,
             dialogDelete: false,
+            loader: null,
+            loading: false,
+            loading2: false,
+            loading3: false,
+            loading4: false,
+            loading5: false,
+            loading6: false,
             headers: [
                 { text: 'Application Team', align: 'start', sortable: false, value: 'applicationTeam' },
                 { text: 'From Server', value: 'fromServer' },
@@ -123,7 +146,7 @@ export default {
         }
     },
 
-    
+
     watch: {
         dialog(val) {
             val || this.close()
@@ -139,8 +162,8 @@ export default {
 
     methods: {
         async getAllUrls() {
-            this.internalUrls = await internalUrlService.getInternalUrls() 
-            },
+            this.internalUrls = await internalUrlService.getInternalUrls()
+        },
 
         editItem(item) {
             this.editedIndex = this.internalUrls.indexOf(item)
@@ -175,7 +198,7 @@ export default {
                 this.editedIndex = -1
             })
         },
-        
+
         async save() {
             if (this.editedIndex > -1) {
                 Object.assign(this.internalUrls[this.editedIndex], this.editedItem)
