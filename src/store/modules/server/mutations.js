@@ -11,5 +11,8 @@ const mutations = {
     SET_SERVER_SITES(state, payload) {
         state.ServerSites = payload;
     },
+    SET_SERVER_CHECKDATE(state, payload) {
+        state.ServerCheckDate = payload;
+    }
 };
 export default mutations;

@@ -116,7 +116,7 @@ export default {
                 { text: 'Server', align: 'start', sortable: false, value: 'server' },
                 { text: 'App. Name', value: 'appName', width: "200px", fixed: true },
                 { text: 'DB IP', value: 'dbip', width: "100px", fixed: true },
-                { text: 'DB Name', value: 'dbName',  fixed: true },
+                { text: 'DB Name', value: 'dbName', fixed: true },
                 { text: 'DB Port', value: 'dbPort', width: "100px", fixed: true },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
@@ -190,6 +190,13 @@ export default {
                 await appdbInventoryService.createAppDbInventory(this.editedItem)
             }
             this.close()
+        },
+        ExportExcel() {
+            if (this.search.length > 0) {
+                appdbInventoryService.getExportSearchList(this.search);
+            } else {
+                appdbInventoryService.getExportList();
+            }
         },
     },
     computed: {

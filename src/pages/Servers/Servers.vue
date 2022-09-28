@@ -8,6 +8,8 @@
       <v-card-title>
         Servers
         <v-spacer></v-spacer>
+        <h6 class="font-weight-bold">Last Check: {{this.lastCheck}} </h6>
+        <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2" outlined
@@ -68,6 +70,10 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">{{selectedServer.machineName}} Details</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-spacer class="font-weight-bold" v-if="available === '1'"><v-icon aria-hidden="true" color="green" x-large>mdi-check</v-icon>  Available</v-spacer>
+            <v-spacer class="font-weight-bold" v-else="available === '0'"><v-icon aria-hidden="true" color="red" x-large>mdi-close</v-icon> Not Available</v-spacer>
+
             <v-btn id="connectRdp" class="ma-1 white--text" color="black" outlined small @click="downloadRdp()">Connect
               with RDP</v-btn>
           </v-toolbar>
@@ -150,10 +156,6 @@
                                 <td>Site Count: </td>
                                 <td>{{ detailsInTab.siteCount }}</td>
                               </tr>
-                              <tr>
-                                <td>Online Site Count: </td>
-                                <td>Coming Soon...</td>
-                              </tr>
                             </tbody>
                           </template>
                         </v-simple-table>
@@ -192,7 +194,7 @@
                             <tbody>
                               <tr>
                                 <td>Owned By: </td>
-                                <td>{{ detailsInTab.ownedBy }}</td>
+                                <td>{{ serverHeader.companyName }} {{serverHeader.availability}}</td>
                               </tr>
                               <tr>
                                 <td>Managing By: </td>
@@ -487,6 +489,8 @@ export default {
       filters: { machineName: [], ipAddress: [], dnsName: [], serviceName: [], operatingSystem: [], responsible: [] },
       snackbar: false,
       multiLine: true,
+      available: null,
+      lastCheck: null,
       text: 'Copy Successful ! ',
       dialog: false,
       loader: null,
@@ -560,15 +564,18 @@ export default {
       department: 'auth/getDepartment',
       getDomain: 'auth/getStateDomain',
     }),
-    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders', 'getServerSites',])
+    ...mapGetters('server', ['getServerList', 'getServerDetails', 'getServerHeaders', 'getServerSites','getServerCheckDate']),
   },
   methods: {
-    ...mapActions('server', ['setServers', 'setServerSearch', 'setServerDetails', 'setServerHeader', 'setServerSites']),
+    ...mapActions('server', ['setServers', 'setServerSearch', 'setServerDetails', 'setServerHeader', 'setServerSites', 'setServerCheckDate']),
     async rowClick(item) {
       this.detailsInTab = await this.setServerDetails(item.serverId)
       this.serverHeader = await this.setServerHeader(item.serverId)
       this.detailsInTab.ownedBy = this.serverHeader.companyName
       this.detailsInTab.companyId = this.serverHeader.companyId
+      this.available = this.serverHeader.availability
+
+
 
       this.selectedServer = item
       this.serverSites = await this.setServerSites(item.serverId);
@@ -619,9 +626,9 @@ export default {
       navigator.clipboard.writeText(copyText.value);
     },
   },
-  // created() {
-  //   this.GetServerList();
-  // },
+  async created() {
+    this.lastCheck = await serverService.getServerCheckDate();    
+  },
   watch: {
     options: {
       handler() {

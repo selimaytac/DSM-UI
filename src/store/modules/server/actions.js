@@ -25,5 +25,10 @@ const actions = {
     vuexContext.commit("SET_SERVER_SITES", data);
     return res;
   },  
+  async setServerCheckDate(vuexContext, data) {
+    const res = await serverService.getServerCheckDate(data);
+    vuexContext.commit("SET_SERVER_CHECKDATE", data);
+    return res;
+  }
 }
 export default actions;

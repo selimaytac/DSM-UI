@@ -209,6 +209,13 @@ export default {
             }
             this.close()
         },
+        ExportExcel() {
+            if (this.search.length > 0) {
+                externalUrlService.getExportSearchList(this.search);
+            } else {
+                externalUrlService.getExportList();
+            }
+        },
     },
     computed: {
         formTitle() {

@@ -7,6 +7,7 @@ export const serverService = {
     getServerDetails,
     getServerHeader,
     getServerSites,
+    getServerCheckDate,
     getExportList,
     getRDPFile,
     getExportSearchList,
@@ -63,6 +64,20 @@ async function getServerHeader(data) {
 async function getServerSites(data) {
     const result = await $axios.get(
         controllerName + "sites/" + data,
+        {
+            headers:
+            {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
+        }
+    );
+    return result.data;
+}
+async function getServerCheckDate() {
+    const result = await $axios.get(
+        controllerName +"ServerCheckDate/",
         {
             headers:
             {

@@ -6,7 +6,7 @@
 
     <v-card class="grey">
       <v-card-title>
-        DataBase Servers
+        Database Servers
         <v-spacer></v-spacer>
         <!-- <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">

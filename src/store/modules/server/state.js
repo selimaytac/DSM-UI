@@ -3,5 +3,6 @@ const state = {
   ServerDetails: {},
   ServerHeaders: {},
   ServerSites: {},
+  ServerCheckDate: {}
 };
 export default state;

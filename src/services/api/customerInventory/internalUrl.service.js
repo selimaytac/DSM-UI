@@ -6,7 +6,9 @@ export const internalUrlService = {
     getInternalUrl,
     createInternalUrl,
     updateInternalUrl,
-    deleteInternalUrl
+    deleteInternalUrl,
+    getExportList,
+    getExportSearchList,
 };
 async function getInternalUrls() {
     const result = await $axios.get(
@@ -77,4 +79,50 @@ async function deleteInternalUrl(data) {
         }
     );
     return result.data;
+}
+async function getExportList() {
+    const result = await $axios.get(
+        controllerName + "InternalUrl/export/",
+        {
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
+        }
+    ).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'dsm_export.xlsx');
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+    })
+}
+async function getExportSearchList(data) {
+    const result = await $axios.get(
+        controllerName + "InternalUrl/export/" + data,
+        {
+            responseType: 'blob',
+            headers:
+            {
+                "Content-Type": "application/octet-stream",
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': authHeader()
+            }
+        }
+    ).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'dsm_export.xlsx');
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+    })
 }

@@ -11,5 +11,8 @@ const getters = {
   getServerSites(state) {
     return state.ServerSites;
   },
+  getServerCheckDate(state) {
+    return state.ServerCheckDate;
+  }
 };
 export default getters;
