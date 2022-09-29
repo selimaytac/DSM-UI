@@ -73,7 +73,6 @@
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
           </v-toolbar>
-          <v-container>
             <template>
               <v-tabs color="primary" vertical>
                 <v-tab>General</v-tab>
@@ -204,7 +203,6 @@
                 </v-tab-item>
               </v-tabs>
             </template>
-          </v-container>
         </v-card>
       </v-dialog>
     </v-card>
