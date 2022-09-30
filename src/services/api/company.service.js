@@ -11,7 +11,7 @@ export const companyService = {
 };
 async function getCompanies(data) {
     const result = await $axios.get(
-        controllerName + data,
+        controllerName + "serverExists/" + data,
         {
             headers:
             {
