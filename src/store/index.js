@@ -14,6 +14,7 @@ import { azureprojects } from "./modules/azureProjects";
 import { deploymentagent } from "./modules/deploymentAgent";
 import { deploymentgroup } from "./modules/deploymentGroup";
 import { inventory } from "./modules/azureInventory";
+import { overalldisk } from "./modules/overallDisk";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -35,11 +36,12 @@ export default new Vuex.Store({
     deploymentagent,
     deploymentgroup,
     inventory,
+    overalldisk,
   },
   plugins: [
     createPersistedState({
       paths: ["auth", "server", "site", "company", "responsible", "databaseportal",
-      "scheduledjobs", "odmservers", "monthlykpi", "elastic", "azureprojects", "deploymentagent", "deploymentgroup", "inventory"],
+      "scheduledjobs", "odmservers", "monthlykpi", "elastic", "azureprojects", "deploymentagent", "deploymentgroup", "inventory", "overalldisk"],
     }),
   ],
 });

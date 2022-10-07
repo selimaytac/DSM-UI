@@ -18,16 +18,21 @@
                             </v-text-field>
                             <v-select v-model="selectedDomain" :items="domain" label="@" required name="domain">
                             </v-select>
-                            <v-text-field v-model="password" :rules="passwordRules"  prepend-icon="lock" name="password"
+                            <v-text-field v-model="password" :rules="passwordRules" prepend-icon="lock" name="password"
                               placeholder="password" label="Your Password" type="password" required></v-text-field>
                             <br>
                             <v-card-actions class="justify-center">
-                              <v-btn :loading="loading" type="submit" color="primary" dark block title value="log in">Log
-                              In</v-btn>
+                              <v-btn :loading="loading" type="submit" color="primary" dark block title value="log in">
+                                Log
+                                In</v-btn>
                             </v-card-actions>
-                            <v-alert class="text-center" small type="success" v-model="success" shaped>Giriş Başarılı</v-alert>
-                            <v-alert class="text-center" small type="error" v-model="error" shaped>{{errorMessage}}</v-alert>
-                           
+                            <v-alert class="text-center" small type="success" v-model="success" shaped>Giriş Başarılı
+                            </v-alert>
+
+                            <v-alert class="text-center" small type="error" v-model="error" shaped> {{errorMessage}}
+                            </v-alert>
+                            <v-alert color="yellow lighten-2" class="text-center black--text" small type="info" v-model="info" shaped><v-icon small color="black">fa-brands fa-chrome</v-icon> {{errorMessage}}
+                            </v-alert>
                           </form>
                         </v-col>
                       </v-row>
@@ -79,6 +84,7 @@ export default {
       loading: false,
       success: false,
       error: false,
+      info: false,
       errorMessage: 'Giriş Başarısız',
       username: this.userName ?? '',
       usernameRules: [
@@ -115,27 +121,29 @@ export default {
     }),
 
     async login() {
-      
+
       try {
         this.setDomain(this.selectedDomain);
         const res = await this.authLogin({
           username: this.username + this.selectedDomain,
           password: this.password,
-          
+
         });
         if (res.isAdUser) {
           this.success = true;
-          
+
           this.$router.push('/home').catch(() => { });
         } else {
         }
       } catch (error) {
         this.error = true;
-        if(error.errorCode == 400){
+        if (error.errorCode == 400) {
           this.errorMessage = 'Kullanıcı adı veya şifre hatalı'
         }
-        else{
-          this.errorMessage = 'Sunucu Hatası'
+        else {
+          this.error = false;
+          this.info = true;
+          this.errorMessage = 'Sunucu hatası durumunda lütfen Chrome kullanınız!'
         }
       }
     }
