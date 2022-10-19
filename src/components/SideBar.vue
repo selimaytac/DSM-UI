@@ -23,6 +23,7 @@ export default {
         drawer: null,
         items: [
             { icon: 'fas fa-home', text: 'Home', link: '/home' },
+            { icon: 'fas fa-clipboard', text: 'VDF', link: '/vdf' },
             { icon: 'fas fa-cloud', text: 'Azure Inventory', link:'/azureInventory'},
             { icon: 'fas fa-earth-americas', text: 'Sites', link: '/sites' },
             { icon: 'fas fa-server', text: 'Servers', link: '/servers' },
@@ -38,10 +39,12 @@ export default {
             this.items.splice(1, 0, { icon: 'fas fa-code', text: 'Azure DevOps', link: '/azureHome' })
         }
         if(store.getters["auth/getRole"].includes("Administrator","CIFANG")){
-            this.items.splice(2, 0, { icon: 'fas fa-clipboard', text: 'VDF', link: '/vdf' })
+            this.items.splice(2, 0, { icon:' fas fa-list', text: 'Site Inventory', link: '/siteInventory' })
+        }
+        if(store.getters["auth/getRole"].includes("Administrator","CIFANG")){
+            this.items.splice(3, 0, { icon:' fas fa-cubes', text: 'Reidin', link: '/reidinInventory' })
         }
     }
-
 }
 </script>
 

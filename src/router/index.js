@@ -13,7 +13,7 @@ router.beforeEach((to, from, next) => {
   if (!Object.prototype.hasOwnProperty.call(to.meta, "requiresAuth") && to.name !== "signin") {
     to.meta.requiresAuth = true;
   }
-  if (to.name == 'azureHome' || to.name == 'vdf') {
+  if (to.name == 'azureHome' || to.name == 'SiteInventory' || to.name == 'ReidinInventory') {
     const role = store.getters["auth/getRole"];
     if (role === 'Administrator' || role === 'CIFANG') {
       next();

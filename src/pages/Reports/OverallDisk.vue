@@ -93,7 +93,7 @@ export default {
         { text: 'Server Name', value: 'serverName', },
         { text: 'Volume', value: 'volumeName' },
         { text: 'Disk Capacity', value: 'diskCapacity' },
-        { text: 'User Disk Space', value: 'usedDiskSpace' },
+        { text: 'Used Disk Space', value: 'usedDiskSpace' },
         { text: 'Free Disk Space', value: 'freeDiskSpace' },
         { text: 'Responsible', value: 'responsible' },
       ],

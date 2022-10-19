@@ -194,7 +194,7 @@
                             <tbody>
                               <tr>
                                 <td>Owned By: </td>
-                                <td>{{ serverHeader.companyName }} {{serverHeader.availability}}</td>
+                                <td>{{ serverHeader.companyName }}</td>
                               </tr>
                               <tr>
                                 <td>Managing By: </td>

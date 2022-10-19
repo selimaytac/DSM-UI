@@ -29,6 +29,22 @@ export default [
     },
   },
   {
+    path: '/siteInventory',
+    name: 'siteInventory',
+    component: () => import('../../src/pages/SiteInventory/SiteInventories.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/reidinInventory',
+    name: 'reidinInventory',
+    component: () => import('../../src/pages/Reidin/Reidin.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/azureInventory',
     name: 'azureInventory',
     component: () => import('../../src/pages/AzureInventory/AzureInventory.vue'),
