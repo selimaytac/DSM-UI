@@ -61,10 +61,9 @@
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-divider></v-divider>
-                        Düzenleme veya silme yapabilirsiniz!
                         <v-dialog v-model="dialog" max-width="500px">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">İtem Ekle</v-btn>
+                                <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Item</v-btn>
                             </template>
                             <v-card>
                                 <v-card-title>

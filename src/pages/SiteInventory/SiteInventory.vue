@@ -61,10 +61,9 @@
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-divider></v-divider>
-                        Düzenleme veya silme yapabilirsiniz!
                         <v-dialog v-model="dialog" max-width="500px">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">İtem Ekle</v-btn>
+                                <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Item</v-btn>
                             </template>
                             <v-card>
                                 <v-card-title>
@@ -150,7 +149,7 @@ export default {
             loading6: false,
             loaderTable: false,
             headers: [
-                { text: 'Machine Name', align: 'start', sortable: false, value: 'machineName', width:"200px" },
+                { text: 'Type', align: 'start', sortable: false, value: 'machineName', width:"200px" },
                 { text: 'Site Name', value: 'siteName', width: "150px", fixed: true },
                 { text: 'Company', value: 'company', width: "200px", fixed: true },
                 { text: 'Responsible', value: 'responsible', fixed: true },

@@ -181,117 +181,19 @@
         </v-toolbar-title>
       </v-toolbar>
       <template>
-        <v-item-group mandatory class="mt-n4">
-          <v-container>
-            <v-row justify="center" class="space">
-              <v-col cols="12" md="2">
-                <v-item v-slot="{ active, toggle }">
-                  <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl  text-center" dark
-                    height="150" @click="toggle">
-                    <v-row>
-                      <v-col cols="12" sm="12">
-                        <v-list-item three-line class="mt-10">
-                          <v-list-item-content>
-                            <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">Koray Ay</v-list-item-title>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Uygulama Yönetimi
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">0 212 800 04 63
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-col>
-                    </v-row>
-
-                  </v-card>
-                </v-item>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-item v-slot="{ active, toggle }">
-                  <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                    height="150" @click="toggle">
-                    <v-row>
-                      <v-col cols="12" sm="12">
-                        <v-list-item three-line class="mt-10">
-                          <v-list-item-content>
-                            <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">Koray Ay</v-list-item-title>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Veri Tabanı Yönetimi
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">0 212 800 04 62
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-col>
-                    </v-row>
-
-                  </v-card>
-                </v-item>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-item v-slot="{ active, toggle }">
-                  <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                    height="150" @click="toggle">
-                    <v-row>
-                      <v-col cols="12" sm="12">
-                        <v-list-item three-line class="mt-10">
-                          <v-list-item-content>
-                            <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">Koray Ay</v-list-item-title>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Network Güvenliği
-                              Yönetimi</v-list-item-subtitle>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">0 212 800 04 60
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-col>
-                    </v-row>
-
-                  </v-card>
-                </v-item>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-item v-slot="{ active, toggle }">
-                  <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                    height="150" @click="toggle">
-                    <v-row>
-                      <v-col cols="12" sm="12">
-                        <v-list-item three-line class="mt-10">
-                          <v-list-item-content>
-                            <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">Koray Ay</v-list-item-title>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Cloud Yönetimi
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">0 212 800 0467 
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-col>
-                    </v-row>
-
-                  </v-card>
-                </v-item>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-item v-slot="{ active, toggle }">
-                  <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                    height="150" @click="toggle">
-                    <v-row>
-                      <v-col cols="12" sm="12">
-                        <v-list-item three-line class="mt-10">
-                          <v-list-item-content>
-                            <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">Koray Ay</v-list-item-title>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Platform Yönetimi
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">0212 800 04 61
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-col>
-                    </v-row>
-
-                  </v-card>
-                </v-item>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-item-group>
+        <v-layout row wrap>
+          <v-flex v-for="(guard,i) in guards" :key="i">
+            <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+              <v-list-item three line>
+                <v-list-item-content>
+                  <div class="text-overline mb-4" v-text="guard.name"></div>
+                  <v-list-item-title class="text-h6 mb-1" v-text="guard.text"></v-list-item-title>
+                  <v-list-item-subtitle v-text="guard.tel"></v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </template>
     </v-container>
   </v-app>
@@ -306,37 +208,12 @@ export default {
   name: 'overview',
   data() {
     return {
-      width: 2,
-      radius: 10,
-      padding: 8,
-      lineCap: 'round',
-      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
-      fill: false,
-      type: 'trend',
-      autoLineWidth: false,
-      toggle_exclusive: 1,
-      orders: [
-        {
-          id: '10.110.25.78',
-          title: 'Server',
-          state: 'Eklendi',
-        },
-        {
-          id: '10.110.25.78',
-          title: 'Server',
-          state: 'Çıkarıldı',
-        },
-        {
-          id: '10.110.25.78',
-          title: 'Site',
-          state: 'Düzenlendi',
-        },
-        {
-          id: '10.110.25.78',
-          title: 'Server',
-          state: 'Kullanılmıyor',
-        },
-
+      guards: [
+        { name: 'Koray Ay', text: 'Uygulama Yönetimi', tel: '0 212 800 04 63' },
+        { name: 'Koray Ay', text: 'Veri Tabanı Yönetimi', tel: '0 212 800 04 62' },
+        { name: 'Koray Ay', text: 'Network Güvenliği Yönetimi', tel: '0 212 800 04 60' },
+        { name: 'Koray Ay', text: 'Cloud Yönetimi', tel: '0 212 800 04 67' },
+        { name: 'Koray Ay', text: 'Platform Yönetimi', tel: '0 212 800 04 61' },
       ],
       serverCount: 0,
       siteCount: 0,
@@ -358,11 +235,11 @@ export default {
     SideBar,
     NavBar,
   },
-  mounted: function() {
+  mounted: function () {
     let elHtml = document.getElementsByTagName('html')[0]
     elHtml.style.overflowY = 'hidden'
   },
-  destroyed: function() {
+  destroyed: function () {
     let elHtml = document.getElementsByTagName('html')[0]
     elHtml.style.overflowY = null
   }

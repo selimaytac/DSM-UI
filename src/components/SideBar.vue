@@ -23,10 +23,8 @@ export default {
         drawer: null,
         items: [
             { icon: 'fas fa-home', text: 'Home', link: '/home' },
-            { icon: 'fas fa-clipboard', text: 'VDF', link: '/vdf' },
-            { icon:' fas fa-cubes', text: 'Reidin', link: '/reidinInventory' },
-            { icon:' fas fa-list', text: 'Site Inventory', link: '/siteInventory' },
             { icon: 'fas fa-cloud', text: 'Azure Inventory', link:'/azureInventory'},
+            { icon:' fas fa-list', text: 'Inventories', link: '/inventories' },
             { icon: 'fas fa-earth-americas', text: 'Sites', link: '/sites' },
             { icon: 'fas fa-server', text: 'Servers', link: '/servers' },
             { icon: 'fas fa-sitemap', text: 'Companies', link: '/companies' },

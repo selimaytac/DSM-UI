@@ -21,6 +21,14 @@ export default [
     },
   },
   {
+    path: '/inventories',
+    name: 'inventories',
+    component: () => import('../../src/pages/Inventories/Inventory.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/vdf',
     name: 'vdf',
     component: () => import('../../src/pages/VDF/VDF.vue'),
