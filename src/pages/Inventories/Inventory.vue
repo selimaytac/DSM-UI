@@ -22,14 +22,27 @@
                         <span>Click for Reidin Inventory</span>
                     </v-tooltip>
 
+                </div>
+            </v-container>
+            <v-container>
+                <div class="link-container d-flex justify-center align-center">
+                    
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn class="mx-4 white--text" color="primary" elevation="2" x-large rounded to="/siteInventory" dark
-                                v-bind="attrs" v-on="on">Site Inventory</v-btn>
+                            v-bind="attrs" v-on="on">Site Inventory</v-btn>
                         </template>
                         <span>Click for Site Inventory</span>
                     </v-tooltip>
-
+                    
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn class="mx-4 white--text" color="primary" elevation="2" x-large rounded to="/azureInventory" dark
+                                v-bind="attrs" v-on="on">Azure Inventory</v-btn>
+                        </template>
+                        <span>Click for Azure Inventory</span>
+                    </v-tooltip>
+                    
                 </div>
             </v-container>
         </v-main>

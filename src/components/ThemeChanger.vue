@@ -75,14 +75,12 @@ export default {
             const name = theme.name;
             const dark = theme.dark;
             const light = theme.light;
-
             Object.keys(dark).forEach(i => {
                 this.$vuetify.theme.themes.dark[i] = dark[i];
             });
             Object.keys(light).forEach(i => {
                 this.$vuetify.theme.themes.light[i] = light[i];
             });
-
             this.$vuetify.theme.themes.name = name;
             localStorage.setItem("sidebar_theme",JSON.stringify(theme));
         }

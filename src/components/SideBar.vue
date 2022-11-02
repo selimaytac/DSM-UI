@@ -23,7 +23,6 @@ export default {
         drawer: null,
         items: [
             { icon: 'fas fa-home', text: 'Home', link: '/home' },
-            { icon: 'fas fa-cloud', text: 'Azure Inventory', link:'/azureInventory'},
             { icon:' fas fa-list', text: 'Inventories', link: '/inventories' },
             { icon: 'fas fa-earth-americas', text: 'Sites', link: '/sites' },
             { icon: 'fas fa-server', text: 'Servers', link: '/servers' },

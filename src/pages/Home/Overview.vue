@@ -177,18 +177,62 @@
       </v-item-group>
       <v-divider class="my-5"></v-divider>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
-        <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçisi (Coming Soon...)
+        <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçileri
         </v-toolbar-title>
       </v-toolbar>
       <template>
         <v-layout row wrap>
-          <v-flex v-for="(guard,i) in guards" :key="i">
-            <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+          <v-flex>
+            <v-card shaped class="rounded-xl text-center  mx-auto mt-5" color="primary" max-width="1000">
               <v-list-item three line>
                 <v-list-item-content>
-                  <div class="text-overline mb-4" v-text="guard.name"></div>
-                  <v-list-item-title class="text-h6 mb-1" v-text="guard.text"></v-list-item-title>
-                  <v-list-item-subtitle v-text="guard.tel"></v-list-item-subtitle>
+                  <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }} {{sentries.year}}</div>
+                  <div class="text-overline black--text mb-2">{{ sentries.day }}</div>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Uygulama Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{sentries.applicationManagement}}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 63</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Veri Tabanı Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{sentries.db}}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 62</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Network Güvenlik Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{sentries.security}}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 60</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Cloud Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{sentries.cloud}}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 67</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Platform Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{sentries.platform}}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 61</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
                 </v-list-item-content>
               </v-list-item>
             </v-card>
@@ -203,18 +247,24 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { dashboardService } from '@/services/api/dashboard.service'
+import { todaySentryService } from '@/services/api/sentry.service'
 
 export default {
   name: 'overview',
   data() {
     return {
-      guards: [
-        { name: 'Koray Ay', text: 'Uygulama Yönetimi', tel: '0 212 800 04 63' },
-        { name: 'Koray Ay', text: 'Veri Tabanı Yönetimi', tel: '0 212 800 04 62' },
-        { name: 'Koray Ay', text: 'Network Güvenliği Yönetimi', tel: '0 212 800 04 60' },
-        { name: 'Koray Ay', text: 'Cloud Yönetimi', tel: '0 212 800 04 67' },
-        { name: 'Koray Ay', text: 'Platform Yönetimi', tel: '0 212 800 04 61' },
-      ],
+      sentries: {
+        dayNumber: '',
+        month: '',
+        year: '',
+        day: '',
+        platform: '',
+        cloud: '',
+        network: '',
+        security: '',
+        db: '',
+        applicationManagement: '',
+      },
       serverCount: 0,
       siteCount: 0,
       companyCount: 0,
@@ -230,6 +280,8 @@ export default {
     this.dbCount = await dashboardService.getDbCount()
     this.responsibilityCount = await dashboardService.getResponsibilityCount()
     this.companyCount = await dashboardService.getCompanyCount()
+
+    this.sentries = await todaySentryService.getSentries()
   },
   components: {
     SideBar,
