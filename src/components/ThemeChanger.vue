@@ -81,11 +81,16 @@ export default {
             this.$vuetify.theme.themes.light.primary = val;
         }
     },
-    created (){
+    created() {
         this.color = localStorage.getItem("sidebar_theme") ? JSON.parse(localStorage.getItem("sidebar_theme")) : this.color;
         this.$vuetify.theme.themes.dark.primary = this.color;
         this.$vuetify.theme.themes.light.primary = this.color;
-        localStorage.setItem("sidebar_theme", JSON.stringify(this.color));
+
+        if (localStorage.getItem("sidebar_theme") !== this.color) {
+            localStorage.removeItem("sidebar_theme");
+        } else {
+            localStorage.setItem("sidebar_theme", JSON.stringify(this.color));
+        }
 
     }
 };
