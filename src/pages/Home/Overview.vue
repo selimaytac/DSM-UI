@@ -188,6 +188,10 @@
                 <v-list-item-content>
                   <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }}
                     {{ sentries.year }} {{ sentries.day }}
+
+                  </div>
+                  <!-- <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }}
+                    {{ sentries.year }} {{ sentries.day }}
                     <v-tooltip right>
                       <template v-slot:activator="{ on, attrs }">
 
@@ -201,7 +205,7 @@
 
                     </v-tooltip>
                     
-                  </div>
+                  </div> -->
                   <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
                     <v-list-item three line>
                       <v-list-item-content>
