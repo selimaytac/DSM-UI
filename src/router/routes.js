@@ -13,6 +13,14 @@ export default [
     // },
   },
   {
+    path: '/sentry',
+    name: 'monthlySentry',
+    component: () => import('../../src/pages/Sentry/Sentry.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/azureHome',
     name: 'azureHome',
     component: () => import('../../src/pages/AzureDevops/AzureDevOps.vue'),

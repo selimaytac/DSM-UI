@@ -186,13 +186,28 @@
             <v-card shaped class="rounded-xl text-center  mx-auto mt-5" color="primary" max-width="1000">
               <v-list-item three line>
                 <v-list-item-content>
-                  <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }} {{sentries.year}}</div>
-                  <div class="text-overline black--text mb-2">{{ sentries.day }}</div>
+                  <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }}
+                    {{ sentries.year }} {{ sentries.day }}
+                    <v-tooltip right>
+                      <template v-slot:activator="{ on, attrs }">
+
+                        <v-col class="text-right">
+                          <v-btn class="mx-4 white--text" color="primary" elevation="2" medium rounded to="/sentry" dark
+                            v-bind="attrs" v-on="on">
+                            Nöbetçi Listesi</v-btn>
+                        </v-col>
+                      </template>
+                      <span>Nöbetçi Listesi için Tıklayınız.</span>
+
+                    </v-tooltip>
+                    
+                  </div>
                   <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Uygulama Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{sentries.applicationManagement}}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black">{{ sentries.applicationManagement }}
+                        </v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 63</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -201,7 +216,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Veri Tabanı Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{sentries.db}}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black">{{ sentries.db }}</v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 62</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -209,9 +224,18 @@
                   <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
                     <v-list-item three line>
                       <v-list-item-content>
-                        <div class="text-overline primary--text mb-2">Network Güvenlik Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{sentries.security}}</v-list-item-title>
+                        <div class="text-overline primary--text mb-2">Güvenlik Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{ sentries.security }}</v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 60</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300" height="100">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Network Yönetimi</div>
+                        <v-list-item-title class="font-weight-black">{{ sentries.network }}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 64</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
                   </v-card>
@@ -219,7 +243,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Cloud Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{sentries.cloud}}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black">{{ sentries.cloud }}</v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 67</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -228,7 +252,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Platform Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{sentries.platform}}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black">{{ sentries.platform }}</v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 61</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -265,6 +289,7 @@ export default {
         db: '',
         applicationManagement: '',
       },
+      dialogdetail: false,
       serverCount: 0,
       siteCount: 0,
       companyCount: 0,

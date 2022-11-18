@@ -74,7 +74,7 @@
                                     <v-container>
                                         <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem.machineName" label="Machine Name">
+                                                <v-text-field v-model="editedItem.machineName" label="Type">
                                                 </v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
