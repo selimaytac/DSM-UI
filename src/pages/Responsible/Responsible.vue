@@ -1,15 +1,17 @@
 <template>
   <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
     <SideBar />
-      <NavBar />
+
+    <NavBar />
+
     <v-card class="grey">
       <v-card-title>
         Responsibles
         <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn id="downloadexcel" class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2"
-              outlined @click="loader = 'loading2'">
+            <v-btn class="ma-1 white--text" color="primary" :loading="loading2" :disabled="loading2" outlined
+              @click="loader = 'loading2',ExportExcel()">
               <v-icon color="primary" dark v-bind="attrs" v-on="on">
                 mdi-microsoft-excel </v-icon>
             </v-btn>
@@ -19,9 +21,9 @@
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterResponsibles" :items-per-page="10" :footer-props="{
+      <v-data-table :headers="headers" :items="filterResponsibles"  :items-per-page="10" :footer-props="{
         'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1" :search="search">
+      }" class="elevation-1 table-cursor" :search="search" :loading="loaderTable">
         <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
@@ -57,51 +59,125 @@
           </v-menu>
         </template>
         <template v-slot:item.details="{ item }">
-          <v-btn depressed rounded text color="teal" @click="showDetails(item)">
+          <v-btn depressed rounded text color="primary" @click="showDetails(item)">
             <v-icon>mdi-eye</v-icon>Show Details
           </v-btn>
         </template>
       </v-data-table>
       <v-dialog v-model="dialogdetail">
         <v-card>
-          <v-toolbar dark color="teal">
+          <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialogdetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title class="flex text-center text-h5">DETAILS</v-toolbar-title>
           </v-toolbar>
-          <v-container>
             <template>
-              <v-tabs color="teal" vertical>
+              <v-tabs color="primary" vertical>
                 <v-tab>Servers</v-tab>
                 <v-tab>Sites</v-tab>
                 <v-tab-item>
-                  <v-card color="teal">
+                  <v-card color="primary">
                     <v-card-title>
                       Servers Details
                       <v-spacer></v-spacer>
+                      <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
+                      </v-text-field>
                     </v-card-title>
-                    <v-data-table :headers="serverheaders" :items="respServers" :items-per-page="10" :footer-props="{
-                      'items-per-page-options': [5, 10, 20, 50]
-                    }" class="elevation-1">
-                      ></v-data-table>
+                    <v-data-table :headers="serverheaders" :items="filterServers" :search="search" :items-per-page="10"
+                      :footer-props="{
+                        'items-per-page-options': [5, 10, 20, 50]
+                      }" class="elevation-1">
+                      <template v-for="(col, index) in serverFilters" v-slot:[`header.${index}`]="{ header }">
+                        {{ header.text }}
+                        <v-menu :key="index" offset-y :close-on-content-click="false">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                              <v-icon small :color="serverFilters[header.value].length ? 'red' : ''">
+                                mdi-filter-variant
+                              </v-icon>
+                            </v-btn>
+                          </template>
+                          <div style="background-color: white; width: 280px">
+                            <v-list>
+                              <v-list-item>
+                                <div v-if="serverFilters.hasOwnProperty(header.value)">
+                                  <v-autocomplete multiple dense auto-select-first clearable chips small-chips
+                                    color="teal" :items="columnValueList2(header.value)" append-icon="mdi-filter"
+                                    v-model="serverFilters[header.value]"
+                                    :label="serverFilters[header.value] ? `${header.text}` : ''" hide-details>
+                                    <template v-slot:selection="{ item, index }">
+                                      <v-chip small class="caption" v-if="index < 5">
+                                        <span>
+                                          {{ item }}
+                                        </span>
+                                      </v-chip>
+                                      <span v-if="index === 5" class="grey--text caption">
+                                        (+{{ serverFilters[header.value].length - 5 }} others)
+                                      </span>
+                                    </template>
+                                  </v-autocomplete>
+                                </div>
+                              </v-list-item>
+                            </v-list>
+                          </div>
+                        </v-menu>
+                      </template>
+                    </v-data-table>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                  <v-card color="teal">
+                  <v-card color="primary">
                     <v-card-title>
                       Site Details
                       <v-spacer></v-spacer>
+                      <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
+                      </v-text-field>
                     </v-card-title>
-                    <v-data-table :headers="siteheaders" :items="respSites" :items-per-page="10" :footer-props="{
-                      'items-per-page-options': [5, 10, 20, 50]
-                    }" class="elevation-1">
-                      ></v-data-table>
+                    <v-data-table :headers="siteheaders" :items="filterSites" :search="search" :items-per-page="10"
+                      :footer-props="{
+                        'items-per-page-options': [5, 10, 20, 50]
+                      }" class="elevation-1">
+                      <template v-for="(col, index) in siteFilters" v-slot:[`header.${index}`]="{ header }">
+                        {{ header.text }}
+                        <v-menu :key="index" offset-y :close-on-content-click="false">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                              <v-icon small :color="siteFilters[header.value].length ? 'red' : ''">
+                                mdi-filter-variant
+                              </v-icon>
+                            </v-btn>
+                          </template>
+                          <div style="background-color: white; width: 280px">
+                            <v-list>
+                              <v-list-item>
+                                <div v-if="siteFilters.hasOwnProperty(header.value)">
+                                  <v-autocomplete multiple dense auto-select-first clearable chips small-chips
+                                    color="teal" :items="columnValueList3(header.value)" append-icon="mdi-filter"
+                                    v-model="siteFilters[header.value]"
+                                    :label="siteFilters[header.value] ? `${header.text}` : ''" hide-details>
+                                    <template v-slot:selection="{ item, index }">
+                                      <v-chip small class="caption" v-if="index < 5">
+                                        <span>
+                                          {{ item }}
+                                        </span>
+                                      </v-chip>
+                                      <span v-if="index === 5" class="grey--text caption">
+                                        (+{{ siteFilters[header.value].length - 5 }} others)
+                                      </span>
+                                    </template>
+                                  </v-autocomplete>
+                                </div>
+                              </v-list-item>
+                            </v-list>
+                          </div>
+                        </v-menu>
+                      </template>
+                    </v-data-table>
                   </v-card>
                 </v-tab-item>
               </v-tabs>
             </template>
-          </v-container>
         </v-card>
       </v-dialog>
     </v-card>
@@ -112,11 +188,17 @@
 import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { mapGetters, mapActions } from "vuex";
+import { responsibleService } from '@/services/api/responsible.service';
 export default {
   name: 'responsible',
+  responsibles: [],
+  respServers: [],
+  respSites: [],
   data() {
     return {
-      filters: { name: [], },
+      filters: { responsibleName: [], },
+      serverFilters: { serverName: [],fullName: [], ipAddress: [], operatingSystem: [], environments: [], applicationType: [], owner: [], contact: [], lastBackupDate: []},
+      siteFilters: { siteName: [], physicalPath: [], domains: [], state: [], serverName: [], dnsName: [], appType:[]},
       dialog: false,
       loader: null,
       loading: false,
@@ -126,34 +208,35 @@ export default {
       loading5: false,
       loading6: false,
       search: '',
+      loaderTable: false,
       responsibles: [],
       respServers: [],
       respSites: [],
       headers: [
-        { text: 'Responsible Name', align: 'start', sortable: false, value: 'responsibleName' },
-        { text: 'Count Of Servers', value: 'countOfServers', },
-        { text: 'Count Of Sites', value: 'countOfSites', },
-        { text: 'View Details', value: 'details' },
+        { text: 'Responsible Name',  value: 'responsibleName' },
+        { text: 'Count of Servers', align: 'start', sortable: false, value: 'countOfServers' },
+        { text: 'Count of Sites', align: 'start', sortable: false, value: 'countOfSites' },
+        { text: 'View Details',align: 'start', sortable: false, value: 'details' },
       ],
       serverheaders: [
-        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName' },
-        { text: 'Full Name', value: 'fullName', },
-        { text: 'IP Adress', value: 'ipAddress', },
-        { text: 'Operating System', value: 'operatingSystem', },
-        { text: 'Environments', value: 'environments', },
-        { text: 'App. Type', value: 'applicationType', },
-        { text: 'Owner', value: 'owner', },
-        { text: 'Contact', value: 'contact' },
-        { text: 'Last Backup Date', value: 'lastBackupDate' },
+        { text: 'Server Name', align: 'start', sortable: false, value: 'serverName', width: "100px", fixed: true },
+        { text: 'Full Name', value: 'fullName', width: "200px", fixed: true },
+        { text: 'IP Adress', value: 'ipAddress', width: "150px", fixed: true },
+        { text: 'Operating System', value: 'operatingSystem', width: "200px", fixed: true },
+        { text: 'Environments', value: 'environments', width: "200px", fixed: true },
+        { text: 'App. Type', value: 'applicationType', width: "150px", fixed: true },
+        { text: 'Owner', value: 'owner', width: "150px", fixed: true },
+        { text: 'Contact', value: 'contact', width: "200px", fixed: true },
+        { text: 'Last Backup Date', value: 'lastBackupDate', width: "200px", fixed: true },
       ],
       siteheaders: [
-        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName' },
-        { text: 'Physical Path', value: 'physicalPath', },
-        { text: 'Domains', value: 'domains' },
-        { text: 'State', value: 'state' },
-        { text: 'Server Name', value: 'serverName', },
-        { text: 'DNS Name', value: 'dnsName', },
-        { text: 'App. Type', value: 'appType', },
+        { text: 'Site Name', align: 'start', sortable: false, value: 'siteName', width: "200px", fixed: true },
+        { text: 'Physical Path', value: 'physicalPath', width: "200px", fixed: true },
+        { text: 'Domains', value: 'domains', width: "200px", fixed: true },
+        { text: 'State', value: 'state', width: "200px", fixed: true },
+        { text: 'Server Name',align: 'start', sortable: false, value: 'serverName' },
+        { text: 'DNS',align: 'start', sortable: false, value: 'dnsName'},
+        { text: 'App. Type',align: 'start', sortable: false, value: 'appType'}        
       ],
       responsibles: [],
       respServers: [],
@@ -168,32 +251,41 @@ export default {
     ...mapActions('responsible', ['setResponsibles', 'setResponsibleServers', 'setResponsibleSites']),
     async showDetails(item) {
       this.details = item
+      console.log(item)
 
-      this.respServers= await this.setResponsibleServers(item.responsibleName);
+      this.respServers = await this.setResponsibleServers(item.responsibleName);
 
-      this.respSites= await this.setResponsibleCompanySites(item.responsibleName);
+      this.respSites = await this.setResponsibleSites(item.responsibleName);
       this.dialogdetail = true
+      console.log(this.respSites)
+      console.log(this.respServers)
     },
-    async getAllResponsibles() {
-      this.loading = true
-      this.respServers = await this.setResponsibles()
-      this.loading = false
+    columnValueList(val) {
+      return this.responsibles.map((d) => d[val])
     },
-  
+    columnValueList2(val) {
+      return this.respServers.map((d) => d[val]);
+    },
+    columnValueList3(val) {
+      return this.respSites.map((d) => d[val]);
+    },
+    async GetRespList(count) {
+      this.loaderTable = true;
+      let response = await this.setResponsibles(count);
+      this.responsibles = this.responsibles.concat(response);
+      this.loaderTable = false;
+
+    },
+    ExportExcel() {
+      if (this.search.length > 0) {
+        responsibleService.getExportSearchList(this.search);
+      } else {
+        responsibleService.getExportList();
+      }
+    }
   },
   created() {
-    // this.getAllResponsibles()
-  },
-
-  watch: {
-    loader() {
-      const l = this.loader
-      this[l] = !this[l]
-
-      setTimeout(() => (this[l] = false), 2000)
-
-      this.loader = null
-    },
+    this.GetRespList();
   },
   computed: {
     filterResponsibles() {
@@ -202,7 +294,21 @@ export default {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });
       });
-    }
+    },
+    filterServers() {
+      return this.respServers.filter((d) => {
+        return Object.keys(this.serverFilters).every((f) => {
+          return this.serverFilters[f].length < 1 || this.serverFilters[f].includes(d[f]);
+        });
+      });
+    },
+    filterSites() {
+      return this.respSites.filter((d) => {
+        return Object.keys(this.siteFilters).every((f) => {
+          return this.siteFilters[f].length < 1 || this.siteFilters[f].includes(d[f]);
+        });
+      });
+    },
   },
   components: {
     SideBar,
@@ -212,6 +318,10 @@ export default {
 </script>
 
 <style>
+.table-cursor tbody tr:hover {
+  cursor: pointer;
+}
+
 .v-btn.withoutupercase {
   text-transform: none !important;
 }

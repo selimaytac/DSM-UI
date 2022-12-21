@@ -186,26 +186,96 @@
             <v-card shaped class="rounded-xl text-center  mx-auto mt-5" color="primary" max-width="1000">
               <v-list-item three line>
                 <v-list-item-content>
-                  <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }}
+                  <!-- <v-tooltip right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-col class="text-right">
+                        <v-btn class="mx-4 white--text" color="primary" elevation="2" medium rounded to="/sentry" dark
+                          v-bind="attrs" v-on="on">
+                          Nöbetçi Listesi</v-btn>
+                      </v-col>
+                    </template>
+                    <span>Nöbetçi Listesi için Tıklayınız.</span>
+                  </v-tooltip> -->
+                  <div class="text-overline black--text mb-1">
+                    {{ sentries.dayNumber }} {{ sentries.month }}
                     {{ sentries.year }} {{ sentries.day }}
-
-                  </div>
-                  <!-- <div class="text-overline black--text mb-1">{{ sentries.dayNumber }} {{ sentries.month }}
-                    {{ sentries.year }} {{ sentries.day }}
-                    <v-tooltip right>
+                    <v-spacer></v-spacer>
+                    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
                       <template v-slot:activator="{ on, attrs }">
-
-                        <v-col class="text-right">
-                          <v-btn class="mx-4 white--text" color="primary" elevation="2" medium rounded to="/sentry" dark
-                            v-bind="attrs" v-on="on">
-                            Nöbetçi Listesi</v-btn>
-                        </v-col>
+                        <v-btn dark outlined rounded class="mt-2" color="black" v-bind="attrs" v-on="on">
+                          Nöbetçi Listesi
+                        </v-btn>
                       </template>
-                      <span>Nöbetçi Listesi için Tıklayınız.</span>
+                      <v-card>
+                        <v-toolbar dark color="primary">
+                          <v-btn icon dark @click="dialog = false">
+                            <v-icon>mdi-close</v-icon>
+                          </v-btn>
+                          <v-toolbar-title>Aylık Nöbetçi Listesi</v-toolbar-title>
+                        </v-toolbar>
+                        <template>
+                          <v-card-title>
+                            <v-menu offset-y>
+                              <template v-slot:activator="{ attrs, on }">
+                                <v-btn class="purple" color="primary" dark v-bind="attrs" v-on="on">
+                                  Aralığınızı Seçiniz
+                                </v-btn>
+                              </template>
 
-                    </v-tooltip>
-                    
-                  </div> -->
+                              <v-list>
+                                <v-list-item v-for="(item, kry) in items" :key="kry" link>
+                                  <v-list-item-title @click="changeRange(item)" v-text="item"></v-list-item-title>
+                                </v-list-item>
+                              </v-list>
+                            </v-menu>
+                            <v-spacer></v-spacer>
+                            <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line
+                              hide-details></v-text-field>
+                          </v-card-title>
+                          <v-data-table :headers="headers" :items="filterMonthlySentry" :search="search"
+                            :loading="loaderTable" :items-per-page="31" :footer-props="{
+                            }" class="elevation-1">
+
+                            <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+                              {{ header.text }}
+                              <v-menu :key="index" offset-y :close-on-content-click="false">
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-btn icon v-bind="attrs" v-on="on" color="teal">
+                                    <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                                      mdi-filter-variant
+                                    </v-icon>
+                                  </v-btn>
+                                </template>
+                                <div style="background-color: white; width: 280px">
+                                  <v-list>
+                                    <v-list-item>
+                                      <div v-if="filters.hasOwnProperty(header.value)">
+                                        <v-autocomplete multiple dense auto-select-first clearable chips small-chips
+                                          color="teal" :items="columnValueList(header.value)" append-icon="mdi-filter"
+                                          v-model="filters[header.value]"
+                                          :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                                          <template v-slot:selection="{ item, index }">
+                                            <v-chip small class="caption" v-if="index < 5">
+                                              <span>
+                                                {{ item }}
+                                              </span>
+                                            </v-chip>
+                                            <span v-if="index === 5" class="grey--text caption">
+                                              (+{{ filters[header.value].length - 5 }} others)
+                                            </span>
+                                          </template>
+                                        </v-autocomplete>
+                                      </div>
+                                    </v-list-item>
+                                  </v-list>
+                                </div>
+                              </v-menu>
+                            </template>
+                          </v-data-table>
+                        </template>
+                      </v-card>
+                    </v-dialog>
+                  </div>
                   <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
                     <v-list-item three line>
                       <v-list-item-content>
@@ -276,23 +346,29 @@ import SideBar from '@/components/SideBar.vue'
 import NavBar from '@/components/NavBar.vue'
 import { dashboardService } from '@/services/api/dashboard.service'
 import { todaySentryService } from '@/services/api/sentry.service'
+import { monthlySentryService } from '@/services/api/sentryMonth.service'
 
 export default {
   name: 'overview',
   data() {
     return {
-      sentries: {
-        dayNumber: '',
-        month: '',
-        year: '',
-        day: '',
-        platform: '',
-        cloud: '',
-        network: '',
-        security: '',
-        db: '',
-        applicationManagement: '',
-      },
+      filters: { platform: [], cloud: [], network: [], security: [], db: [], applicationManagement: [], },
+      loaderTable: false,
+      dialog: false,
+      headers: [
+        { text: 'Gün', value:'dayNumber', align: 'start', sortable: false, width: "100px" },
+        { text: 'Ay', value:'month', align: 'start', sortable: false, width: "100px" },
+        { text: 'Platform Yönetimi', align: 'start', sortable: false, value: 'platform', width: "200px" },
+        { text: 'Cloud Yönetimi', align: 'start', sortable: false, value: 'cloud', width: "200px", fixed: true },
+        { text: 'Network Yönetimi', align: 'start', sortable: false, value: 'network', width: "200px", fixed: true },
+        { text: 'Güvenlik Yönetimi', align: 'start', sortable: false, value: 'security', width: "200px", fixed: true },
+        { text: 'Veri Tabanı Yönetimi', align: 'start', sortable: false, value: 'db', width: "200px", fixed: true },
+        { text: 'Uygulama Yönetimi', align: 'start', sortable: false, value: 'applicationManagement', width: "200px", fixed: true },
+
+      ],
+      items: [1, 2, 3, 4, 5, 6],
+
+      sentries: { dayNumber: '', month: '', year: '', day: '', platform: '', cloud: '', network: '', security: '', db: '', applicationManagement: '' },
       dialogdetail: false,
       serverCount: 0,
       siteCount: 0,
@@ -300,7 +376,35 @@ export default {
       userCount: 0,
       dbCount: 0,
       responsibilityCount: 0,
+      monthlySentry: [],
+      search: '',
     }
+  },
+  methods: {
+    async changeRange(item) {
+      console.log(item);
+      this.monthlySentry = await monthlySentryService.getSentries(item);
+    },
+    columnValueList(val) {
+      return this.monthlySentry.map((d) => d[val]);
+    },
+    async getMonthlySentry(date) {
+      this.loaderTable = true;
+      if (this.date) {
+        this.monthlySentry = await monthlySentryService.getSentries(date);
+        console.log(this.monthlySentry);
+      }
+      this.loaderTable = false;
+    }, 
+  },
+  computed: {
+    filterMonthlySentry() {
+      return this.monthlySentry.filter((d) => {
+        return Object.keys(this.filters).every((f) => {
+          return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
+        });
+      });
+    },
   },
   async created() {
     this.serverCount = await dashboardService.getServerCount()
@@ -311,6 +415,10 @@ export default {
     this.companyCount = await dashboardService.getCompanyCount()
 
     this.sentries = await todaySentryService.getSentries()
+
+    this.monthlySentry = await monthlySentryService.getSentries()
+
+
   },
   components: {
     SideBar,

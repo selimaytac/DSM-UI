@@ -7,12 +7,12 @@ const actions = {
   },
   async setResponsibleServers(vuexContext, data) {
     const res = await responsibleService.getResponsibleServers(data);
-    vuexContext.commit("SET_COMPANY_SERVERS", data);
+    vuexContext.commit("SET_RESPONSIBLE_SERVERS", data);
     return res;
   },
   async setResponsibleSites(vuexContext, data) {
     const res = await responsibleService.getResponsibleSites(data);
-    vuexContext.commit("SET_COMPANY_SITES", data);
+    vuexContext.commit("SET_RESPONSIBLE_SITES", data);
     return res;
   }, 
 }

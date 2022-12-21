@@ -1,12 +1,12 @@
 import { $axios } from "@/plugins/axios";
 import { authHeader } from "../helper";
-const controllerName = "/getSentryByMonthRange/";
+const controllerName = "/getSentryByMonthRange";
 export const monthlySentryService = {
     getSentries,
 };
-async function getSentries() {
+async function getSentries(date) {
     const result = await $axios.get(
-        controllerName + "?monthRange" + 1,
+        controllerName + "?monthRange=" + date,
         {
             headers:
             {

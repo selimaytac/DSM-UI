@@ -1,6 +1,6 @@
 const getters = {
-    geResponsibleList(state) {
-      return state.CompanyList;
+    getResponsibleList(state) {
+      return state.ResponsibleList;
     },  
     getResponsibleServers(state) {
       return state.ResponsibleServers;
