@@ -152,7 +152,8 @@ export default {
 
     data() {
         return {
-            filters: { applicationTeam: [], fromServer: [], sourceIpPort: [], loadBalancerIP: [], frontApp: [], destinationURL: [], destinationIP: [], destinationPort: [] },
+            filters: { applicationTeam: [], fromServer: [], sourceIpPort: [], loadBalancerIP: [], frontApp: [], destinationURL: [],
+                destinationIP_Port: [], serviceExplanation: [], isFollowing: [] },
             dialog: false,
             dialogDelete: false,
             loader: null,
@@ -170,8 +171,9 @@ export default {
                 { text: 'LB IP', value: 'loadBalancerIP',width: "150px", fixed: true },
                 { text: 'Front App', value: 'frontApp',width: "150px", fixed: true },
                 { text: 'Destination Url', value: 'destinationURL',width: "150px", fixed: true },
-                { text: 'Destination Ip', value: 'destinationIP',width: "100px", fixed: true },
-                { text: 'Destination Port', value: 'destinationPort',width: "170px", fixed: true },
+                { text: 'Destination Ip/Port', value: 'destinationIP_Port',width: "200px", fixed: true   },
+                { text: 'Explanation', value: 'serviceExplanation',width: "170px", fixed: true   },
+                { text: 'Following', value: 'isFollowing',width: "170px", fixed: true   },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
             internalUrls: [],

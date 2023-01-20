@@ -215,26 +215,14 @@
                         </v-toolbar>
                         <template>
                           <v-card-title>
-                            <v-menu offset-y>
-                              <template v-slot:activator="{ attrs, on }">
-                                <v-btn class="purple" color="primary" dark v-bind="attrs" v-on="on">
-                                  Aralığınızı Seçiniz
-                                </v-btn>
-                              </template>
-
-                              <v-list>
-                                <v-list-item v-for="(item, kry) in items" :key="kry" link>
-                                  <v-list-item-title @click="changeRange(item)" v-text="item"></v-list-item-title>
-                                </v-list-item>
-                              </v-list>
-                            </v-menu>
                             <v-spacer></v-spacer>
                             <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line
                               hide-details></v-text-field>
                           </v-card-title>
-                          <v-data-table :headers="headers" :items="filterMonthlySentry" :search="search"
-                            :loading="loaderTable" :items-per-page="31" :footer-props="{
-                            }" class="elevation-1">
+                          <v-data-table :headers="headers" :items="filterMonthlySentry" :options.sync="options"
+                            :items-per-page="10" :footer-props="{
+                              'items-per-page-options': [20, 50, 100, 200]
+                              }" class="elevation-1 table-cursor" :search="search" :loading="loaderTable">
 
                             <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
                               {{ header.text }}
@@ -352,12 +340,15 @@ export default {
   name: 'overview',
   data() {
     return {
-      filters: { platform: [], cloud: [], network: [], security: [], db: [], applicationManagement: [], },
+      filters: { platform: [], cloud: [], network: [], security: [], db: [], applicationManagement: [], dayNumber: [], month: [], year: [] },
       loaderTable: false,
       dialog: false,
+      options: {},
+      sentryFetchCount: 1,
       headers: [
         { text: 'Gün', value:'dayNumber', align: 'start', sortable: false, width: "100px" },
         { text: 'Ay', value:'month', align: 'start', sortable: false, width: "100px" },
+        { text: 'Yıl', value:'year', align: 'start', sortable: false, width:"100px"},
         { text: 'Platform Yönetimi', align: 'start', sortable: false, value: 'platform', width: "200px" },
         { text: 'Cloud Yönetimi', align: 'start', sortable: false, value: 'cloud', width: "200px", fixed: true },
         { text: 'Network Yönetimi', align: 'start', sortable: false, value: 'network', width: "200px", fixed: true },
@@ -366,9 +357,8 @@ export default {
         { text: 'Uygulama Yönetimi', align: 'start', sortable: false, value: 'applicationManagement', width: "200px", fixed: true },
 
       ],
-      items: [1, 2, 3, 4, 5, 6],
-
-      sentries: { dayNumber: '', month: '', year: '', day: '', platform: '', cloud: '', network: '', security: '', db: '', applicationManagement: '' },
+      sentries: { dayNumber: '', month: '', year: '', day: '', platform: '', cloud: '',
+       network: '', security: '', db: '', applicationManagement: '' },
       dialogdetail: false,
       serverCount: 0,
       siteCount: 0,
@@ -381,21 +371,18 @@ export default {
     }
   },
   methods: {
-    async changeRange(item) {
-      console.log(item);
-      this.monthlySentry = await monthlySentryService.getSentries(item);
-    },
     columnValueList(val) {
       return this.monthlySentry.map((d) => d[val]);
     },
-    async getMonthlySentry(date) {
+    async getMonthlySentry(count) {
       this.loaderTable = true;
-      if (this.date) {
-        this.monthlySentry = await monthlySentryService.getSentries(date);
-        console.log(this.monthlySentry);
-      }
+      
+      let response = await monthlySentryService.getSentries(count)
+      this.monthlySentry = this.monthlySentry.concat(response);
+      
+
       this.loaderTable = false;
-    }, 
+    },
   },
   computed: {
     filterMonthlySentry() {
@@ -415,11 +402,18 @@ export default {
     this.companyCount = await dashboardService.getCompanyCount()
 
     this.sentries = await todaySentryService.getSentries()
-
-    this.monthlySentry = await monthlySentryService.getSentries()
-
-
   },
+  watch: {
+    options: {
+      handler() {
+        if (this.search.length == 0) {
+          this.getMonthlySentry(this.sentryFetchCount)
+          this.sentryFetchCount++;
+        }
+      },
+      deep: true,
+    },
+  },  
   components: {
     SideBar,
     NavBar,

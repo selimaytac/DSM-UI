@@ -220,6 +220,8 @@ export default {
       companySites: [],
       headers: [
         { text: 'Company Name', align: 'start', sortable: false, value: 'name' },
+        { text: 'Count of Servers', align: 'start', sortable: false, value: 'serverCount' },
+        { text: 'Count of Sites', align: 'start', sortable: false, value: 'siteCount' },
         { text: 'View Details', value: 'details' },
       ],
       serverheaders: [
@@ -294,6 +296,7 @@ export default {
     async GetCompanyList() {
       let count = 1;
       let response = await this.setCompanies(count);
+      console.log(response);
       while (response.length > 0) {
         this.companies = this.companies.concat(response);
         count++;
