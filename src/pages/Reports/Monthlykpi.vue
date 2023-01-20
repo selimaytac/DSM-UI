@@ -1,5 +1,8 @@
 <template>
-  <v-app id="inspire" :style="{ background: $vuetify.theme.themes.dark.background }">
+  <v-app
+    id="inspire"
+    :style="{ background: $vuetify.theme.themes.dark.background }"
+  >
     <SideBar />
 
     <NavBar />
@@ -8,17 +11,36 @@
       <v-card-title>
         Monthly Kpi Status
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filterKpiStatus" :items-per-page="10" :footer-props="{
-        'items-per-page-options': [20, 50, 100, 200]
-      }" class="elevation-1 table-cursor" :search="search">
-        <template v-for="(col, index) in filters" v-slot:[`header.${index}`]="{ header }">
+      <v-data-table
+        :headers="headers"
+        :items="filterKpiStatus"
+        :items-per-page="10"
+        :footer-props="{
+          'items-per-page-options': [20, 50, 100, 200],
+        }"
+        class="elevation-1 table-cursor"
+        :search="search"
+      >
+        <template
+          v-for="(col, index) in filters"
+          v-slot:[`header.${index}`]="{ header }"
+        >
           {{ header.text }}
           <v-menu :key="index" offset-y :close-on-content-click="false">
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" color="teal">
-                <v-icon small :color="filters[header.value].length ? 'red' : ''">
+                <v-icon
+                  small
+                  :color="filters[header.value].length ? 'red' : ''"
+                >
                   mdi-filter-variant
                 </v-icon>
               </v-btn>
@@ -27,9 +49,20 @@
               <v-list>
                 <v-list-item>
                   <div v-if="filters.hasOwnProperty(header.value)">
-                    <v-autocomplete multiple dense auto-select-first clearable chips small-chips color="teal"
-                      :items="columnValueList(header.value)" append-icon="mdi-filter" v-model="filters[header.value]"
-                      :label="filters[header.value] ? `${header.text}` : ''" hide-details>
+                    <v-autocomplete
+                      multiple
+                      dense
+                      auto-select-first
+                      clearable
+                      chips
+                      small-chips
+                      color="teal"
+                      :items="columnValueList(header.value)"
+                      append-icon="mdi-filter"
+                      v-model="filters[header.value]"
+                      :label="filters[header.value] ? `${header.text}` : ''"
+                      hide-details
+                    >
                       <template v-slot:selection="{ item, index }">
                         <v-chip small class="caption" v-if="index < 5">
                           <span>
@@ -48,12 +81,24 @@
           </v-menu>
         </template>
         <template v-slot:item.graph="{ item }">
-          <v-btn depressed rounded text color="primary" @click="showGraph(item)">
+          <v-btn
+            depressed
+            rounded
+            text
+            color="primary"
+            @click="showGraph(item)"
+          >
             <v-icon>mdi-chart-line </v-icon>Show Graph
           </v-btn>
         </template>
         <template v-slot:item.table="{ item }">
-          <v-btn depressed rounded text color="primary" @click="showTable(item)">
+          <v-btn
+            depressed
+            rounded
+            text
+            color="primary"
+            @click="showTable(item)"
+          >
             <v-icon>mdi-view-sequential-outline </v-icon>Show Table
           </v-btn>
         </template>
@@ -64,7 +109,9 @@
             <v-btn icon dark @click="graphDetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title class="flex text-center text-h5">GRAPH</v-toolbar-title>
+            <v-toolbar-title class="flex text-center text-h5"
+              >GRAPH</v-toolbar-title
+            >
           </v-toolbar>
           <template>
             <v-container fluid>
@@ -72,7 +119,12 @@
                 <h3>{{ appTitle }}</h3>
                 <v-divider class="my-5"></v-divider>
                 <h6>Diğer Grafikler İçin Kaydırınız...</h6>
-                <line-chart :data="chartData" :legend="true" xtitle="Months" height="500px" />
+                <line-chart
+                  :data="chartData"
+                  :legend="true"
+                  xtitle="Months"
+                  height="500px"
+                />
                 <v-divider class="my-10 bold"></v-divider>
                 <area-chart :data="chartData"></area-chart>
                 <v-divider class="my-10 bold"></v-divider>
@@ -90,17 +142,25 @@
             <v-btn icon dark @click="tableDetail = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title class="flex text-center text-h5">TABLE</v-toolbar-title>
+            <v-toolbar-title class="flex text-center text-h5"
+              >TABLE</v-toolbar-title
+            >
           </v-toolbar>
           <template>
             <v-container fluid>
               <div>
                 <h3>{{ appTitle }}</h3>
                 <v-divider class="my-5"></v-divider>
-                <v-data-table :headers="tableHeaders" :items="tableData" :items-per-page="10" :footer-props="{
-                  'items-per-page-options': [20, 50, 100, 200]
-                }" class="elevation-1 table-cursor" :search="search">
-                  
+                <v-data-table
+                  :headers="tableHeaders"
+                  :items="tableData"
+                  :items-per-page="10"
+                  :footer-props="{
+                    'items-per-page-options': [20, 50, 100, 200],
+                  }"
+                  class="elevation-1 table-cursor"
+                  :search="search"
+                >
                 </v-data-table>
               </div>
             </v-container>
@@ -112,13 +172,13 @@
 </template>
 
 <script>
-import SideBar from '@/components/SideBar.vue'
-import NavBar from '@/components/NavBar.vue'
+import SideBar from "@/components/SideBar.vue";
+import NavBar from "@/components/NavBar.vue";
 
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'monthlykpi',
+  name: "monthlykpi",
   data() {
     return {
       chartData: [
@@ -142,55 +202,81 @@ export default {
       loading4: false,
       loading5: false,
       loading6: false,
-      search: '',
+      search: "",
       headers: [
-        { text: 'Application Name', value: 'application' },
-        { text: 'Graph', align: 'start', sortable: false, value: 'graph' },
-        { text: 'Table', align: 'start', sortable: false, value: 'table' },
+        { text: "Application Name", value: "application" },
+        { text: "Graph", align: "start", sortable: false, value: "graph" },
+        { text: "Table", align: "start", sortable: false, value: "table" },
       ],
       tableHeaders: [
-        { text: 'Application Name', value: 'application' },
-        { text: 'Year', value: 'year' },
-        { text: 'Ocak', value: 'ocak' },
-        { text: 'Şubat', value: 'subat' },
-        { text: 'Mart', value: 'mart' },
-        { text: 'Nisan', value: 'nisan' },
-        { text: 'Mayıs', value: 'mayis' },
-        { text: 'Haziran', value: 'haziran' },
-        { text: 'Temmuz', value: 'temmuz' },
-        { text: 'Ağustos', value: 'agustos' },
-        { text: 'Eylül', value: 'eylul' },
-        { text: 'Ekim', value: 'ekim' },
-        { text: 'Kasım', value: 'kasim' },
-        { text: 'Aralık', value: 'aralik' },
+        { text: "Application Name", value: "application" },
+        { text: "Year", value: "year" },
+        { text: "Ocak", value: "ocak" },
+        { text: "Şubat", value: "subat" },
+        { text: "Mart", value: "mart" },
+        { text: "Nisan", value: "nisan" },
+        { text: "Mayıs", value: "mayis" },
+        { text: "Haziran", value: "haziran" },
+        { text: "Temmuz", value: "temmuz" },
+        { text: "Ağustos", value: "agustos" },
+        { text: "Eylül", value: "eylul" },
+        { text: "Ekim", value: "ekim" },
+        { text: "Kasım", value: "kasim" },
+        { text: "Aralık", value: "aralik" },
       ],
       applicationNames: [],
       kpistatus: [],
-      appTitle: '',
-    }
+      appTitle: "",
+    };
   },
   computed: {
-    ...mapGetters('monthlykpi', ['getKpiList']),
+    ...mapGetters("monthlykpi", ["getKpiList"]),
   },
   methods: {
-    ...mapActions('monthlykpi', ['setMonthlyKpi']),
+    ...mapActions("monthlykpi", ["setMonthlyKpi"]),
     async showGraph(item) {
-      this.chartData = this.kpistatus.filter(x => x.application === item.application)
-        .map(kpi => ({
-          name: kpi.year, data:
-            { 'Ocak': kpi.ocak, 'Şubat': kpi.subat, 'Mart': kpi.mart, 'Nisan': kpi.nisan, 'Mayıs': kpi.mayis, 'Haziran': kpi.haziran, 'Temmuz': kpi.temmuz, 'Ağustos': kpi.agustos, 'Eylül': kpi.eylul, 'Ekim': kpi.ekim, 'Kasım': kpi.kasim, 'Aralık': kpi.aralik }
-        }))
+      // this.chartData = this.kpistatus
+      //   .filter((x) => x.application === item.application)
+      //   .map((kpi) => ({
+      //     name: kpi.year,
+      //     data: {
+      //       Ocak: kpi.ocak, Şubat: kpi.subat, Mart: kpi.mart, Nisan: kpi.nisan, Mayıs: kpi.mayis, Haziran: kpi.haziran, Temmuz: kpi.temmuz, Ağustos: kpi.agustos, Eylül: kpi.eylul, Ekim: kpi.ekim, Kasım: kpi.kasim, Aralık: kpi.aralik,
+      //     },
+      //   }));
 
       this.appTitle = item.application;
-      this.graphDetail = true
+      this.graphDetail = true;
+      let uniqueData = []
+      this.kpistatus.forEach((kpi) => {
+        if (!uniqueData.some((x) => x.application === kpi.application && x.year === kpi.year)){
+          uniqueData.push(kpi);
+        }
+      });
+      this.chartData = uniqueData.filter((x) => x.application === item.application)
+        .map((kpi) => ({
+          name: kpi.year,
+          data: {
+            Ocak: kpi.ocak, Şubat: kpi.subat, Mart: kpi.mart, Nisan: kpi.nisan, Mayıs: kpi.mayis, Haziran: kpi.haziran, Temmuz: kpi.temmuz, Ağustos: kpi.agustos, Eylül: kpi.eylul, Ekim: kpi.ekim, Kasım: kpi.kasim, Aralık: kpi.aralik,
+          },
+        }));
     },
     async showTable(item) {
-      this.tableData = this.kpistatus.filter(x => x.application === item.application)
-        .map(kpi => ({
-          'application': item.application, 'year':kpi.year, 'ocak': kpi.ocak, 'subat': kpi.subat, 'mart': kpi.mart, 'nisan': kpi.nisan, 'mayis': kpi.mayis, 'haziran': kpi.haziran, 'temmuz': kpi.temmuz, 'agustos': kpi.agustos, 'eylul': kpi.eylul, 'ekim': kpi.ekim, 'kasim': kpi.kasim, 'aralik': kpi.aralik
-        }))
+      // this.tableData = this.kpistatus.filter(x => x.application === item.application)
+      //   .map(kpi => ({
+      //     'application': item.application, 'year':kpi.year, 'ocak': kpi.ocak, 'subat': kpi.subat, 'mart': kpi.mart, 'nisan': kpi.nisan, 'mayis': kpi.mayis, 'haziran': kpi.haziran, 'temmuz': kpi.temmuz, 'agustos': kpi.agustos, 'eylul': kpi.eylul, 'ekim': kpi.ekim, 'kasim': kpi.kasim, 'aralik': kpi.aralik
+      //   }))
       this.appTitle = item.application;
       this.tableDetail = true
+      let uniqueData = []
+      this.kpistatus.forEach((kpi) => {
+        if (!uniqueData.some((x) => x.application === kpi.application && x.year === kpi.year)){
+          uniqueData.push(kpi);
+        }
+      });
+      this.tableData = uniqueData.filter((x) => x.application === item.application)
+        .map((kpi) => ({
+          application: item.application, year: kpi.year, ocak: kpi.ocak, subat: kpi.subat, mart: kpi.mart, nisan: kpi.nisan, mayis: kpi.mayis, haziran: kpi.haziran, temmuz: kpi.temmuz, agustos: kpi.agustos, eylul: kpi.eylul, ekim: kpi.ekim, kasim: kpi.kasim, aralik: kpi.aralik,
+        }));
     },
     columnValueList(val) {
       return this.applicationNames.map((d) => d[val]);
@@ -205,10 +291,10 @@ export default {
         response = await this.setMonthlyKpi(count);
       }
       this.kpistatus = temp;
-
-      this.applicationNames = [...new Set(temp.map(item => item.application))].map(application => ({ application: application }));
+      this.applicationNames = [
+        ...new Set(temp.map((item) => item.application)),
+      ].map((application) => ({ application: application }));
     },
-
   },
   created() {
     this.GetKpiList();
@@ -220,13 +306,13 @@ export default {
           return this.filters[f].length < 1 || this.filters[f].includes(d[f]);
         });
       });
-    }
+    },
   },
   components: {
     SideBar,
     NavBar,
   },
-}
+};
 </script>
 
 <style>
