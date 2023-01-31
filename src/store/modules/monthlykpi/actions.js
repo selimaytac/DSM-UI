@@ -1,7 +1,7 @@
 import { monthlyKpiService } from "@/services/api/monthlyKpi.service";
 const actions = {
-  async setMonthlyKpi(vuexContext, data) {
-    const res = await monthlyKpiService.getMonthlyKpi(data);
+  async setMonthlyKpi() {
+    const res = await monthlyKpiService.getMonthlyKpi();
 
     return res;
   },

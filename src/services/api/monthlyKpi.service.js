@@ -4,9 +4,9 @@ const controllerName = "/report/";
 export const monthlyKpiService = {
     getMonthlyKpi,
 };
-async function getMonthlyKpi(data) {
+async function getMonthlyKpi() {
     const result = await $axios.get(
-        controllerName +"kpistatus/" + data,
+        controllerName +"kpistatus/",
         {
             headers:
             {

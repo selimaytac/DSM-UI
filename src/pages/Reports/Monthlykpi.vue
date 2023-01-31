@@ -246,17 +246,33 @@ export default {
 
       this.appTitle = item.application;
       this.graphDetail = true;
-      let uniqueData = []
+      let uniqueData = [];
       this.kpistatus.forEach((kpi) => {
-        if (!uniqueData.some((x) => x.application === kpi.application && x.year === kpi.year)){
+        if (
+          !uniqueData.some(
+            (x) => x.application === kpi.application && x.year === kpi.year
+          )
+        ) {
           uniqueData.push(kpi);
         }
       });
-      this.chartData = uniqueData.filter((x) => x.application === item.application)
+      this.chartData = uniqueData
+        .filter((x) => x.application === item.application)
         .map((kpi) => ({
           name: kpi.year,
           data: {
-            Ocak: kpi.ocak, Şubat: kpi.subat, Mart: kpi.mart, Nisan: kpi.nisan, Mayıs: kpi.mayis, Haziran: kpi.haziran, Temmuz: kpi.temmuz, Ağustos: kpi.agustos, Eylül: kpi.eylul, Ekim: kpi.ekim, Kasım: kpi.kasim, Aralık: kpi.aralik,
+            Ocak: kpi.ocak,
+            Şubat: kpi.subat,
+            Mart: kpi.mart,
+            Nisan: kpi.nisan,
+            Mayıs: kpi.mayis,
+            Haziran: kpi.haziran,
+            Temmuz: kpi.temmuz,
+            Ağustos: kpi.agustos,
+            Eylül: kpi.eylul,
+            Ekim: kpi.ekim,
+            Kasım: kpi.kasim,
+            Aralık: kpi.aralik,
           },
         }));
     },
@@ -266,33 +282,44 @@ export default {
       //     'application': item.application, 'year':kpi.year, 'ocak': kpi.ocak, 'subat': kpi.subat, 'mart': kpi.mart, 'nisan': kpi.nisan, 'mayis': kpi.mayis, 'haziran': kpi.haziran, 'temmuz': kpi.temmuz, 'agustos': kpi.agustos, 'eylul': kpi.eylul, 'ekim': kpi.ekim, 'kasim': kpi.kasim, 'aralik': kpi.aralik
       //   }))
       this.appTitle = item.application;
-      this.tableDetail = true
-      let uniqueData = []
+      this.tableDetail = true;
+      let uniqueData = [];
       this.kpistatus.forEach((kpi) => {
-        if (!uniqueData.some((x) => x.application === kpi.application && x.year === kpi.year)){
+        if (
+          !uniqueData.some(
+            (x) => x.application === kpi.application && x.year === kpi.year
+          )
+        ) {
           uniqueData.push(kpi);
         }
       });
-      this.tableData = uniqueData.filter((x) => x.application === item.application)
+      this.tableData = uniqueData
+        .filter((x) => x.application === item.application)
         .map((kpi) => ({
-          application: item.application, year: kpi.year, ocak: kpi.ocak, subat: kpi.subat, mart: kpi.mart, nisan: kpi.nisan, mayis: kpi.mayis, haziran: kpi.haziran, temmuz: kpi.temmuz, agustos: kpi.agustos, eylul: kpi.eylul, ekim: kpi.ekim, kasim: kpi.kasim, aralik: kpi.aralik,
+          application: item.application,
+          year: kpi.year,
+          ocak: kpi.ocak,
+          subat: kpi.subat,
+          mart: kpi.mart,
+          nisan: kpi.nisan,
+          mayis: kpi.mayis,
+          haziran: kpi.haziran,
+          temmuz: kpi.temmuz,
+          agustos: kpi.agustos,
+          eylul: kpi.eylul,
+          ekim: kpi.ekim,
+          kasim: kpi.kasim,
+          aralik: kpi.aralik,
         }));
     },
     columnValueList(val) {
       return this.applicationNames.map((d) => d[val]);
     },
     async GetKpiList() {
-      let count = 1;
-      let temp = [];
-      let response = await this.setMonthlyKpi(count);
-      while (response.length > 0) {
-        temp = temp.concat(response);
-        count++;
-        response = await this.setMonthlyKpi(count);
-      }
-      this.kpistatus = temp;
+      this.kpistatus = await this.setMonthlyKpi();
+
       this.applicationNames = [
-        ...new Set(temp.map((item) => item.application)),
+        ...new Set(this.kpistatus.map((item) => item.application)),
       ].map((application) => ({ application: application }));
     },
   },
