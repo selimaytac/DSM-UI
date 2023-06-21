@@ -175,7 +175,7 @@
           </v-row>
         </v-container>
       </v-item-group>
-      <v-divider class="my-5"></v-divider>
+      <v-divider class="my-2"></v-divider>
       <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
         <v-toolbar-title class="black--text font-weight-bold mx-auto">Haftanın Nöbetçileri
         </v-toolbar-title>
@@ -183,7 +183,7 @@
       <template>
         <v-layout row wrap>
           <v-flex>
-            <v-card shaped class="rounded-xl text-center  mx-auto mt-5" color="primary" max-width="1000">
+            <v-card shaped class="rounded-xl text-center  mx-auto mt-1" color="primary" max-width="1000">
               <v-list-item three line>
                 <v-list-item-content>
                   <!-- <v-tooltip right>
@@ -199,6 +199,8 @@
                   <div class="text-overline black--text mb-1">
                     {{ sentries.dayNumber }} {{ sentries.month }}
                     {{ sentries.year }} {{ sentries.day }}
+                    <v-spacer></v-spacer>
+                    <v-btn rounded @click="showThisWeekSentry = !showThisWeekSentry"><div v-if="showThisWeekSentry">Gelecek Haftayı Getir</div><div v-if="!showThisWeekSentry">Bu Haftayı Getir</div></v-btn>
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
                       <template v-slot:activator="{ on, attrs }">
@@ -264,12 +266,12 @@
                       </v-card>
                     </v-dialog>
                   </div>
+                  <div class="font-weight-bold mt-3" v-if="showThisWeekSentry">Güncel Nöbetçi Listesi</div><div class="font-weight-bold mt-3" v-if="!showThisWeekSentry">Gelecek Haftanın Nöbetçi Listesi</div>
                   <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Uygulama Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{ sentries.applicationManagement }}
-                        </v-list-item-title>
+                          <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.applicationManagement }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.applicationManagement }}</div></v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 63</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -278,7 +280,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Veri Tabanı Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{ sentries.db }}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.db }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.db }}</div></v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 62</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -287,7 +289,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Güvenlik Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{ sentries.security }}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.security }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.security }}</div></v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 60</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -296,7 +298,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Network Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{ sentries.network }}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.network }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.network }}</div></v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 64</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -305,7 +307,7 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Cloud Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{ sentries.cloud }}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.cloud }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.cloud }}</div></v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 67</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -314,8 +316,17 @@
                     <v-list-item three line>
                       <v-list-item-content>
                         <div class="text-overline primary--text mb-2">Platform Yönetimi</div>
-                        <v-list-item-title class="font-weight-black">{{ sentries.platform }}</v-list-item-title>
+                        <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.platform }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.platform }}</div></v-list-item-title>
                         <v-list-item-subtitle class="font-weight-black">0 212 800 04 61</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                  <v-card shaped class="rounded-xl text-center  mx-auto mt-5" max-width="300">
+                    <v-list-item three line>
+                      <v-list-item-content>
+                        <div class="text-overline primary--text mb-2">Siber Güvenlik ve Olay Yönetimi</div>
+                        <v-list-item-title class="font-weight-black"><div v-if="showThisWeekSentry">{{ sentries.cyberSecurity }}</div><div v-if="!showThisWeekSentry">{{ nextWeekSentries.cyberSecurity }}</div></v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-black">0 212 800 04 69</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
                   </v-card>
@@ -345,6 +356,7 @@ export default {
       dialog: false,
       options: {},
       sentryFetchCount: 1,
+      showThisWeekSentry: true,
       headers: [
         { text: 'Gün', value:'dayNumber', align: 'start', sortable: false, width: "100px" },
         { text: 'Ay', value:'month', align: 'start', sortable: false, width: "100px" },
@@ -355,10 +367,13 @@ export default {
         { text: 'Güvenlik Yönetimi', align: 'start', sortable: false, value: 'security', width: "200px", fixed: true },
         { text: 'Veri Tabanı Yönetimi', align: 'start', sortable: false, value: 'db', width: "200px", fixed: true },
         { text: 'Uygulama Yönetimi', align: 'start', sortable: false, value: 'applicationManagement', width: "200px", fixed: true },
+        { text: 'Siber Güvenlik', align: 'start', sortable: false, value: 'cyberSecurity', width: "200px", fixed: true },
 
       ],
       sentries: { dayNumber: '', month: '', year: '', day: '', platform: '', cloud: '',
-       network: '', security: '', db: '', applicationManagement: '' },
+       network: '', security: '', db: '', applicationManagement: '', cyberSecurity: '' },
+      nextWeekSentries: { dayNumber: '', month: '', year: '', day: '', platform: '', cloud: '',
+       network: '', security: '', db: '', applicationManagement: '', cyberSecurity: '' },
       dialogdetail: false,
       serverCount: 0,
       siteCount: 0,
@@ -402,6 +417,7 @@ export default {
     this.companyCount = await dashboardService.getCompanyCount()
 
     this.sentries = await todaySentryService.getSentries()
+    this.nextWeekSentries = await todaySentryService.getNextWeekSentries()
   },
   watch: {
     options: {
