@@ -117,6 +117,14 @@ export default [
     },
   },
   {
+    path: '/staticFiles',
+    name: 'staticFiles',
+    component: () => import('../../src/pages/StaticFilePortal/staticFiles.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/scorecard',
     name: 'scorecard',
     beforeEnter: (to, from, next) => {

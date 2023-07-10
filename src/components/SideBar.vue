@@ -30,6 +30,7 @@ export default {
             { icon: 'mdi-transit-connection-variant ', text: 'Responsible', link: '/responsible' },
             { icon: 'fas fa-database', text: 'Database Portal', link: '/databaseportal' },
             { icon: 'fas fa-file', text: 'Reports', link: '/reports' },
+            { icon: 'fas fa-file-export', text: 'Files', link: '/staticFiles' },
             // {icon: 'fas fa-clock', text:'Monitoring', link: '/monitoring'},
         ],
     }),
