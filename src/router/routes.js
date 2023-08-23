@@ -125,6 +125,14 @@ export default [
     },
   },
   {
+    path: '/frameworkVersions',
+    name: 'frameworkVersions',
+    component: () => import('../../src/pages/FrameworkVersions/FrameworkVersions.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/scorecard',
     name: 'scorecard',
     beforeEnter: (to, from, next) => {
