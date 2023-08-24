@@ -133,6 +133,22 @@ export default [
     },
   },
   {
+    path: '/networkInventory',
+    name: 'networkInventory',
+    component: () => import('../../src/pages/SW/NetworkInventory.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/networkSecurityInventory',
+    name: 'networkSecurityInventory',
+    component: () => import('../../src/pages/SW/NetworkSecurityInventory.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/scorecard',
     name: 'scorecard',
     beforeEnter: (to, from, next) => {

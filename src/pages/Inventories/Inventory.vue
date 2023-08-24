@@ -2,8 +2,9 @@
     <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background}">
         <SideBar />
         <NavBar />
-        <v-main>
-            <v-container>
+        <v-main >
+            <h2 class="text-center font-weight-bold text-uppercase" style="color:#0d47a1;">All Inventories</h2>
+            <v-container class="mt-10 justify-center align-center">
                 <div class="link-container d-flex justify-center align-center">
                     
                     <v-tooltip bottom>
@@ -56,15 +57,32 @@
                         <span>Click for Framework Version Inventory</span>
                     </v-tooltip>
                     
-                    <!-- <v-tooltip bottom>
+                </div>
+
+            </v-container>
+
+            <v-container>
+                <div class="link-container d-flex justify-center align-center">
+                
+                    
+                    <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn class="mx-4 white--text" color="primary" elevation="2" x-large rounded to="/azureInventory" dark
-                                v-bind="attrs" v-on="on">Azure Inventory</v-btn>
+                            <v-btn class="mx-4 white--text" color="primary" elevation="2" x-large rounded to="/networkInventory" dark
+                                v-bind="attrs" v-on="on">Network Inventory</v-btn>
                         </template>
-                        <span>Click for Azure Inventory</span>
-                    </v-tooltip> -->
+                        <span>Click for Network Inventory</span>
+                    </v-tooltip>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn class="mx-4 white--text" color="primary" elevation="2" x-large rounded to="/networkSecurityInventory" dark
+                                v-bind="attrs" v-on="on">Network Security Inventory</v-btn>
+                        </template>
+                        <span>Click for Network Security Inventory</span>
+                    </v-tooltip>
                     
                 </div>
+
             </v-container>
         </v-main>
     </v-app>

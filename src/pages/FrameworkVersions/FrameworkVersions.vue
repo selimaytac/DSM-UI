@@ -5,7 +5,7 @@
 
     <v-card color="grey">
       <v-card-title>
-        Projects
+        Framework Versions
         <v-spacer></v-spacer>
         <!-- <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
