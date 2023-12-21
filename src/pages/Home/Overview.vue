@@ -12,19 +12,19 @@
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl  text-center" dark
-                  height="150" @click="toggle">
+                  height="120" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
                         <v-list-item-content>
-                          <div class="mb-6">
+                          <div class="mb-3">
 
                             <v-icon x-large :color="active ? 'white' : 'primary'">fas fa-server</v-icon>
 
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Server Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-8" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ serverCount.serverCount }}</strong>
                           </v-list-item-title>
 
@@ -39,19 +39,19 @@
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                  height="150" @click="toggle">
+                  height="120" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
                         <v-list-item-content>
-                          <div class="mb-6">
+                          <div class="mb-3">
 
                             <v-icon x-large :color="active ? 'white' : 'primary'">fas fa-earth-americas</v-icon>
 
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Site Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-8" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ siteCount.siteCount }}</strong>
                           </v-list-item-title>
 
@@ -66,19 +66,19 @@
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                  height="150" @click="toggle">
+                  height="120" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
                         <v-list-item-content>
-                          <div class="mb-6">
+                          <div class="mb-3">
 
                             <v-icon x-large :color="active ? 'white' : 'primary'">fas fa-sitemap</v-icon>
 
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Company Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-8" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ companyCount.companyCount }}</strong>
                           </v-list-item-title>
 
@@ -93,12 +93,12 @@
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                  height="150" @click="toggle">
+                  height="120" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
                         <v-list-item-content>
-                          <div class="mb-6">
+                          <div class="mb-3">
 
                             <v-icon x-large :color="active ? 'white' : 'primary'">mdi-transit-connection-variant
                             </v-icon>
@@ -106,7 +106,7 @@
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Responsible Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-8" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ responsibilityCount.responsibilityCount }}</strong>
                           </v-list-item-title>
 
@@ -121,19 +121,19 @@
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                  height="150" @click="toggle">
+                  height="120" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
                         <v-list-item-content>
-                          <div class="mb-6">
+                          <div class="mb-3">
 
                             <v-icon x-large :color="active ? 'white' : 'primary'">fas fa-database</v-icon>
 
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">DB Portal Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-8" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ dbCount.dbCount }}</strong>
                           </v-list-item-title>
 
@@ -148,19 +148,19 @@
             <v-col cols="12" md="2">
               <v-item v-slot="{ active, toggle }">
                 <v-card :color="active ? 'primary' : 'white'" class="d-flex align-center rounded-xl text-center" dark
-                  height="150" @click="toggle">
+                  height="120" @click="toggle">
                   <v-row>
                     <v-col cols="12" sm="12">
                       <v-list-item three-line class="mt-10">
                         <v-list-item-content>
-                          <div class="mb-6">
+                          <div class="mb-3">
 
                             <v-icon x-large :color="active ? 'white' : 'primary'">fas fa-user</v-icon>
 
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Total User Count
                           </v-list-item-subtitle>
-                          <v-list-item-title class="headline mb-6" :class="active ? 'white--text' : 'black--text'">
+                          <v-list-item-title class="headline mb-8" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ userCount.userCount }}</strong>
                           </v-list-item-title>
 
