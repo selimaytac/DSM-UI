@@ -94,6 +94,7 @@ export default {
         { title: 'Grafana', link:'/grafana' },
         { title: 'AppDynamics', link:'/appdynamic' },
         { title: 'Zabbix', link:'/zabbix'},
+        { title: 'Applinks', link:'/applinks'},
       ],
     }
   },

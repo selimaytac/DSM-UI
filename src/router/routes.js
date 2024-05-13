@@ -159,7 +159,7 @@ export default [
     path: '/grafana',
     name: 'grafana',
     beforeEnter: (to, from, next) => {
-      window.open('http://grafana/', '_blank');
+      window.open('https://grafana.d-teknoloji.com.tr/', '_blank');
     }
   },
   {
@@ -174,6 +174,13 @@ export default [
     name: 'zabbix',
     beforeEnter: (to, from, next) => {
       window.open('https://dogus-zabbix-web.cloneye.net/', '_blank');
+    }
+  },
+  {
+    path: '/applinks',
+    name: 'applinks',
+    beforeEnter: (to, from, next) => {
+      window.open('https://applink.fw.dteknoloji.com.tr/', '_blank');
     }
   }
 ]
