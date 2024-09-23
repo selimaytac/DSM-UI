@@ -316,12 +316,19 @@ export default {
       return this.applicationNames.map((d) => d[val]);
     },
     async GetKpiList() {
-      this.kpistatus = await this.setMonthlyKpi();
+      // this.kpistatus = await this.setMonthlyKpi();
 
+      // this.applicationNames = [
+      //   ...new Set(this.kpistatus.map((item) => item.application)),
+      // ].map((application) => ({ application: application }));
+
+      // we are closing this section, do not get data but create single data and write on application "Daha fazlası için irem.celen@d-teknoloji.com.tr ile iletişime geçiniz."
       this.applicationNames = [
-        ...new Set(this.kpistatus.map((item) => item.application)),
-      ].map((application) => ({ application: application }));
-    },
+        {
+          application: "Daha fazlası için irem.celen@d-teknoloji.com.tr ile iletişime geçiniz.",
+        }
+      ];
+    }
   },
   created() {
     this.GetKpiList();
